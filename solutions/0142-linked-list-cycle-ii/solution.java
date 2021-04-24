@@ -1,3 +1,4 @@
+// awesome logic by Naresh gupta
 /**
  * Definition for singly-linked list.
  * class ListNode {
