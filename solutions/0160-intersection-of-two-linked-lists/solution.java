@@ -1,3 +1,6 @@
+// isme same value ko ni address ko btana h jha same address dono list me hga
+//TC bht gndi ai h isko optimize krna h 
+// logic TUF(Take U Forward)
 /**
  * Definition for singly-linked list.
  * public class ListNode {
