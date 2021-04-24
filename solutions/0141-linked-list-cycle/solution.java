@@ -25,7 +25,8 @@ public class Solution {
                 return false;
             }
             slow = slow.next;
-            fast = fast.next.next;
+            fast = fast.next.next; // yha two steps age islye move kia gya h agr ek step krege to cycle hne pr h kbhi slow and fast equal ni ho pyge and loop infinite chlte rhega
+        
         }
         return true;
 
