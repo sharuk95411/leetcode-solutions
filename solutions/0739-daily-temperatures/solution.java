@@ -1,5 +1,6 @@
-// Hint- Isme index k sth khela gya h agr tm dhyn dena iske solution pr
-// This is O(n) jo copy paste kia h isko  khd se next time try krna and iska O(n2) me mne khd se submit kr chuka hu but o(n) me possible h jb to yhi krna best rhega
+// Hint- Isme decreasing monotonic stack ka concept use hua h monotonic stck k bre me lead coding and ISHA GONUGUNTA ki vdio dekh lena idea lg jyga kha monotonic stack ka use hota h
+
+// Monotonic Stack se solve krne pr TC reduce hokr O(n) ho jti h agr isko Brute Forse se kroge to TC O(n2) hgi so Monotonoc stack use krne se TC reduce ho jti h
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
             Stack<Integer> stack = new Stack<>();
