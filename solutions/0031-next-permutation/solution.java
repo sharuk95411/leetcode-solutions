@@ -3,6 +3,7 @@ class Solution {
     public void nextPermutation(int[] arr) {
          int a=0,b=0, index=0, s1=0, s2=0;
         int n= arr.length;
+        if(n==1 || n==0) return ;
         for(int i=n-1;i>0;i--)
         {
              index= i-1;
@@ -37,7 +38,7 @@ class Solution {
             index++;
         }
         System.out.println("just next Permutation is ");
-          System.out.println(Arrays.toString(arr));
+        //  System.out.println(Arrays.toString(arr));
        
         
     }
