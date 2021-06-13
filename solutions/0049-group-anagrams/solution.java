@@ -1,5 +1,6 @@
 // Logic -Pepcoding 
 // Good question isme HashMap of HashMap use krna sikha h  this is BFA and isko optimise krna bcha h pehle ye khd se try krna then optimise krna sikhna.
+// HashMap me character ALphabetical order me store hte chahe unki freq kitni b ho ye logic ka use hua h isme.
 class Solution {
     public List<List<String>> groupAnagrams(String[] s) {
     HashMap<HashMap<Character, Integer>, List<String>>h1= new HashMap<>();
