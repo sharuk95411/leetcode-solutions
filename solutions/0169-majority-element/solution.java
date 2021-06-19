@@ -1,20 +1,20 @@
 class Solution {
-    public int majorityElement(int[] nums) {
-          int ans = nums[0];
-        int times = 1;
-        
-        for(int i=1;i<nums.length;i++)
+    public int majorityElement(int[] arr) {
+        int no=arr[0];
+        int freq=1;
+        for(int i=1;i<arr.length;i++)
         {
-            if(nums[i]==ans)
-                times++;
-            else times--;
-            if(times==-1)
+            if(arr[i]==no) freq++;
+            else
             {
-                times = 1;
-                ans = nums[i];
+                freq--;
+                if(freq==0)
+                {
+                    no= arr[i];
+                    freq++;
+                }
             }
         }
-        return ans;
-        
+    return no;
     }
 }
