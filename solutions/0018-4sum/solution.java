@@ -1,8 +1,7 @@
 // Logic TECh DOSE
 class Solution {
     public List<List<Integer>> fourSum(int[] arr, int target) {
-            HashSet<List<Integer>>h= new HashSet<>();
-        
+        List<List<Integer>>result= new ArrayList<>();
         Arrays.sort(arr);
         for(int i=0;i<arr.length-3;i++)
         {
@@ -23,7 +22,8 @@ class Solution {
                         list.add(arr[j]);
                         list.add(arr[left]);
                         list.add(arr[right]);
-                        h.add(list);
+                        if(result.contains(list)==false)
+                        result.add(list);
                         left++;
                         }
                         else if(sum>target)right--;
@@ -35,11 +35,8 @@ class Solution {
         }
     
       
-    List<List<Integer>>result= new ArrayList<>();
-        for(List l1: h)
-        {
-            result.add(l1);
-        }
+    
+    
         return result;
         
     }
