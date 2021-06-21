@@ -1,20 +1,50 @@
-
 class Solution {
+    // logic self and prefer Notes if not able to solve
     public int[] productExceptSelf(int[] arr) {
-    int a[]= new int[arr.length];
-    a[0]= 1; 
-
-    for(int i=1;i<arr.length;i++)
-    {
-        a[i]= arr[i-1]*a[i-1]; // traverse from left to right and construct "a" array of product of elements of all the left elements arr arrays but isme a[0] 1 lia gya h ye yd rkhna
-    }
-      // System.out.println(Arrays.toString(a));
-      int temp=1;
-      for(int i=arr.length-1;i>=0;i--)
-      {
-          a[i]= a[i]*temp;
-          temp= temp*arr[i];
-      }
-        return a;
+     int n= arr.length;
+        int product=1;
+       int count =0;
+       int index=-1;
+       for(int i=0;i<n;i++)
+       {
+           if(arr[i]==0 &&count ==0 )
+           {
+               index=i;
+               count ++;
+               continue;
+           }
+           else if(arr[i]==0&& count>0)
+           {
+               product=0;
+           }
+           else
+           {
+               product=product*arr[i];
+           }
+       }
+       if(product==0)
+       {
+           for(int i=0;i<n;i++)
+           {
+               arr[i]=0;
+           }
+       }
+       else if(count==1)
+       {
+           for(int i=0;i<n;i++)
+           {
+               if(i==index) arr[i]=product;
+               else
+               arr[i]=0;
+           }
+       }
+       else
+       {
+           for(int i=0;i<n;i++)
+           {
+               arr[i]= product/arr[i];
+           }
+       }
+        return arr;
     }
 }
