@@ -14,29 +14,22 @@
  * }
  */
 class Solution {
-   int baseLevel= 0;
+    int baseLevel= 0;
+   List<Integer>l= new ArrayList<>();
     public List<Integer> rightSideView(TreeNode root) {
-        
-        
-        List<Integer>l= new ArrayList<>();
-        if(root==null) return l;
-        return fun(root,1,l);
-        
+     A(root,1);
+        return l;
     }
-     List<Integer> fun(TreeNode root,int level,List<Integer>l)
+     public void A(TreeNode root,int currLevel)
     {
-        if(root==null)
-        {
-            return l;
-        }
-        else if(level>baseLevel)
+        if(root==null) return ;
+        if(currLevel>baseLevel)
         {
             l.add(root.val);
-            baseLevel= level;
+            baseLevel=currLevel;
         }
-        fun(root.right,level+1,l);
-        fun(root.left,level+1,l);
-        return l;
-        
+         A(root.right,currLevel+1);
+        A(root.left,currLevel+1);
+       
     }
 }
