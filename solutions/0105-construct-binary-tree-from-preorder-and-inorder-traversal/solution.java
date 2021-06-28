@@ -14,24 +14,41 @@
  * }
  */
 class Solution {
-    private Map < Integer, Integer > map = new HashMap < > ();
+    int i=0;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        for (int i = 0; i < inorder.length; i++) {
-             map.put(inorder[i], i);
-         }
-         TreeNode root = helper(inorder, 0, inorder.length - 1, preorder, 0, preorder.length - 1);
-         return root;
+     
+         return A(preorder,inorder,0,preorder.length-1);
         
     }
-     public TreeNode helper(int[] inorder, int inStart, int inEnd, int[] preorder, int preStart, int preEnd) {
-         if (preStart > preEnd || inStart > inEnd) {
-             return null;
-         }
-         TreeNode root = new TreeNode(preorder[preStart]);
-         int index = map.get(root.val);
-         root.left = helper(inorder, inStart , index - 1, preorder, preStart + 1, preStart + index - inStart);  
-         root.right = helper(inorder, index + 1, inEnd, preorder, preStart + index - inStart + 1, preEnd);
-         return root;
+    public TreeNode A(int pre[], int in[],int start,int end )
+    {
+        if(start>end)
+        {
+         return null;
+        }
+        
+        
+       TreeNode n= new TreeNode(pre[i]);
+        i++;
+        if(start==end)
+        {
+          return n;
+        }
+    
+        int getInOrderI= get(n.val,in,start,end);
+        n.left= A(pre,in,start,getInOrderI-1);
+        n.right= A(pre,in,getInOrderI+1,end);
+        return n;
+        
+    }
+public int get(int val,int in[],int start,int end)
+    {
+
+        for(int j=start;j<=end;j++)
+        {
+            if(in[j]==val)
+            return j;
+        }
+        return -1;
     }
 }
-
