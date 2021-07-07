@@ -13,22 +13,47 @@
  *     }
  * }
  */
-// TC O(h+k) and Space C O(h) bcz reursiin call ho rha h 
 class Solution {
-    private int numElements = 0;
-    private int kthSmallest = 0;
     public int kthSmallest(TreeNode root, int k) {
-          helper(root, k);
-        return kthSmallest;
-    }
-     private void helper(TreeNode root, int targetCount) {
-        if (root == null) return;
         
-        helper(root.left, targetCount);
-        if (++numElements == targetCount) { //++ pehle lgne se value 1 increaemnt ho jti h thn check hta h and ye value phr whi rhti h 
-            kthSmallest = root.val;
-            return;
+        if(root==null) return 1;
+        TreeNode curr= root;
+        while(curr!=null)
+        {
+            TreeNode left= curr.left;
+            if(left==null)
+            {
+                k--;
+                if(k==0) return curr.val;
+                else curr= curr.right;
+            }
+            else
+            {
+                
+                TreeNode rightMost= getRightMost(left,curr);
+                if(rightMost.right==null) // Make a thread
+                {
+                    
+                 rightMost.right=curr;
+                 curr=curr.left;
+                }
+                else // break the thread
+                {
+                    rightMost=null;
+                    k--;
+                    if(k==0) return curr.val;
+                    else curr=curr.right;
+                }
+            }
         }
-        helper(root.right, targetCount);
-    } 
+        return -1;
+    }
+    public TreeNode getRightMost(TreeNode left,TreeNode curr)
+    {
+        while(left.right!=null && left.right!=curr)
+        {
+            left=left.right;
+        }
+        return left;
+    }
 }
