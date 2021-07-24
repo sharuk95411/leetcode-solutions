@@ -14,17 +14,20 @@ class Solution {
     {
         if(target==0)
         {
-            l2.add(new ArrayList<>(l1));
+            l2.add(new ArrayList<>(l1)); // yha pr new Arralist me l1 dia gya h bcz yha hum l1 k sth khl rhe h and jb backtrack krege to l1 ka data chnge hga jisse agr l2.add(11) kia hga to l2 me value change ho jygi but new ArrayList krne se ek new object bn jyga and and us address pr l1 chla jyga
+            
             return;
         }
         for(int i=strt; i<arr.length; i++)
         {
-            if(arr[i]>target) // yha pr TC bht hi zyda reduce hgi bcz array ko already sort kr chuke h so yhi ye condition true hne pr loop exit ho jyga
-// you can also write if(target<0) but isse TC bht zyda hgi phr whole array ko traverse krna pdega
-                break;
-            l1.add(arr[i]);
-            A(l2,l1,arr,target-arr[i],i);
+         if(target-arr[i]>=0)
+         {
+             l1.add(arr[i]);
+             target=target-arr[i];
+            A(l2,l1,arr,target,i);
+             target=target+arr[i];
             l1.remove(l1.size()-1);
+         }
         }
 }
 }
