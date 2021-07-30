@@ -8,7 +8,7 @@ class Solution {
 	}
 	
 	
-PriorityQueue<Character> maxHeap = new PriorityQueue<>((a, b) -> hm.get(b) - hm.get(a) );// ye line smjh ni ai h 
+PriorityQueue<Character> maxHeap = new PriorityQueue<>((a, b) -> hm.get(b) - hm.get(a) );
 	     maxHeap.addAll(hm.keySet());
 	 
 	     
