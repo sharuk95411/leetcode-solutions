@@ -1,3 +1,4 @@
+
 class Solution {    
     
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
@@ -34,4 +35,4 @@ class Solution {
         }
         return 0.0; 
     }
-}
+} 
