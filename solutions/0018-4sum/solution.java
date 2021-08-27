@@ -1,43 +1,29 @@
-// Logic TECh DOSE
 class Solution {
-    public List<List<Integer>> fourSum(int[] arr, int target) {
-        List<List<Integer>>result= new ArrayList<>();
-        Arrays.sort(arr);
-        for(int i=0;i<arr.length-3;i++)
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        Set<List<Integer>>list= new HashSet<>();
+        if(nums.length<4)
+            return new ArrayList<>(list);
+        for(int i=0;i<nums.length-3;i++)
         {
-            //if(i>0 && arr[i]==arr[i-1]) continue; 
-            for(int j=i+1;j<arr.length-2;j++)
+            for(int j=i+1;j<nums.length-2;j++)
             {
-               // if(j>i+1 && arr[j]==arr[j-1]) continue;
-                
-                int left=j+1;
-                int right= arr.length-1;
-                while(left<right)
+                int k= j+1;
+                int l= nums.length-1;
+                while(k<l)
                 {
-                    int sum= arr[i]+arr[j]+arr[left]+arr[right];
-                    if(sum==target)
-                    {  
-                        List<Integer>list= new ArrayList<>();
-                        list.add(arr[i]);
-                        list.add(arr[j]);
-                        list.add(arr[left]);
-                        list.add(arr[right]);
-                        if(result.contains(list)==false)
-                        result.add(list);
-                        left++;
-                        }
-                        else if(sum>target)right--;
-                        else left++;
-                        
-                        
+                    int sum= nums[i]+nums[j]+nums[k]+nums[l];
+                    if(sum==target) 
+                    {list.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
+                     k++;
+                     l--;
+                    }
+                    else if(sum>target)l--;
+                    else k++;
                 }
             }
         }
-    
-      
-    
-    
-        return result;
+        return new ArrayList<>(list);
         
     }
 }
