@@ -1,5 +1,6 @@
 class Solution {
     // Isme hme rotated array dia jyga and ye rotation kse hga wo bataya gya h quesion me so hme rotated array me element index find krna h 
+// Isme Simple Binray Search lgaya jyga.
     public int search(int[] arr, int target) {
            int start=0;
         int end= arr.length-1;
@@ -10,9 +11,9 @@ class Solution {
             {
                 return mid;
             }
-            if(arr[start]<=arr[mid])
+            if(arr[start]<=arr[mid])  // yha hm check kr rhe h ki jis range me h hum h wo given array k left side me h (4 to 7) k beech me 
             {
-                if(target>=arr[start] && target<=arr[mid])
+                if(target>=arr[start] && target<=arr[mid]) 
                 {
                     end= mid-1;
                 }
@@ -21,7 +22,7 @@ class Solution {
                     start=mid+1;
                 }
             }
-            else
+            else  // Yha hum right side me h (0 to 2) k beech me h 
             {
                 if(target>=arr[mid] && target<=arr[end])
                 {
