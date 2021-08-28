@@ -1,3 +1,4 @@
+// logic Anurag Codes and Greedy approach use hgi isme 
 class Solution {
     public int jump(int[] nums) {
         int jumps = 0, currentJumpEnd = 0, farthest = 0;
