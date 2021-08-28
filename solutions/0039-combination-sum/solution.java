@@ -7,10 +7,10 @@ class Solution {
             return l2;
         Arrays.sort(candidates);
         List<Integer> l1 = new ArrayList<>();
-       A (l2,l1,candidates,target,0);
+       A (l2,l1,candidates,target,0,candidates.length);
         return l2;
     }
-     static void A(List<List<Integer>> l2, List<Integer> l1, int[] arr, int target, int strt)
+     static void A(List<List<Integer>> l2, List<Integer> l1, int[] arr, int target, int strt,int end)
     {
         if(target==0)
         {
@@ -18,13 +18,13 @@ class Solution {
             
             return;
         }
-        for(int i=strt; i<arr.length; i++)
+        for(int i=strt; i<end; i++)
         {
          if(target-arr[i]>=0)
          {
              l1.add(arr[i]);
              target=target-arr[i];
-            A(l2,l1,arr,target,i);
+            A(l2,l1,arr,target,i,end);
              target=target+arr[i];
             l1.remove(l1.size()-1);
          }
