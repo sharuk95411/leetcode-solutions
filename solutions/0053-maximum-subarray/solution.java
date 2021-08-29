@@ -1,19 +1,16 @@
-// Kadan's Algo
 class Solution {
-    public int maxSubArray(int[] arr) {
-         int  max_current= arr[0];
-      int max_global= arr[0];
-        for(int i=1;i<arr.length;i++)
+    public int maxSubArray(int[] nums) {
+        if (nums.length==1) return nums[0];
+        int max_sum= nums[0];
+        int sum= 0;
+        
+        for(int i=0;i<nums.length;i++)
         {
-            max_current= Math.max(arr[i], arr[i]+max_current);
-            if(max_current>max_global)
-            {
-                
-                max_global= max_current;
-                
-                
-            }
+            
+            sum= sum+nums[i];
+            if(sum>max_sum) max_sum= sum;
+             if(sum<0) sum=0;
         }
-        return max_global;
+        return max_sum;
     }
 }
