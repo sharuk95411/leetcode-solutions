@@ -1,22 +1,21 @@
 class Solution {
-    public int subarraySum(int[] arr, int k) {
-         int count=0;
-        int prefixSum=0;
+    public int subarraySum(int[] nums, int k) {
         HashMap<Integer,Integer>h= new HashMap<>();
         h.put(0,1);
-        for(int i=0;i<arr.length;i++)
+        int count=-0;
+        int prefix_sum=0;
+        
+        for(int i=0;i<nums.length;i++)
         {
-           prefixSum= prefixSum+arr[i]; 
-           
-           if(h.containsKey(prefixSum-k))
-           {
-               count= count+h.get(prefixSum-k);
-                 
-              //  System.out.println("OK");
-           }
-           h.put(prefixSum,h.getOrDefault(prefixSum,0)+1); // isme getOrDefault() function ka acha use hua h
-         
-           
+            prefix_sum=prefix_sum+nums[i];
+            
+            if(h.containsKey(prefix_sum-k))
+            {
+                count=count+h.get(prefix_sum-k);
+                h.put(prefix_sum,h.getOrDefault(prefix_sum,0)+1 );
+            }
+            else
+            h.put(prefix_sum,h.getOrDefault(prefix_sum,0)+1);
         }
         return count;
         
