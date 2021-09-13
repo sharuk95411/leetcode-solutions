@@ -1,4 +1,3 @@
-// awesome logic by Naresh gupta
 /**
  * Definition for singly-linked list.
  * class ListNode {
@@ -12,15 +11,16 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        if(head==null || head.next==null) return null;
+        
+        if(head==null) return null;
         ListNode slow= head,fast=head;
-        while(fast.next!=null&&fast.next.next!=null)
+        while(fast!=null && fast.next!=null )
         {
             slow= slow.next;
-            fast=fast.next.next;
+            fast= fast.next.next;
             if(slow==fast)
             {
-                slow=head;
+                slow= head;
                 while(slow!=fast)
                 {
                     slow=slow.next;
@@ -28,9 +28,7 @@ public class Solution {
                 }
                 return slow;
             }
-            
         }
         return null;
-        
     }
 }
