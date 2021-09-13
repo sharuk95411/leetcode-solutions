@@ -15,49 +15,53 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Node iter = head; 
-          Node front = head;
-
-          // First round: make copy of each node,
-          // and link them together side-by-side in a single list.
-          while (iter != null) {
-            front = iter.next;
-
-            Node copy = new Node(iter.val);
-            iter.next = copy;
-            copy.next = front;
-
-            iter = front;
-          }
-
-          // Second round: assign random pointers for the copy nodes.
-          iter = head;
-          while (iter != null) {
-            if (iter.random != null) {
-              iter.next.random = iter.random.next;
-            }
-            iter = iter.next.next;
-          }
-
-          // Third round: restore the original list, and extract the copy list.
-          iter = head;
-          Node pseudoHead = new Node(0);
-          Node copy = pseudoHead;
-
-          while (iter != null) {
-            front = iter.next.next;
-
-            // extract the copy
-            copy.next = iter.next;
-            copy = copy.next;
-
-            // restore the original list
-            iter.next = front;
-
-            iter = front;
-          }
-
-          return pseudoHead.next;
+        if(head==null)return null;
         
+        Node temp= head, a=head;
+        
+        while(temp!=null)
+        {
+            Node n= new Node(temp.val);
+            a= temp.next;
+            n.next=a;
+            temp.next= n;
+            temp=a;
+        }
+        
+         a=head;
+       
+        Node b= head.next;
+        while(a!=null)
+        {
+            if(a.random==null)
+            {
+                  b.random=null;
+                a=b.next;
+                if(a==null) break;
+                b=a.next;
+              
+            }
+            else
+            {
+            b.random= a.random.next;
+            a=b.next;
+        if(a==null) break;
+            b=a.next;
+            }
+        }
+         a=head;
+        b=head.next;
+        temp=b;
+        
+        while(a!=null)
+        {
+            a.next=b.next;
+            a= a.next;
+            if(a==null) break;
+            b.next= a.next;
+                b=b.next;
+        
+        }
+     return temp;
     }
 }
