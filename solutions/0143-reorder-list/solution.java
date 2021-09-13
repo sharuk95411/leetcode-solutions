@@ -9,6 +9,9 @@
  * }
  */
 class Solution {
+    // Logic CodeBix And its Awesome llogic and code b mstt likha h 
+   // isme mid 3 pointers ki help se nikala gya h jo ki mstt way h jse cycle detect me krte h
+    // LinkedList revserse krne k liye 3 pointers use hte h and isme reverse hgi list.
     public void reorderList(ListNode head) {
         if(head == null || head.next == null) return;
         ListNode slow = head;
