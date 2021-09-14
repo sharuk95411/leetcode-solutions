@@ -1,4 +1,3 @@
-// Logic codebix
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -11,21 +10,29 @@
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-          while(head != null && head.val == val) {
-            head = head.next;
-        }
-        if(head == null) {
-            return head;
-        }
-        ListNode temp = head;
-        while(temp.next != null) {
-            if(temp.next.val == val) {
-                temp.next = temp.next.next;
-            } else {
-                temp = temp.next;
+        
+        if(head==null) return head;
+         
+        ListNode dummy= new ListNode(-1),prev=dummy,curr=head;
+        
+        while(curr!=null)
+        {
+            if(curr.val==val)
+            {
+                curr=curr.next;
+                
+            }
+            else
+            {
+                
+            prev.next=curr;
+                prev=curr;
+                curr=curr.next;
             }
         }
-        return head;
+        
+        prev.next=null;
+        return dummy.next;
         
     }
 }
