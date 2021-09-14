@@ -1,6 +1,3 @@
-// isme same value ko ni address ko btana h jha same address dono list me hga
-//TC bht gndi ai h isko optimize krna h 
-// logic TUF(Take U Forward)
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -14,23 +11,40 @@
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        List<ListNode>l= new ArrayList<>();
-        ListNode a= headA;
-        ListNode b= headB;
-        while(a!=null)
+         int l1=0;
+        ListNode temp= headA;
+        while(temp!=null)
         {
-            l.add(a);
-            a=a.next;
+            l1++;
+            temp=temp.next;
         }
-        while(b!=null)
+        temp= headB;
+        int l2=0;
+         while(temp!=null)
         {
-            if(l.contains(b)==true)
-            {
-                return b;
-            }
-            b=b.next;
+            l2++;
+            temp=temp.next;
         }
-        return null;
+        int diff= Math.abs(l1-l2);
+        ListNode first= headA,second=headB;
+      for(int i=0;i<diff;i++)
+      {
+          if(l1>l2)
+          {
+              first=first.next;
+          }
+          else
+          {
+              second=second.next;
+          }
+      }
+        while(first!=second)
+        {
+            first=first.next;
+            second=second.next;
+        }
         
+        
+        return first;
     }
 }
