@@ -1,61 +1,50 @@
-// monotonic decreasing stack ka concept use hua h.
-// yha array kha se strt hga ye identyfity krna tmhra km h 
 class Solution {
+    // monotonic decreasing stack ka concept use hua h.
+// yha array kha se strt hga ye identyfity krna tmhra km h 
     public int[] nextGreaterElements(int[] arr) {
-        int l= arr.length;
-        Stack<Integer>s= new Stack<>();
-        s.push(arr[l-1]);
-        int temp=0;
-        for(int i=l-1;i>=0;i--)
+        
+        int n= arr.length;
+        Stack<Integer>stack= new Stack<>();
+        stack.push(arr[n-1]);
+        
+    int index,i,temp;
+        for(index=n-1;index>=0;index--)
         {
-            if(arr[i]>=s.peek())
-          {
-                temp=arr[i];
-                while(s.size()>0 && arr[i]>=s.peek())
-                {
-                    s.pop();
-                }
-         if(s.size()==0) // yha ab given element k right me isse bda koi element h ni to ab hum left side me start se us element tk dekhge jiske liye for loop lgaya gya h
-                {
-                    for(int j=0;j<=i;j++)
-                    {
-                        if(arr[j]>arr[i])
-                        {
-                            arr[i]=arr[j];
-                            break;
-                        }
-                        if(j==i)
-                        {
-                            arr[i]=-1;
-                        }
-                        
-                    }
-                    s.push(temp);
-                }
+            if(arr[index]>=stack.peek())
+            {    
+                temp= arr[index];
+                while(stack.size()>0 && temp>=stack.peek())
+           {
+               stack.pop();
+               if(stack.size()==0) // element  right side ni h an left me check krna h
+               {
+                   for(i=0;i<index;i++)
+                   {
+                       if(arr[i]>temp)
+                       {
+                           arr[index]=arr[i];
+                           break;
+                       }
+                       
+                   }
+                   if(i==index) arr[index]=-1;
+               } // closed the if bloack which traverse the left
+               
+           }  // closed while loop
+            
+          if(stack.size()>0) arr[index]=stack.peek(); // mtlb element right side me mil gya h
+                stack.push(temp);
                 
-                else
-                {
-                    temp=arr[i];
-                    arr[i]=s.peek();
-                    s.push(temp);
-                }
-            }
+            } // closed if bloack
+            
             else
             {
-                temp=arr[i];
-                arr[i]=s.peek();
-                s.push(temp);
+                temp=arr[index];
+                arr[index]= stack.peek();
+                stack.push(temp);
             }
+            
         }
-    
-     /*   while(s.size()>0 && arr[l-1]>=s.peek())
-        {
-            s.pop();
-        }
-        
-        if(s.size()==0) arr[l-1]=-1;
-        else arr[l-1]=s.peek();*/
         return arr;
-        
     }
 }
