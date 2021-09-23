@@ -1,34 +1,47 @@
 class Solution {
-     int i=0;
-    public int scoreOfParentheses(String S) {
-        
-          int count=0;
-    while(i<S.length())
-    {
-        
-        char c= S.charAt(i); 
-        i++;
-        if(c=='(')
+    public int scoreOfParentheses(String s) {
+        int ans=0;
+        if(s.length()==0) return ans;
+        boolean flag=false;
+        Stack<Character>stack= new Stack<>();
+        for(int i=0;i<s.length();i++)
         {
             
-            if(S.charAt(i)==')')
-            {
-                count=count+1;
-                i++;
-                
-            }
+            char c=s.charAt(i);
+            if(c=='(') stack.push(c);
+            
             else
             {
-                count= count +2*scoreOfParentheses(S);
+                
+                while(stack.size()>0 && stack.peek()!='(')
+                {
+                  
+                  ans= ans+stack.pop()-'0';
+                    flag=true;
+                }
+                stack.pop();
+                
+                if(flag==true)
+                {
+                    ans=2*ans;
+                    stack.push((char)(ans+'0'));
+                    flag=false;
+                    ans=0;
+                }
+                else
+                {
+                    stack.push('1');
+                }
+                
+
             }
-             }
-        else
+        }
+       // System.out.println(stack);
+        while(stack.size()>0)
         {
-            return count;
+                ans= ans+stack.pop()-'0';
         }
         
-    }
-    return count;
-        
+        return ans;
     }
 }
