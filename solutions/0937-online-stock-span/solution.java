@@ -15,7 +15,7 @@ class StockSpanner {
         }
     }
     public StockSpanner() {
-        s= new Stack<>();
+     //   s= new Stack<>();
     }
     
     public int next(int price) {
