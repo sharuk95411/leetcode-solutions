@@ -1,4 +1,14 @@
 class Solution {
+     class pair
+    {
+        char c;
+        int freq;
+        pair(int freq,char c)
+        {
+            this.freq=freq;
+            this.c=c;
+        }
+    }
     public String removeDuplicates(String s, int k) {
          Stack<pair>stack= new Stack<>();
        stack.push(new pair(1,s.charAt(0)));
@@ -8,6 +18,7 @@ class Solution {
            {
                int count=stack.pop().freq;
                stack.push(new pair(count+1,s.charAt(i)));
+              
            }
            else
            {
@@ -32,14 +43,5 @@ class Solution {
         return(st.reverse().toString());
         
     }
-     class pair
-    {
-        char c;
-        int freq;
-        pair(int freq,char c)
-        {
-            this.freq=freq;
-            this.c=c;
-        }
-    }
+    
 }
