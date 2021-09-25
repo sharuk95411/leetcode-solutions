@@ -1,28 +1,37 @@
-// logic from discussion and its good there is many thing which i learn from this code.
-// Try self next Time
 class Solution {
+    // Agr tmhe String k sath khelna h to tmhe StringBuilder class k bare me pta hna chahiye bcz string se related sare kam usme de rkhe h .
+    // Logic self and 
     public String reverseParentheses(String s) {
-        Stack<StringBuilder>stack= new Stack<>();
-        StringBuilder sb= new StringBuilder();
-        char ch[]= s.toCharArray();
-        for(int i=0;i<ch.length;i++)
+        Stack<String>stack= new Stack<>();
+        StringBuilder str= new StringBuilder();
+        
+        for(int i=0;i<s.length();i++)
         {
-            if(ch[i]=='(')
+            char c= s.charAt(i);
+            
+            if(c==')')
             {
-                stack.push(sb);
-                sb= new StringBuilder();
-            }
-            else if (ch[i]==')')
-            {
-                String str= sb.reverse().toString();
-                sb= stack.pop();
-                sb.append(str);
+                while(stack.size()>0 && stack.peek().equals("(")==false)
+                {
+                            // System.out.println(stack.peek());
+                    str= str.insert(0,stack.pop());
+                }
+                  stack.pop();
+               
+                stack.push(str.reverse().toString());
+                str= new StringBuilder();
             }
             else
             {
-                sb.append(ch[i]);
+              stack.push(Character.toString(c));
             }
         }
-        return sb.toString();
+      
+        while(stack.size()>0)
+        {
+            str= str.insert(0,stack.pop());
+        }
+        return str.toString();
+        
     }
 }
