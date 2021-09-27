@@ -1,68 +1,70 @@
 class MyCircularQueue {
-int front=-1;
+    int arr[];
+    int front=-1;
     int rear=-1;
-    int arr[] ;
     int size;
+
     public MyCircularQueue(int k) {
         arr= new int[k];
-        size=k;
+           size=k;
     }
     
     public boolean enQueue(int value) {
-        if(front==-1 && rear==-1)
+        
+        if(front==-1 &&rear==-1) 
         {
             front++;
             rear++;
-                arr[rear]= value;
+            arr[rear]=value;
             return true;
         }
-        else if((rear+1)%size==front) return false;
-        else 
+    else if((rear+1)%size!=front )
+    {
+        rear= (rear+1)%size;
+        arr[rear]=value;
+        return true;
+    }
+        else
         {
-            rear=(rear+1)%size;
-            arr[rear]= value;
-            return true;
+            return false;
         }
     }
     
     public boolean deQueue() {
+        
         if(front==-1 && rear==-1) return false;
-        else if(front==rear)
+        else if(front==rear) 
         {
-            front=-1;
-            rear=-1;
+            front=rear=-1;
             return true;
         }
-        else 
+        else
         {
             front=(front+1)%size;
             return true;
         }
-        
     }
     
     public int Front() {
-        if  (isEmpty()) return -1;
-        else  return arr[front];
-        
+         if  (isEmpty()) return -1;
+        else return arr[front];
     }
     
     public int Rear() {
-        if  (isEmpty()) return -1;
-        else return arr[rear];
+         if  (isEmpty()) return -1;
+       else  return arr[rear];
     }
     
     public boolean isEmpty() {
-         if(front==-1 &&rear==-1) return true;
-        else return false;
-        
+        if(front==-1 && rear==-1) return true;
+        else  return false;
     }
     
     public boolean isFull() {
-        if(front==0 && rear==size-1) return true;
-        else if(front!=0 && rear==front-1) return true;
-        else return false;
         
+        if(front==0 && rear==size-1) return true;
+        else if( front !=0 && front==rear+1 ) return true;
+        else return false;
     }
 }
 
