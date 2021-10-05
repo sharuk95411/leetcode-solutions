@@ -1,49 +1,40 @@
 class Solution {
-    public int leastInterval(char[] c, int n) {
-          HashMap<Character,Integer>h= new HashMap<>();
-        for(int i=0;i<c.length;i++)
+    public int leastInterval(char[] tasks, int n) {
+    
+        HashMap<Character,Integer>h= new HashMap<>();
+        for(int i=0; i<tasks.length;i++)
         {
-            if(h.get(c[i])!=null)
+            h.put(tasks[i], h.getOrDefault(tasks[i],0)+1);
+        }
+        PriorityQueue<Integer>pq= new PriorityQueue<>(h.size(),Collections.reverseOrder());
+        pq.addAll(h.values());
+        
+        int ans=0;
+        
+        while(pq.size()>0)
+        {
+            List<Integer>list= new ArrayList<>();
+            
+            int time=0;
+            for(int i=0;i<n+1;i++)
             {
-                h.put(c[i],h.get(c[i])+1);
+                if(pq.size()>0)
+                {
+                    list.add(pq.poll()-1);
+                    time++;
+                }
             }
-            else
+            for(int c : list)
             {
-                h.put(c[i],1);
+                if(c>0) pq.add(c);
             }
-        }
-        
-     PriorityQueue<Integer>pq= new PriorityQueue<>(h.size(), Collections.reverseOrder());/* yha h,size likhne 
-         se values kse max head me save ho jygi ye smjh ni aya h pr ye chz bht achi h */
-         pq.addAll(h.values()); 
-         int time=0;
-         
-    while(pq.size()>0)
-    {
-        
-        List<Integer>list= new ArrayList<>();
-        int idle=n+1;
-        while(idle>0 &&pq.size()>0)
-        {
-            int f=pq.poll();
-            if(f>1) list.add(f-1);
-            idle--;
-            
+            ans+= pq.size()==0 ? time :n+1;
             
         }
-        if(list.isEmpty()==true)/* thats mean all charcter ki sari frequencies use ki ja chuki h and sabki ab
-        freq 0 ho chuki h */
-        {
-            time= time+n+1-idle;
-            
-        }
-        else
-        {
-            time=time+n+1;
-        }
-        pq.addAll(list);
         
-        }
-       return time; 
+        
+        return ans;
+  
+        
     }
 }
