@@ -1,5 +1,7 @@
 class Solution {
     public int maxSubArray(int[] nums) {
+        
+        System.out.println("OK");
         if (nums.length==1) return nums[0];
         int max_sum= nums[0];
         int sum= 0;
@@ -11,6 +13,6 @@ class Solution {
             if(sum>max_sum) max_sum= sum;
              if(sum<0) sum=0;
         }
-        return max_sum;
+         return max_sum;
     }
 }
