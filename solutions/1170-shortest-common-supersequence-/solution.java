@@ -1,14 +1,25 @@
-class Solution {
+class Solution { // Logic- TECH Dose (lcs+Some Logic)
+    // Hint - after lcs 3 pointer use
+    /*isme ye 3 casees na likhne se TC 45% increase ho ri h so coding me each case liko
+       1- if(m==0)return s2; 
+       2-if(n==0) return s1;
+       3- if(s.length()==0) return s1+s2;
+    
+    */
     public String shortestCommonSupersequence(String s1, String s2) {
         
         
         int m= s1.length();
         int n= s2.length();
-        if(m==0)return s2;
+        if(m==0)return s2; 
         if(n==0) return s1;
           int t[][]= new int[m+1][n+1];
-        String s= A(s1,s2,m,n,t);
-    if(s.length()==0) return s1+s2;
+        String s= A(s1,s2,m,n,t); // It is a lob=ngest common subsequence
+        return s;
+    
+    }
+    
+  /*  if(s.length()==0) return s1+s2;
         
         StringBuilder ans= new StringBuilder();
   
@@ -53,12 +64,12 @@ class Solution {
         return(ans.toString());
         
     }
+    */
     
-    static String A(String s1,String s2,int m,int n,int t[][])
+    private String A(String s1,String s2,int m,int n,int t[][])
     {
-           StringBuilder sb= new StringBuilder();
       
-        for(int i=1;i<m+1;i++)
+        for(int i=1;i<m+1;i++)   
         {
             for(int j=1;j<n+1;j++)
         {
@@ -76,24 +87,42 @@ class Solution {
              
         }
     
-    int a=m,b=n;
-    while(a>0 &&b>0)
+      StringBuilder sb= new StringBuilder();
+    int i=m,j=n;
+    while(i>0 &&j>0)
     {
-        if(s1.charAt(a-1)==s2.charAt(b-1))
+        if(s1.charAt(i-1)==s2.charAt(j-1))
         {
-            sb.append(s1.charAt(a-1));
-            a--;
-            b--;
+            sb.append(s1.charAt(i-1));
+            i--;
+            j--;
             
         }
-     else if(t[a-1][b]>t[a][b-1])
+     else if(t[i-1][j]>t[i][j-1])
          {
-            a--;
+         sb.append(s1.charAt(i-1));
+            i--;
          }
          else
-            b--;
+         {
+             sb.append(s2.charAt(j-1));
+            j--;
+         }
         
     }
+         while(i>0)
+    {
+    sb.append(s1.charAt(i-1));
+        i--;
+    }
+    while(j>0)
+    {
+        sb.append(s2.charAt(j-1));
+        j--;
+    }
+        
+    
+        
         return (sb.reverse().toString());
     }
 }
