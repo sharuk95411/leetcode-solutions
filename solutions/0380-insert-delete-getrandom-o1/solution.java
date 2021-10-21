@@ -1,3 +1,4 @@
+// hint - two data str use hge bcz isko o(1) me jo krna h logic from codebix and isme complexity sikhne ko mil gi h collections ki
 class RandomizedSet {
 HashMap<Integer,Integer>h;
     List<Integer>l;
@@ -26,9 +27,9 @@ HashMap<Integer,Integer>h;
         {
             int index= h.get(val);
             int temp= l.size()-1;
-             Collections.swap(l, index, temp);
+             Collections.swap(l, index, temp); // ye sb O(1) krne k liye kia gya h
             int value= l.get(index);
-            h.put(value,index);
+            h.put(value,index); // yha swap krne bd element ki index update kr rhe h 
             l.remove(l.size()-1);
             h.remove(val);
             return true;
@@ -36,8 +37,8 @@ HashMap<Integer,Integer>h;
     }
     
     /** Get a random element from the set. */
-    public int getRandom() {
-        Random random = new Random();
+    public int getRandom() { // ye getRandom k andr ka code smjh ni aya h.
+        Random random = new Random(); 
         int n = random.nextInt(l.size());
         return l.get(n);
         
