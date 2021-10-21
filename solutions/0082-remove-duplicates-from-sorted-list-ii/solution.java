@@ -9,6 +9,9 @@
  * }
  */
 class Solution {
+    // Logic Algorithm Made easy 
+// easy logic hint-use dummy Node and Two Pointer Technique used
+    // TC is O(n) bcz we visit each node only one time so two while loop se fark ni pdhta h 
     public ListNode deleteDuplicates(ListNode head) {
         if(head==null) return null;
         if(head.next==null) return head;
