@@ -1,4 +1,5 @@
 class Solution {
+    // Isme profit hum loop ke sath calculate krte rhege 
     public int maxProfit(int[] prices) {
         int profit=0;
         int buy= Integer.MAX_VALUE;
