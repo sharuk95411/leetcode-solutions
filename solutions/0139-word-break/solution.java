@@ -15,7 +15,7 @@ class Solution {
             map.put(s,true);
         return true;
         }
-       map.put(s,false);
+        else map.put(s,false);
   
     }
   return false;
