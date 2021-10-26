@@ -9,6 +9,8 @@
  * }
  */
 class Solution {
+    // TC O(l1+l2) and SC is O(1)
+    // logic- Pepcoding and its very easy logic 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         
         
