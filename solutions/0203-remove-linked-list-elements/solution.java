@@ -9,6 +9,7 @@
  * }
  */
 class Solution {
+    // Logic -Self
     public ListNode removeElements(ListNode head, int val) {
         
         if(head==null) return head;
@@ -24,8 +25,7 @@ class Solution {
             }
             else
             {
-                
-            prev.next=curr;
+             prev.next=curr;
                 prev=curr;
                 curr=curr.next;
             }
