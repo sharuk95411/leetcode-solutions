@@ -9,6 +9,7 @@
  * }
  */
 class Solution {
+    // TC is O(n)hgi bhle hi two while loops lge h but unki working O(n) times hi hgi you can check by dry run the program
     public ListNode deleteDuplicates(ListNode head) {
         if(head==null)return null;
         if(head.next==null) return head;
