@@ -1,3 +1,4 @@
+// Logic codebix and code self
 class Pair
 {
     int x,y;
@@ -32,6 +33,7 @@ class Solution {
                 Pair p= q.poll();
                 int i=p.x;
                 int j=p.y;
+       // Call the function all 4 Direction
                 
                 if( j+1<arr[0].length &&arr[i][j+1]==1)
                 {
@@ -62,9 +64,12 @@ class Solution {
                      q.add(new Pair(i+1,j));
                     check=true;
                  }
+                
+                
         
                 loop--;
                  }
+            
             if(check==true)
             {
                     ans++;
