@@ -12,7 +12,7 @@ class Pair
 class Solution {
     public int orangesRotting(int[][] arr) {
         
-        Queue<Pair>q= new LinkedList<>();
+    Queue<Pair>q= new LinkedList<>();
     for(int i=0;i<arr.length;i++)
     {
         for(int j=0;j<arr[0].length;j++)
@@ -26,6 +26,7 @@ class Solution {
         while(q.size()>0)
         {
             int loop= q.size();
+            
         //    System.out.println(loop);
             
             while(loop>0)
