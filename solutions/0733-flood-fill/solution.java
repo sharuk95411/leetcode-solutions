@@ -3,7 +3,7 @@ class Solution {
      
        if(sr<0 || sc>=image[0].length || sc<0 || sr>=image.length )
            return image;
-      if( image[sr][sc]== newColor) return image;
+      if( image[sr][sc]== newColor) return image; //yha ye islia kia gya h agr new color curr color se phle hi mathch kr rha h to hme kuch krna hi ni h yhi se return ho jyge.
         int currC= image[sr][sc];
         fill(image,sr,sc,currC,newColor);
         return image;
