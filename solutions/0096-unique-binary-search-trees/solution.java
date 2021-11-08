@@ -1,4 +1,6 @@
 class Solution {
+    
+    // Logic -CodeBix and awesome Qustion h TYN first rec then memoization krna 
      public int numTrees(int n) {
          int dp[][] =new int[n+1][n+1];
         return numTrees(1, n,dp);
