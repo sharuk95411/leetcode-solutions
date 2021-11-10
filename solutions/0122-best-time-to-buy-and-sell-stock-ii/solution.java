@@ -1,4 +1,7 @@
 class Solution {
+    // hint- iski simple problem dekh lo whi se idea mil jyga
+    // code- Anuj Bhaiya
+    
     public int maxProfit(int[] arr) {
         
         if(arr.length==0) return 0;
