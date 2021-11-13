@@ -1,4 +1,5 @@
 class Solution {
+    // Hint-Monotonic Stack used
      class Pair
     {
         int value,index;
