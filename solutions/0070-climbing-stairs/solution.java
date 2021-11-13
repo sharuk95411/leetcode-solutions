@@ -5,9 +5,7 @@ class Solution {
     public int climbStairs(int n) {
         
         int dp[]= new int[n+1];
-        return A(n,0,dp);
-    
-        
+        return A(n,0,dp);  
     }
     
     private int A(int n,int sum,int dp[])
@@ -16,9 +14,7 @@ class Solution {
         {
         
             return 1 ;
-        }
-        
-        
+        } 
         if(sum>n) return 0;
         if(dp[sum]>0) return dp[sum];
     
@@ -26,6 +22,5 @@ class Solution {
         
         return dp[sum];
     
-        
     }
 }
