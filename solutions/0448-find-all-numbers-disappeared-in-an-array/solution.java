@@ -1,4 +1,5 @@
 class Solution {
+    // logic from Ashish Kumar
     public List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer>l= new ArrayList<>();
         if(nums.length==0) return l;
