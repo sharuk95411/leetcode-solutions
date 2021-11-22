@@ -1,4 +1,7 @@
 class Solution {
+    
+    // Bht pyara Question h logic Pepcoding 
+    // Isme Agar negative No ho ye case GFG pr dia h jisko kr dia h to use b TYN
     public String multiply(String num1, String num2) {
         if(num1.equals("0") || num2.equals("0")) return "0";
         
