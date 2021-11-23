@@ -20,7 +20,7 @@ class Solution {
        // System.out.println(len);
         if (len > end - start)  // yha len palindrome wli string ki length h agr ye phle se di hui plaindrome string ki length jo ki right-left se niklegi agr usse zyda hui tbhi ye andr jygi.
         {
-            if(len>ans.length())// ye case uske liye h jb hme new palindromic string mili h but agr uski length already c
+            if(len>ans.length())// ye case uske liye h jb hme new palindromic string mili h but agr uski length already ans me mili hui string k length k barabr h to hme isko ni lena h bcz hme first jo max length ki substring h wo print krwani h agr ye case hta do tb b ans submit ho jyga but ye case InterviewBit se pta chla h and isme b ye case lia gya h but submit uske bina ho ja rha h
             {
             start = i - (len - 1) / 2;// ye strt position nikale ka hugad h
             end = i + len / 2;  // ye end position of string nikale ka jugad h
