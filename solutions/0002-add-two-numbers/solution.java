@@ -9,6 +9,8 @@
  * }
  */
 class Solution {
+    // logic Hello World and its very easy so ise khd hi try krna
+    //hint- isi list me jugd lgaya jyga koi new list ni bnegi and carry ka dhyn rkhna uske liye may be bn skti h according to situation.
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         
         ListNode dummy= new ListNode(0);
