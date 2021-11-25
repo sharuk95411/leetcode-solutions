@@ -10,6 +10,9 @@
  * }
  */
 public class Solution {
+    // Awesome and easy Logic by Pepcoding
+    // Hint-Length of two list is used 
+    //TC O(n) SC O(1)
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
          int l1=0;
         ListNode temp= headA;
