@@ -9,6 +9,8 @@
  * }
  */
 class Solution {
+    // Logic Self O(n) & O(1) 
+    // Hint Two Pointers approach used.
     public ListNode swapPairs(ListNode head) {
         
         if(head==null) return null;
@@ -18,7 +20,7 @@ class Solution {
         ListNode temp= dummy;
         
         ListNode p1= head, p2= head.next;
-    while(p2.next!=null)
+      while(p2.next!=null)
     {
         temp.next= p2;
         temp=p2;
@@ -27,13 +29,12 @@ class Solution {
         p1.next=null;
         temp=temp.next;
         p1=p2;
+        
         if(p2.next==null) break;
         else
         p2=p2.next;
-        
-        
-    }
-       temp.next= p2;
+    }       
+        temp.next= p2;
         temp.next.next=p1;
         p1.next=null;
         
