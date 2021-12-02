@@ -52,7 +52,7 @@ class Solution {
         if(c2==true) return true;
         else
         {
-             l.remove(l.size()-1);
+             l.remove(l.size()-1); // ye concept just iske upr wle question me b use hua h
              return false;
         }
     }
