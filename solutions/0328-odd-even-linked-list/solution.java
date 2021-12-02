@@ -1,4 +1,3 @@
-// Logic self
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -11,19 +10,20 @@
  */
 class Solution {
     public ListNode oddEvenList(ListNode head) {
-        if(head==null || head.next==null) return head;
-        
-         ListNode slow= head, fast= head.next, a= head.next;
-        
-        while(slow.next!=null && fast.next!=null)
+    
+        if(head==null) return null;
+        ListNode h1= head;
+        ListNode temp= head.next;
+        ListNode h2= head.next;
+        while(h2!=null)
         {
-            slow.next= fast.next;
-            slow= slow.next;
-            fast.next= slow.next;
-            fast= fast.next;
+            h1.next= h2.next;
+            if(h1.next==null) break;
+            h2.next= h1.next.next;
+            h1=h1.next;
+            h2= h2.next;
         }
-        // ab list two parts me break ho gi h after while loop 
-slow.next=a; // yha odd list me even list ko add krr rhe h bcz odd pehe aygi
+        h1.next=temp;
         return head;
     }
 }
