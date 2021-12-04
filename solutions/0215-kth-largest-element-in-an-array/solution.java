@@ -1,4 +1,7 @@
 class Solution {
+    // Logic-Tech Dose
+    // TC is Klog(n)
+    // Hint= Max Heap ki help se hga 
     public int findKthLargest(int[] arr, int k) {
         int n= arr.length;
         int ans=0;
