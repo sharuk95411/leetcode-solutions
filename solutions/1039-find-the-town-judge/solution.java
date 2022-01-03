@@ -1,19 +1,13 @@
 class Solution {
-    /*
-            for (Map.Entry<String,String> entry : gfg.entrySet())
-            System.out.println("Key = " + entry.getKey() +
-                             ", Value = " + entry.getValue());
-    }
-
-    */
+    
+    // logic -codebix TYN 
+    //Hint- two data Str will be used  1- HashMap second List
     public int findJudge(int n, int[][] trust) {
-        if(trust.length==0 && n==1) return n;
+      if(trust.length==0 && n==1) return 1;
         if(trust.length==0) return -1;
         
-        int arr[]= new int[n];
-      //  System.out.println(trust.length);
-        HashMap<Integer,Integer>h= new HashMap<>();
-        List<Integer>l= new ArrayList<>();
+        HashMap<Integer,Integer>h= new HashMap<>(); 
+        List<Integer>l= new ArrayList<>(); // iske andr wo log ayge jo dsro pr trust kr rhe h 
             
         
         for(int i=0;i<trust.length;i++)
