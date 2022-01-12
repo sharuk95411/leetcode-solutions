@@ -1,5 +1,5 @@
 class Solution {
-    // TC O(n) SC O(n) logic from TECHDOSE TYN
+    // Better-TC O(n) SC O(n) logic from TECHDOSE TYN  and isse 95%  aya
 // Optimal- TC O(n) and SC O(1) ye bd me krna h 
     public int candy(int[] arr) {
         
