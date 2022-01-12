@@ -14,11 +14,12 @@
  * }
  */
 class Solution {
+    // Logic- Self
     public TreeNode insertIntoBST(TreeNode root, int val) {
      
         if(root==null) 
         {
-             TreeNode n= new TreeNode(val);
+        TreeNode n= new TreeNode(val);
             return n;
         }
        boolean b= A(root,val);
