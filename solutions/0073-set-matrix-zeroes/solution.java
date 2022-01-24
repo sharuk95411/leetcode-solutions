@@ -1,66 +1,47 @@
-// Logic self
 class Solution {
-    public void setZeroes(int[][] arr) {
-          int row= arr.length;
-        int col= arr[0].length;
-        int i=0,j=0;
-        int temp[][]= new int[arr.length][arr[0].length];
-        for(i=0;i<arr.length;i++)
+    public void setZeroes(int[][] matrix) {
+     
+        boolean first_row_zero= false;
+        boolean first_col_zero=false;
+        
+        for(int i=0;i<matrix.length;i++)
         {
-            for(j=0;j<arr[0].length;j++)
+            for(int j=0;j<matrix[0].length;j++)
             {
-                temp[i][j]= arr[i][j];
-            }
-        }
-        for(i=0;i<arr.length;i++)
-        {
-            for(j=0;j<arr[0].length;j++)
-            {
-                if(arr[i][j]==0)
+                if(matrix[i][j]==0)
                 {
-                    int x=i;
-                    int y=j;
-                
-                while(j>0) // Iterate Left and make whole row zero
-                {
-                    temp[i][j-1]=0;
-                    j--;
-                }
-                // after iteration again wha pch jana jha hme 0 mila h    
-                i=x;
-                j=y;
-                while(j<col-1) // Iterate right and make whole row zero
-                {
-                    temp[i][j+1]=0;
-                    j++;
-                }
-                i=x;
-                j=y;
-                while(i>0) // Iterate Up and make whole column zero
-                {
-                    temp[i-1][j]=0;
-                    i--;
-                }
-                i=x;
-                j=y;
-                while(i<row-1) // Iterate Down and make whole column zero
-                {
-                    temp[i+1][j]=0;
-                    i++;
-                }
-                i=x;
-                j=y;
+                    if(i==0)first_row_zero= true;
+                    if(j==0) first_col_zero= true;
+                    
+                    matrix[i][0]=0;
+                    matrix[0][j]=0;
                 }
             }
-        }
-              for(i=0;i<arr.length;i++)
-        {
-            for(j=0;j<arr[0].length;j++)
-            {
-                arr[i][j]= temp[i][j];
-            }
-            
         }
         
+        for(int i=1;i<matrix.length;i++)
+        {
+            for(int j=1;j<matrix[0].length;j++)
+            {
+                if(matrix[i][0]==0 || matrix[0][j]==0)
+                {
+                    matrix[i][j]=0;
+                }
+            }
+        }
+        if(first_row_zero==true)
+        {
+            for(int j=0;j<matrix[0].length;j++)
+            {
+                matrix[0][j]=0;
+            }
+        }
+         if(first_col_zero==true)
+        {
+            for(int i=0;i<matrix.length;i++)
+            {
+                matrix[i][0]=0;
+            }
+        }
     }
 }
