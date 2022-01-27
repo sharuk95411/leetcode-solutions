@@ -1,31 +1,57 @@
 class Solution {
     public void nextPermutation(int[] nums) {
         
-        int i= nums.length-2;
+        if(nums.length==0|| nums.length==1) return ;
         
-        while(i>=0 && nums[i]>=nums[i+1])i--;
-        if(i>=0)
+        int i=nums.length-1;
+        boolean check=true;
+        while(i>0)
         {
-            int j= nums.length-1;
-            while(nums[i]>=nums[j]) j--;
-            swap(nums,i,j);
+            if(nums[i-1]<nums[i]) 
+            {
+                i=i-1;
+                check=false;
+                break;
+            }
+            i--;
+    }
+               System.out.println(i);
+        if(check)
+        {
+           reverse(0,nums,nums.length-1);
+            return ;
         }
-        reverse(nums,i+1,nums.length-1);
-    }
+
+        int j=nums.length-1;
+         if(i>=0)
+         {
+             while(nums[i]>=nums[j])
+             {
+                  j--;
+             }
+             swap(i,j,nums);
+           //  System.out.println(Arrays.toString(nums));
+             reverse(i+1,nums,nums.length-1);
+         }
+       // System.out.println(nums[j]);    
+        
+}
     
-    private void swap(int nums[],int i,int j)
+    private void swap(int left,int right,int nums[])
     {
-        int temp= nums[i];
-        nums[i]= nums[j];
-        nums[j]= temp;
+        int temp= nums[left];
+        nums[left]= nums[right];
+        nums[right]= temp;
     }
-    private void reverse(int nums[],int i,int j)
+    private void reverse(int left,int nums[],int right)
     {
-        while(i<j)
+        while(left<right)
         {
-            swap(nums,i,j);
-            i++;
-            j--;
+            int temp=nums[left];
+            nums[left]= nums[right];
+            nums[right]= temp;
+            left++;
+            right--;
         }
     }
 }
