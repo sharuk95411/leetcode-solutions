@@ -1,24 +1,17 @@
 class Solution {
-    // Isme profit hum loop ke sath calculate krte rhege 
-    public int maxProfit(int[] prices) {
-        int profit=0;
-        int buy= Integer.MAX_VALUE;
+    public int maxProfit(int[] arr) {
         
-        
-        for(int i=0;i<prices.length;i++)
+        int maxProfit=0;
+        int sell= arr[0];
+        for(int i=1;i<arr.length;i++)
         {
-            if(prices[i]<buy)
+            if(arr[i]<sell)
             {
-                buy= prices[i];
+                sell= arr[i];
             }
             else
-            {
-                profit=Math.max(prices[i]-buy,profit);
-            }
+                maxProfit= Math.max(maxProfit,arr[i]-sell);
         }
-        
-        return profit;
-        
-        
+        return maxProfit;
     }
 }
