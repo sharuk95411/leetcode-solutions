@@ -1,17 +1,13 @@
 class Solution {
-    public int findDuplicate(int[] arr) {
-               boolean b[]= new boolean[arr.length];
-        int temp=-1;
-        for(int i=0;i<arr.length;i++)
-        {
-            if(b[arr[i]]==true)
-            {
-                temp= arr[i];
-            break;
-            }
-            b[arr[i]]= true;
-        }
-        return temp;
+    public int findDuplicate(int[] nums) {
         
+        int index=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            index= Math.abs(nums[i]);
+            if(nums[index-1]<0) return index;
+            else nums[index-1]= -nums[index-1];
+        }
+        return index;
     }
 }
