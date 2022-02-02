@@ -1,46 +1,37 @@
 class Solution {
-    public List<Integer> findAnagrams(String s, String pattern) {
+    public List<Integer> findAnagrams(String s, String p) {
         
-        List<Integer>l= new ArrayList<>();
-         if(pattern.length()>s.length()) return l;
+        List<Integer>list= new ArrayList<>();
         
-          HashMap<Character,Integer>h1= new HashMap<>();
-         HashMap<Character,Integer>h2= new HashMap<>();
-         int i=0;
-         while(i<pattern.length())
-         {
-             h1.put(pattern.charAt(i),h1.getOrDefault(pattern.charAt(i),0)+1);
-             i++;
-         }
-       //  System.out.println(h1.entrySet());
-       int left=0,right=0;
-       while(right-left+1<=pattern.length())
-       {
-            h2.put(s.charAt(right),h2.getOrDefault(s.charAt(right),0)+1);
-            right++;
-       }
-       
-       if(h1.equals(h2)==true) l.add(left);
-       
-     // System.out.println(right);
-      while(right<s.length())
-      {
-          int freq=h2.get(s.charAt(left));
-          if(freq==1)
-          {
-              h2.remove(s.charAt(left));
-          }
-          else
-          {
-              h2.replace(s.charAt(left),freq-1);
-          }
-          left++;
-          h2.put(s.charAt(right),h2.getOrDefault(s.charAt(right),0)+1);
-          if(h1.equals(h2)==true) l.add(left);
-          right++;
-          
-          }
-      return l;
+        if(p.length()>s.length()) return list;
         
+        String sub= s.substring(0,p.length());
+        
+        int arr1[]= new int[26];
+        int arr2[]= new int[26];
+        
+        for(int i=0;i<p.length();i++)
+        {
+            arr1[sub.charAt(i)-'a']++;
+        }
+        for(int i=0;i<p.length();i++)
+        {
+            arr2[p.charAt(i)-'a']++;
+        }
+        
+        if(Arrays.equals(arr1,arr2)) list.add(0);
+
+        
+        int start=0;
+        int end= p.length();
+        while(end<s.length())
+        {
+                    arr1[s.charAt(end)-'a']++;
+                    arr1[s.charAt(start)-'a']--;
+            if(Arrays.equals(arr1,arr2)) list.add(start+1);
+            start++;
+            end++;
+        }
+               return list;
     }
 }
