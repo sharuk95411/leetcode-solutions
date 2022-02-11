@@ -1,47 +1,38 @@
 class Solution {
-     // Brute force- each string ka permutation nikalte jana and check krna shows TLE;
-    // TC O(size of arr*length of s2);
-    // Logic -TECHDOSE and its easy .
-    // Hint- Anagram + Hastable ka use hga+ sliding window
-    
     public boolean checkInclusion(String s1, String s2) {
-    
+        
+        HashMap<Character,Integer>h1= new HashMap<>();
+        
         if(s1.length()>s2.length()) return false;
-        int arr[]= new int[26];
-        int brr[]= new int[26];
         
         for(int i=0;i<s1.length();i++)
         {
-            arr[s1.charAt(i)-'a']++;
+            char c= s1.charAt(i);
+            h1.put(c,h1.getOrDefault(c,0)+1);
         }
         
-        
-    //  System.out.println(Arrays.toString(arr));
-        for(int j=0;j<s1.length();j++)
-            {
-                brr[s2.charAt(j)-'a']++;
-            }
-      //  System.out.println(Arrays.toString(brr));
-        int temp=0;
-        
-        for(int i=s1.length();i<=s2.length();i++)
+        HashMap<Character,Integer>h2= new HashMap<>();
+        for(int i=0;i<s1.length();i++)
         {
-           if(Arrays.equals(arr,brr)) return true;
+            char c= s2.charAt(i);
+            h2.put(c,h2.getOrDefault(c,0)+1);
+        }
+        int j=0;
+        if(h1.equals(h2)) return true;
+        for(int i=s1.length();i<s2.length();i++)
+        {
+        
+              char c= s2.charAt(j);
+              int value= h2.get(c);
+              if(value==1)h2.remove(c);
+              else h2.put(c,value-1);
+              c= s2.charAt(i);          
+              h2.put(c,h2.getOrDefault(c,0)+1);
+              if(h1.equals(h2)) return true;
+              System.out.println(h2);
+              j++;   
             
-            
-            {
-                if(i==s2.length()) break;
-                brr[s2.charAt(temp)-'a']--;
-                    // System.out.println(Arrays.toString(brr));
-                temp++;
-                brr[s2.charAt(i)-'a']++;
-                 //    System.out.println(Arrays.toString(brr));
-                
-            }
         }
         return false;
-        
-
-        
     }
 }
