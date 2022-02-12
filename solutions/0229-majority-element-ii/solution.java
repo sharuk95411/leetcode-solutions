@@ -1,43 +1,51 @@
 class Solution {
-     // yha each element more than n/3 times hga so tum array ka koi b size le lo maximum no tmhe 2 hi milege so yha se ye confirm ho gya h hme only max only 2 diffrent elements mil skte h.
-    public List<Integer> majorityElement(int[] arr) {
-        List<Integer>l= new ArrayList<>();
-        int n1,n2,freq1,freq2;
-        n1=n2=-1;
-        freq1=freq2= 0;
+    public List<Integer> majorityElement(int[] nums) {
         
-        for(int i=0;i<arr.length;i++)
+       // int count= nums.length/3 +1;
+        List<Integer>l= new ArrayList<>();
+        
+        int count1=0;
+        int count2=0;
+        int no1= Integer.MAX_VALUE;
+        int no2 = Integer.MAX_VALUE;
+        
+        for(int i=0;i<nums.length;i++)
         {
-            if(arr[i]==n1) freq1++;
-            else if(arr[i]==n2)freq2++;
-            else if(freq1==0)
+            if(nums[i]==no1) count1++;
+            
+            else if(nums[i]==no2) count2++;
+            
+            else if(count1==0)
             {
-                n1=arr[i];
-                freq1++;
+                count1++;
+                no1= nums[i];
             }
-            else if(freq2==0)
+            else if (count2==0)
             {
-                n2= arr[i];
-                freq2++;
+                count2++;
+                no2= nums[i];
             }
-            else
+            else 
             {
-                freq1--;
-                freq2--;
+                count1--;
+                count2--;
             }
         }
-        // Now ab hm check krege ye n1 and n2 n/3 times se zyda h ya ni and isko nikalna zruri b h [3,2,3] k case me ans [3,2] ayga jbki an only 3 ana chahiye
         
-        freq1=freq2=0;
-    for(int i=0;i<arr.length;i++)
-    {
-        if(arr[i]==n1) freq1++;
-        else if(arr[i]==n2) freq2++;
-    }
-    
-        int n= arr.length;
-    if(freq1>n/3) l.add(n1);
-        if(freq2>n/3) l.add(n2);
+        System.out.println(no1+" "+no2);
+        count1=0;
+        count2=0;
+        
+        for(int i=0;i<nums.length;i++)
+        {
+            if(nums[i]==no1) count1++;
+            else if(nums[i]==no2) count2++;
+        }
+        
+        if(count1>nums.length/3) l.add(no1);
+        if(count2>nums.length/3)l.add(no2);
         return l;
+        
+        
     }
 }
