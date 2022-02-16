@@ -9,36 +9,47 @@
  * }
  */
 class Solution {
-    // Logic Self O(n) & O(1) 
-    // Hint Two Pointers approach used.
     public ListNode swapPairs(ListNode head) {
-        
-        if(head==null) return null;
+     
+        if(head==null) return head;
         if(head.next==null) return head;
-        ListNode dummy= new ListNode(0);
-    
-        ListNode temp= dummy;
+        ListNode dummy= head.next;
         
-        ListNode p1= head, p2= head.next;
-      while(p2.next!=null)
-    {
-        temp.next= p2;
-        temp=p2;
-        p2= p2.next;
-        temp.next=p1;
-        p1.next=null;
-        temp=temp.next;
-        p1=p2;
+        ListNode a=head;
+        ListNode b= head.next;
         
-        if(p2.next==null) break;
-        else
-        p2=p2.next;
-    }       
-        temp.next= p2;
-        temp.next.next=p1;
-        p1.next=null;
-        
-        return dummy.next;
+        while(b!=null)
+        {
+            ListNode temp= b.next;
+            b.next=a;
+            
+            // if(b==null)
+            // {
+            //     a.next=temp;
+            //     temp.next=null;
+            //     return dummy;
+            // }
+             if(temp!=null)
+            {
+                b=temp.next;
+                if(b==null)
+                {
+                     a.next=temp;
+                 temp.next=null;
+                 return dummy;
+                }
+                a.next=b;
+                a=temp;
+            }
+            else
+            {
+                a.next=temp;
+                break;
+            }
+            
+            
+        }
+        return dummy;
         
     }
 }
