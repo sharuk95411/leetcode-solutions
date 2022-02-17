@@ -1,33 +1,38 @@
-// Logic take U forward se dekh lena idea ml jyga but uske logic ko implement krne se TC bht zyda aygi 
 class Solution {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    
+    List<Integer>list= new ArrayList<>();
+    List<List<Integer>>ans= new ArrayList<>();
+    public List<List<Integer>> combinationSum(int[] arr, int target) {
      
-        List<List<Integer>> l2 = new ArrayList<>();
-        if(candidates==null || candidates.length==0)
-            return l2;
-        Arrays.sort(candidates);
-        List<Integer> l1 = new ArrayList<>();
-       A (l2,l1,candidates,target,0,candidates.length);
-        return l2;
-    }
-     static void A(List<List<Integer>> l2, List<Integer> l1, int[] arr, int target, int strt,int end)
+        
+        A(arr,target,0);
+        return ans;
+        
+            }
+    
+    private void A(int arr[],int target,int index)
     {
         if(target==0)
         {
-            l2.add(new ArrayList<>(l1)); // yha pr new Arralist me l1 dia gya h bcz yha hum l1 k sth khl rhe h and jb backtrack krege to l1 ka data chnge hga jisse agr l2.add(11) kia hga to l2 me value change ho jygi but new ArrayList krne se ek new object bn jyga and and us address pr l1 chla jyga
-            
-            return;
+            ans.add(new ArrayList<>(list));
+              return ;
         }
-        for(int i=strt; i<end; i++)
+        
+        for(int i=index;i<arr.length;i++)
         {
-         if(target-arr[i]>=0)
-         {
-             l1.add(arr[i]);
-             target=target-arr[i];
-            A(l2,l1,arr,target,i,end);
-             target=target+arr[i];
-            l1.remove(l1.size()-1);
-         }
+            if(target-arr[i]>=0)
+            {
+                target= target-arr[i];
+                list.add(arr[i]);
+                A(arr,target,i);
+                target= target+arr[i];
+                list.remove(list.size()-1);
+            }
         }
+      
+    }
+        
+
+
 }
-}
+        
