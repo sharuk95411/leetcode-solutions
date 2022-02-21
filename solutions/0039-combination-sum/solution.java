@@ -1,38 +1,35 @@
 class Solution {
     
-    List<Integer>list= new ArrayList<>();
+    List<Integer>inner= new ArrayList<>();
     List<List<Integer>>ans= new ArrayList<>();
     public List<List<Integer>> combinationSum(int[] arr, int target) {
-     
         
-        A(arr,target,0);
-        return ans;
-        
-            }
     
-    private void A(int arr[],int target,int index)
+        A(arr,target,0,0);
+        return ans;
+    
+    }
+    
+    private void A(int arr[],int target,int sum,int index)
     {
-        if(target==0)
+        if(sum==target)
         {
-            ans.add(new ArrayList<>(list));
-              return ;
+            System.out.println(inner);
+            ans.add(new ArrayList<>(inner));
+            return ;
         }
         
         for(int i=index;i<arr.length;i++)
         {
-            if(target-arr[i]>=0)
-            {
-                target= target-arr[i];
-                list.add(arr[i]);
-                A(arr,target,i);
-                target= target+arr[i];
-                list.remove(list.size()-1);
-            }
+            sum=sum+arr[i];
+            inner.add(arr[i]);
+            if(sum<=target)
+            A(arr,target,sum,i);
+            
+            inner.remove(inner.size()-1);
+            sum=sum-arr[i];
+        
         }
-      
     }
-        
-
-
+    
 }
-        
