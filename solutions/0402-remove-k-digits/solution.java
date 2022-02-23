@@ -7,7 +7,7 @@ class Solution {
         stack.push(s.charAt(0));
         for(int i=1;i<s.length();i++)
         {
-                while(stack.size()>0 &&(k>0 && stack.peek()-'0'>s.charAt(i)-'0'))
+                while(stack.size()>0 &&(k>0 && stack.peek()>s.charAt(i)))
                 {
                   //  System.out.println("OK");
                     stack.pop();
@@ -29,7 +29,7 @@ class Solution {
         s=str.reverse().toString();
         System.out.println(s);
         
-        while(s.length()>0 &&s.charAt(0)=='0' || k>0)
+        while(s.length()>0 &&s.charAt(0)=='0')
         {
             s=s.substring(1);
             k--;
