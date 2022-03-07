@@ -11,7 +11,7 @@ class Solution {
             int mid= left+(right-left)/2;
             if(check(mid,arr,h))
             {
-                ans= Math.min(mid,ans);
+                //ans= Math.min(mid,ans);
                 right=mid-1;
             }
             else
@@ -20,7 +20,7 @@ class Solution {
             }
             
         }
-        return ans;
+        return left;
             
     }
     private boolean check(int speed,int arr[],int final_hour)
@@ -29,11 +29,7 @@ class Solution {
         
         for(int i=0;i<arr.length;i++)
         {
-            if(speed>=arr[i])
-            {
-                calculate_hour= calculate_hour+1;
-            }
-            else if(arr[i]%speed==0)
+             if(arr[i]%speed==0)
             {
                 calculate_hour=calculate_hour+ arr[i]/speed;
             }
