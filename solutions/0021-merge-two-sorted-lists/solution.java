@@ -9,39 +9,29 @@
  * }
  */
 class Solution {
-    // TC O(l1+l2) and SC is O(1)
-    // logic- Pepcoding and its very easy logic 
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        
-        
-       if(l1==null) return l2;
-        
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+     
         ListNode dummy= new ListNode();
-        
+        ListNode a=list1,b=list2;
         ListNode temp= dummy;
-        ListNode a=l1, b=l2;
-        while(a !=null && b!=null)
+        
+        while(a!=null  && b!=null)
         {
-            if(b.val>=a.val)
-            {
-                dummy.next=a;
-                dummy= a;
-                 a=a.next;
-                
-            }
-            else 
+            if(a.val>=b.val)
             {
                 dummy.next=b;
                 dummy=b;
-                b= b.next;
+                b=b.next;
             }
-        
+            else
+            {
+                dummy.next=a;
+                dummy=a;
+                a=a.next;
+            }
         }
-        
-    if(a!=null) dummy.next=a;
-    else dummy.next= b;
-        
-           
+        if(a!=null) dummy.next=a;
+        else dummy.next=b;
         return temp.next;
     }
 }
