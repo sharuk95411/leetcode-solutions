@@ -9,33 +9,62 @@
  * }
  */
 class Solution {
-    // Logic Algorithm Made easy 
-// easy logic hint-use dummy Node and Two Pointer Technique used
-    // TC is O(n) bcz we visit each node only one time so two while loop se fark ni pdhta h 
     public ListNode deleteDuplicates(ListNode head) {
+        
+    // isme sbase phle two scenarios h
+    // 1- ye adjacent node same h 
+    // 2- ya adjacent node diffrent h 
+    // baki ka km bad me hga phle ye chz hgi phr aur chze iske andr hgi
+     
+    // 1 
+    // 1-1 
+    // 1-1-2   
+    // 1-1-2-2  
+    // 1-2-3-3-4-4-5   
+    // 1-2-2-3
+   
+        
         if(head==null) return null;
         if(head.next==null) return head;
-        
-        ListNode dummy= new ListNode(0), prev=dummy,curr=head;
-        
-        while(curr!=null)
+        ListNode d= new ListNode();
+        ListNode a= head;
+        ListNode b= head.next;
+        ListNode ans= d;
+
+        while(b!=null)
         {
-            if(curr.next!=null && curr.val==curr.next.val)
+            if(a.val==b.val)
             {
-                while(curr.next!=null && curr.val==curr.next.val)
+                 while(b!=null && a.val==b.val) b= b.next;
+                if(b==null) 
                 {
-                    curr= curr.next;
+                    d.next=null;
+                    return ans.next;
                 }
-                curr=curr.next;
-                prev.next=curr;
+                else if(b.next==null)
+                {
+                    d.next=b;
+                    return ans.next;
+                }
+                
+                else 
+                {
+                    a=b;
+                    b=b.next;
+                }
+                
             }
             else
             {
-                prev.next= curr;
-                prev=curr;
-                curr=curr.next;
+                 d.next=a;
+                d=a;
+                a=a.next;
+                b=b.next;
             }
         }
-        return dummy.next;
+        return ans.next;
+        
+        
+        
     }
 }
