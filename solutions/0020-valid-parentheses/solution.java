@@ -8,7 +8,7 @@ class Solution {
             char c= s.charAt(i);
             if(c==')' || c=='}'|| c==']')
             {
-                if(stack.size()==0) return false;
+                if(stack.isEmpty()) return false;
                 else
                 {
                 
