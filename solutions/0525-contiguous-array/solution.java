@@ -1,26 +1,44 @@
 class Solution {
     public int findMaxLength(int[] nums) {
      
+      if(nums.length==1) return 0;
+        HashMap<Integer,Integer>h= new HashMap<>();
+        h.put(0,-1);
         
-        Map<Integer,Integer>map= new HashMap<>();
-        map.put(0,-1); // ye tb k liye h jb hmri value 0 aa jye like 0,0,1,1 is case me iska use ayga you can check by dry run the program.
-        
+        int value=0;
         int ans=0;
-        int count =0;
         for(int i=0;i<nums.length;i++)
         {
-            if(nums[i]==0) count--;
-            else count++;
-            
-            if(map.containsKey(count))
+            if(nums[i]==0)
             {
-                ans= Math.max(ans,i-map.get(count));
+                value--;
+                if(h.get(value)!=null)
+                {
+                    int temp= h.get(value);
+                    ans= Math.max(ans,i-temp);
+                }
+                else
+                {
+                    h.put(value,i);
+                }
             }
             else
-                map.put(count,i);
+            {
+                value++;
+                if(h.get(value)!=null)
+                {
+                    int temp= h.get(value);
+                    ans= Math.max(ans,i-temp);
+                }
+                else
+                {
+                    h.put(value,i);
+                }
+                
+            }
         }
-        return ans;
         
+        return ans;
         
     }
 }
