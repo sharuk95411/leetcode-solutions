@@ -1,27 +1,72 @@
 class Solution {
-    public String minRemoveToMakeValid(String s) {
-     Stack<Integer>stack= new Stack<>();
-        char ch[]= s.toCharArray();
-        int n= ch.length;
+    
+    class Pair
+    {
+        char c;
+        int position;
         
-        for(int i=0;i<n;i++)
+        Pair(char ch,int pos)
         {
-            if(ch[i]=='(') stack.push(i);
-            
-            else if(ch[i]==')')
+            c=ch;
+            position= pos;
+        }
+    }
+    public String minRemoveToMakeValid(String s) {
+     
+        // When a String Unbalaned
+        // No of opening and closing parenthesis has been different
+        // No of opening and closing parenthesis same but position different
+        
+        Stack<Pair>stack= new Stack<>();
+        StringBuilder str= new StringBuilder();
+    
+        
+        for(int i=0;i<s.length();i++)
+        {
+            char c= s.charAt(i);
+            if(c==')')
             {
-                if(stack.size()>0) stack.pop();
-                else ch[i]='*';
+                if(stack.isEmpty()) continue;
+                else 
+                {
+                    stack.pop();
+                    str.append(")");
+                    
+                }
+            }
+            else if(c=='(')
+            {
+             
+                stack.push(new Pair('(',str.length()));
+                str.append(c);
+            
+            }
+            else 
+            {
+                str.append(c);
+                
+                
             }
         }
-        while(stack.size()>0) ch[stack.pop()]='*';
         
-        StringBuilder str= new StringBuilder();
-        for(char c: ch)
+        
+        
+        // System.out.println(str.toString());
+        // System.out.println(stack.size());
+     
+        
+        while(!stack.isEmpty())
         {
-            if(c!='*') str.append(c);
+            Pair p= stack.pop();
+             str.setCharAt(p.position, '?');
         }
-        return str.toString();
+        
+         s=str.toString();
+        String s1=s.replace("?","");
+        return s1;
+        
+        
+        
         
     }
 }
