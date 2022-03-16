@@ -11,8 +11,7 @@ class Solution {
                 j++;
             }
         }
-        if(s.size()>1) return false;
-        else return true;
+    return s.size()==0 ? true : false;
         
     }
 }
