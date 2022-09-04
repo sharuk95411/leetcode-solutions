@@ -13,54 +13,73 @@
  *     }
  * }
  */
+// class Solution {
+//     public List<List<Integer>> verticalTraversal(TreeNode root) {
+        
+//     }
+// }
 class Solution {
-     class Point {
-	TreeNode root;
-	int x;
-	int y;
-	public Point(TreeNode root, int x, int y) {
-		this.root = root;
-		this.x = x;
-		this.y = y;
-	}
-  }
+    static int leastCol;
+    static int mostCol;
+
+    static List<List<Integer>> ans;
+    static PriorityQueue<Pair> pq;
+    
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-	if (root == null) 
-		return res;
+        ans=new ArrayList<List<Integer>>();
 
-	Map<Integer, PriorityQueue<Point>> map = new HashMap<>();
-	Queue<Point> queue = new LinkedList<>();
-	queue.offer(new Point(root, 0, 0));
-    Comparator<Point> comparator = (a, b) -> {
-		if (a.y == b.y) {
-			return a.root.val - b.root.val;
-		} else {
-			return a.y - b.y;
-		}
-	};
-	int minIdx = 0;
-	int maxIdx = 0;
-	while (!queue.isEmpty()) {
-		Point point = queue.poll();
-		root = point.root;
-		map.putIfAbsent(point.x, new PriorityQueue<>(comparator));
-		map.get(point.x).add(point);
-		minIdx = Math.min(minIdx, point.x);
-		maxIdx = Math.max(maxIdx, point.x);
-		if (root.left != null)  queue.offer(new Point(root.left, point.x - 1, point.y + 1));
-		if (root.right != null) queue.offer(new Point(root.right, point.x + 1, point.y + 1));
-	}
+        bfs(root);
+        int sumCol=mostCol-leastCol+1;
 
-	for (int i = minIdx; i <= maxIdx; i++) {
-		PriorityQueue<Point> pq = map.get(i);
-		List<Integer> list = new ArrayList<>();
-		while (!pq.isEmpty()) {
-			list.add(pq.poll().root.val);
-		}
-		res.add(list);
-	}
+        for(int i=0;i<sumCol;i++)
+            ans.add(new ArrayList<Integer>());
+        
+        while(!pq.isEmpty()){
+            Pair curr=pq.poll();
+            ((ArrayList<Integer>)ans.get(-leastCol+curr.col)).add(curr.node.val);
+        }
+        
+        return (List<List<Integer>> )ans;
+    }
+    public static void bfs(TreeNode root){
+        Queue<Pair> q=new LinkedList<Pair>();
+        pq =new PriorityQueue<Pair>();
+        int row=0;
+        int col=0;
+        q.add(new Pair(row,col, root));
+        leastCol=0;
+        mostCol=0;
+        row=1;
+        
+        while(!q.isEmpty()){
+            Pair curr = q.poll();
+            pq.add(curr);
+            
+            if(curr.node.left!=null){
+                q.add(new Pair(curr.row+1, curr.col-1, curr.node.left));
+                leastCol=Math.min(leastCol, curr.col-1);
+            }
+            if(curr.node.right!=null){
+                q.add(new Pair(curr.row+1, curr.col+1, curr.node.right));
+                mostCol=Math.max(mostCol, curr.col+1);
 
-	return res;
+            }
+        }
+    }
+    
+    static class Pair implements Comparable<Pair>{
+        int col;
+        int row;
+        TreeNode node;
+        public Pair(int r,int c, TreeNode n){
+            row=r;
+            col=c;
+            node=n;
+        }
+        public int compareTo(Pair p){
+            if(col!=p.col) return col-p.col;
+            if(row!=p.row) return row-p.row;
+            return node.val-p.node.val;
+        }
     }
 }
