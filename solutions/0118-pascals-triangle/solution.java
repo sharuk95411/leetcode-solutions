@@ -1,48 +1,25 @@
 class Solution {
-    public List<List<Integer>> generate(int numRows) {
+    public List<List<Integer>> generate(int no) {
         
-        List<Integer>inner= new ArrayList<>();
         List<List<Integer>>ans= new ArrayList<>();
+        List<Integer>l1, l2= null;
         
-        inner.add(1);
-        ans.add(new ArrayList<>(inner));
-        inner.clear();
-        
-        int step=numRows;
-        List<Integer>sum_store= new ArrayList<>();
-        
-        
-        int index=1;
-        while(index<step)
+        for(int i=0;i<no;i++)
         {
-         
-            for(int i=0;i<=ans.size();i++)
+            l1= new ArrayList<Integer>();
+            for(int j=0;j<=i;j++)
             {
-                if(i==0)
+                if(j==0 || j==i)
                 {
-                    inner.add(1);
-                }
-                else if(i==ans.size())
-                {
-                    inner.add(1);
+                    l1.add(1);
                 }
                 else
                 {
-                    inner.add(sum_store.get(i-1));
+                    l1.add(l2.get(j-1)+l2.get(j));
                 }
-                
-                
             }
-            
-            sum_store.clear();
-            for(int j=0;j<inner.size()-1;j++)
-            {
-                sum_store.add(inner.get(j)+inner.get(j+1));
-            }
-            ans.add(new ArrayList<>(inner));
-            inner.clear();
-            index++;
-            
+            ans.add(l1);
+            l2=l1;
         }
         return ans;
     }
