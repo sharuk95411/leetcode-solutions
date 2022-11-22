@@ -1,22 +1,26 @@
 class Solution {
-    public int majorityElement(int[] nums) {
+    public int majorityElement(int[] arr) {
         
-        int no= nums[0];
+        int ans=arr[0];
         int count=1;
         
-        for(int i=1;i<nums.length;i++)
+        for(int i=1;i<arr.length;i++)
         {
-            if(nums[i]==no) count++;
+            if(ans==arr[i]) 
+            {
+                count++;
+            }
             else
             {
                 count--;
-                if(count==0) 
+                if(count==0)
                 {
                     count++;
-                    no=nums[i];
+                    ans= arr[i];
                 }
             }
+
         }
-        return no;
+        return ans;
     }
 }
