@@ -1,22 +1,15 @@
 class Solution {
-//isko O(1) space me krne me mza a and h very simple isme non zero digit ko left shift krna h bs 
-    public void moveZeroes(int[] nums) {
+    public void moveZeroes(int[] arr) {
         
-        
-        int index=0;
-        for(int i=0;i<nums.length;i++)
+        int count=0;
+        for(int i=0;i<arr.length;i++)
         {
-            if(nums[i]!=0)
+            if(arr[i]==0) count++;
+            else if(count>0)
             {
-                nums[index]=nums[i];
-                index++;
+                     arr[i-count]=arr[i];
+                      arr[i]=0;   
             }
-            
-        }
-        while(index<nums.length)
-        {
-            nums[index]=0;
-            index++;
         }
     }
 }
