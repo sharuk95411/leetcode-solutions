@@ -1,26 +1,34 @@
 class Solution {
-    public List<List<Integer>> generate(int no) {
+    public List<List<Integer>> generate(int num) {
+        List<Integer>inner= new ArrayList<>();
+        List<List<Integer>>outer= new ArrayList<>();
         
-        List<List<Integer>>ans= new ArrayList<>();
-        List<Integer>l1, l2= null;
-        
-        for(int i=0;i<no;i++)
+                inner.add(1);
+                outer.add(inner);
+        for(int i=1;i<num;i++)
         {
-            l1= new ArrayList<Integer>();
-            for(int j=0;j<=i;j++)
+            inner= new ArrayList<>();
+            inner.add(1);
+         //   System.out.println(outer);
+         
+            for(int j=0;j<outer.get(i-1).size();j++)
             {
-                if(j==0 || j==i)
+                if(j==outer.get(i-1).size()-1)
                 {
-                    l1.add(1);
-                }
+                    inner.add(1);
+                    outer.add(inner);
+                    // System.out.println("OK");
+                    break;
+                } 
                 else
                 {
-                    l1.add(l2.get(j-1)+l2.get(j));
+                    // int no= outer.get(i-1).get(j);
+                    int no= outer.get(i-1).get(j)+outer.get(i-1).get(j+1);
+                    inner.add(no);
                 }
             }
-            ans.add(l1);
-            l2=l1;
         }
-        return ans;
+        return outer;
+        
     }
 }
