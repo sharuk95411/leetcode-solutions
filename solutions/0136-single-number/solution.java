@@ -1,10 +1,10 @@
 class Solution {
-    public int singleNumber(int[] arr) {
+    public int singleNumber(int[] nums) {
         
-       int ans=arr[0];
-        for(int i=1;i<arr.length;i++)
+        int ans=0;
+        for(int i=0;i<nums.length;i++)
         {
-            ans= ans^arr[i];
+            ans= ans^nums[i];
         }
         return ans;
     }
