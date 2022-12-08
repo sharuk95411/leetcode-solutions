@@ -1,19 +1,19 @@
 class Solution {
-    
-    Integer dp[];
+    public int no=0;
     public int fib(int n) {
-        if(n<=1) return n; 
-       
-        dp= new Integer[n+1];
-        
-        return A(dp,n);
-        
+         fun(n,0,1,0);
+         return no;
     }
-    private int A(Integer dp[],int n)
+
+    public void fun(int n,int prev,int next,int ans)
     {
-        if(n<=1) return n;
-        if(dp[n]!=null) return dp[n];
-        dp[n]= A(dp,n-1)+A(dp,n-2);
-        return dp[n];
+        if(n==0)
+        {
+            no= ans;
+            return ;
+        }
+
+         ans= prev+next;
+        fun(n-1,ans,prev,ans);
     }
 }
