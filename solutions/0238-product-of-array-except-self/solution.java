@@ -1,44 +1,24 @@
-
 class Solution {
-    // Ye solution O(n) and O(1) me h and !00% submission rate h 
-    // Is question me only zero ka khyl rkhna h q ki prblm whi krega so whi hmne kia h 
-    public int[] productExceptSelf(int[] nums) {
-        int arr[]= new int[nums.length];
+    public int[] productExceptSelf(int[] arr) {
         
-        int count=0; 
-        int multiplication_result=1;
-        int index_of_zero=-1;
-        for(int i=0;i<nums.length;i++)
+        int ans[]= new int[arr.length];
+        for(int i=0;i<arr.length;i++)
         {
-            if(nums[i]==0) 
-            {
-                count++;
-             index_of_zero=i;
-            }
-            else
-            {
-                multiplication_result= nums[i]*multiplication_result;
-            }
-            
+            ans[i]=1;
         }
-        if(count>1)
+
+        for(int i=1;i<arr.length;i++)
         {
-            Arrays.fill(arr, 0);
-            return arr;
+            ans[i]= ans[i-1]*arr[i-1];
         }
-        else if(count==1)
+
+        int temp=arr[arr.length-1];
+
+        for(int i=arr.length-2;i>=0;i--)
         {
-            Arrays.fill(arr,0);
-            arr[index_of_zero]=multiplication_result;
-            return arr;
+              ans[i]= ans[i]*temp;
+              temp= temp*arr[i];
         }
-        else
-        {
-            for(int i=0;i<nums.length;i++)
-            {
-                arr[i]= multiplication_result/nums[i];
-            }
-            return  arr;
-        }
+              return ans;
     }
 }
