@@ -1,46 +1,41 @@
 class Solution {
-    public void setZeroes(int[][] matrix) {
-     
-        boolean first_row_zero= false;
-        boolean first_col_zero=false;
-        
-        for(int i=0;i<matrix.length;i++)
+    public void setZeroes(int[][] arr) {
+        boolean row=false;
+        boolean col=false;
+        for(int i=0;i<arr.length;i++)
         {
-            for(int j=0;j<matrix[0].length;j++)
+            for(int j=0;j<arr[0].length;j++)
             {
-                if(matrix[i][j]==0)
+                if(arr[i][j]==0)
                 {
-                    if(i==0)first_row_zero= true;
-                    if(j==0) first_col_zero= true;
-                    
-                    matrix[i][0]=0;
-                    matrix[0][j]=0;
+                    if(i==0) row=true;
+                    if(j==0) col=true;
+                    arr[0][j]=0;
+                    arr[i][0]=0;
                 }
             }
         }
-        
-        for(int i=1;i<matrix.length;i++)
+
+        for(int i=1;i<arr.length;i++)
         {
-            for(int j=1;j<matrix[0].length;j++)
+            for(int j=1;j<arr[0].length;j++)
             {
-                if(matrix[i][0]==0 || matrix[0][j]==0)
-                {
-                    matrix[i][j]=0;
-                }
+                if(arr[0][j]==0 || arr[i][0]==0)
+                arr[i][j]=0;
             }
         }
-        if(first_row_zero==true)
+        if(row==true)
         {
-            for(int j=0;j<matrix[0].length;j++)
+            for(int j=0;j<arr[0].length;j++)
             {
-                matrix[0][j]=0;
+               arr[0][j]=0;
             }
         }
-         if(first_col_zero==true)
+        if(col==true)
         {
-            for(int i=0;i<matrix.length;i++)
+            for(int i=0;i<arr.length;i++)
             {
-                matrix[i][0]=0;
+                arr[i][0]=0;
             }
         }
     }
