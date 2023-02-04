@@ -1,73 +1,26 @@
 class Solution {
     public String addBinary(String a, String b) {
-     
+        StringBuilder ans= new StringBuilder();
         int i=a.length()-1;
         int j= b.length()-1;
-        StringBuilder str= new StringBuilder();
         int carry=0;
-        char a1='0',  b1='0';
-        
+        int sum=0;
+     int n1=0;
+     int n2=0;
         while(i>=0 || j>=0)
         {
-            if(i>=0)
-            {
-                 a1= a.charAt(i);
-            }
-            else
-                a1='0';
-                if(j>=0)
-            {
-                 b1= b.charAt(j);
-            }
-            else
-                b1='0';
-            
-            if(a1=='1' && b1=='1')
-            {
-                if(carry==0)
-                {
-                str.append("0");
-                    carry=1;
-                }
-                else
-                {
-                    str.append("1");
-                }
-                
-            }
-            else if(a1=='1' ||b1=='1')
-            {
-                if(carry>0)
-                {
-                    str.append("0");
-                }
-                else
-                {
-                    str.append("1");
-                }
-            }
-            else
-            {
-                 if(carry>0)
-                {
-                    str.append("1");
-                              carry=0;
-                }
-                
-                else
-                {
-                    str.append("0");
-                }
-                
-            }
-        
-            i--;
-            j--;
+           if(i>=0)  n1= a.charAt(i)-'0';
+           else n1=0;
+           if(j>=0)   n2= b.charAt(j)-'0';
+           else n2=0;
+           sum= n1+n2+carry;
+           if(sum>1) carry =1;
+           else carry=0;
+           ans.append(sum%2);
+           i--;
+           j--;
         }
-               if(carry>0) str.append("1");
-                               
-                               return str.reverse().toString();
-        
-        
+        if(carry>0)ans.append(carry);
+        return ans.reverse().toString();
     }
 }
