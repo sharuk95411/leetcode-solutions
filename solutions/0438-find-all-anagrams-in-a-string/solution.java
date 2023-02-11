@@ -1,29 +1,29 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer>list= new ArrayList<>();
+
+List<Integer>list= new ArrayList<>();
         if(p.length()>s.length()) return list;
-
-        int arr1[]= new int[26];
-        int arr2[]= new int[26];
+        int p1[]= new int[26];
 
         for(int i=0;i<p.length();i++)
         {
-            arr1[p.charAt(i)-'a']++;
+            p1[p.charAt(i)-'a']++;
         }
-        for(int i=0;i<p.length();i++)
-        {
-            arr2[s.charAt(i)-'a']++;
-        }
-        if(Arrays.equals(arr1,arr2))list.add(0);
-        int j=0;
-        for(int i=p.length();i<s.length();i++)
-        {
-            arr2[s.charAt(j)-'a']--;
-            arr2[s.charAt(i)-'a']++;
-            if(Arrays.equals(arr1,arr2))list.add(j+1);
-            j++;
-        }
-        return list;
-      
+        int s1[]= new int[26];
+  for(int i=0;i<p.length();i++)
+  {
+      s1[s.charAt(i)-'a']++;
+  }
+  if(Arrays.equals(s1,p1)) list.add(0);
+
+int temp=0;
+  for(int i=p.length();i<s.length();i++)
+  {
+           s1[s.charAt(temp)-'a']--;
+           s1[s.charAt(i)-'a']++;
+           if(Arrays.equals(s1,p1)) list.add(temp+1);
+           temp++;
+  }
+  return list;
     }
 }
