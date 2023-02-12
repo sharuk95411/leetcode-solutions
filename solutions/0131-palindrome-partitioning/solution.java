@@ -1,35 +1,35 @@
 class Solution {
-     List<List<String>> resultLst;
-	    ArrayList<String> currLst;
-    public List<List<String>> partition(String s) {
-         resultLst = new ArrayList<List<String>>();
-	        currLst = new ArrayList<String>();
-	        backTrack(s,0);
-	        return resultLst;
+
+
+     public List<List<String>> partition(String s) {
+        List<List<String>> output = new ArrayList<>();
+        List<String> ds = new ArrayList<>();
+        palindromePartition(0, ds, output, s);
+        return output;
     }
-     public void backTrack(String s, int l){
-	        if(currLst.size()>0 //the initial str could be palindrome
-	            && l>=s.length()){
-	                List<String> r = (ArrayList<String>) currLst.clone();
-	                resultLst.add(r);
-	        }
-	        for(int i=l;i<s.length();i++){
-	            if(isPalindrome(s,l,i)){
-	                if(l==i)
-	                    currLst.add(Character.toString(s.charAt(i)));
-	                else
-	                    currLst.add(s.substring(l,i+1));
-	                backTrack(s,i+1);
-	                currLst.remove(currLst.size()-1);
-	            }
-	        }
-	    }
-	    public boolean isPalindrome(String str, int l, int r){
-	        if(l==r) return true;
-	        while(l<r){
-	            if(str.charAt(l)!=str.charAt(r)) return false;
-	            l++;r--;
-	        }
-	        return true;
-	    }
+   
+    public void palindromePartition(int index, List<String> ds, List<List<String>> output, String str){
+        if(index == str.length()){
+            output.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i = index; i < str.length(); i++){
+            if(checkPalindrome(str, index, i)){
+                ds.add(str.substring(index, i + 1));
+                palindromePartition(i+1, ds, output, str);
+                ds.remove(ds.size()-1);
+            }
+        }
+    }
+
+     public boolean checkPalindrome(String str, int startIndex, int lastIndex){
+        while(startIndex <= lastIndex){
+            if(str.charAt(startIndex) != str.charAt(lastIndex))
+                return false;
+            startIndex++;
+            lastIndex--;
+        }
+        return true;
+    }
+   
 }
