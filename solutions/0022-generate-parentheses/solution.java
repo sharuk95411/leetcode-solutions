@@ -1,39 +1,25 @@
 class Solution {
+     List<String>list= new ArrayList<>();
     public List<String> generateParenthesis(int n) {
-         List<String>l= new ArrayList<>();
-       StringBuilder sb1 = new StringBuilder("");
-       int open=n;
-       int close=n;
-       return B(n,open,close,sb1,l);
-        
+       
+        A(0,0,"",n);
+        return list;
     }
-        static List<String>B(int n,int open,int close, StringBuilder sb1,List<String>l)
+    public void A(int left,int right,String s,int n)
     {
-        if(open==0 && close ==0)
+        if(s.length()==2*n)
         {
-        String s = sb1.toString();
-        l.add(s);
-   //   s=  sb1.substring(0, sb1.length() - 1);
-   return l;
-      
-        
+            list.add(s);
+            s=s.substring(0,s.length()-1);
+            return ;
         }
-        if(open!=0)
+        if(left<n)
         {
-            sb1.append("(");
-            B(n,open-1,close,sb1,l);
-             sb1=sb1.delete(sb1.length()-1,sb1.length());
-
+            A(left+1,right,s+"(",n);
         }
-        if(close>open)
+        if(right<left)
         {
-            sb1.append(")");
-         B(n,open,close-1,sb1,l);
-       String s= sb1.substring(0, sb1.length() - 1);
-       sb1=sb1.delete(sb1.length()-1,sb1.length());
-            
+            A(left,right+1,s+")",n);
         }
-           
-        return l;
     }
 }
