@@ -1,38 +1,59 @@
-// Code By Knoledge Centre and logic behind this code is easy you can easily understand by dry run the code if you are did it brute force.
-// is progem me [a]2[bc] is type ka case ni ho skta h each variable k sath integer attached hga and usi ka bht acha istemal kia gya h is program me.
-
 class Solution {
-    int index=0;
     public String decodeString(String s) {
-        
-        StringBuilder str= new StringBuilder();
-        while(index<s.length()&& s.charAt(index)!=']')
+        if(s.length()==1)
         {
-            char c= s.charAt(index);
-            if(Character.isDigit(c))
-            {
-                int value= 0;
-                while(index<s.length()&&Character.isDigit(s.charAt(index)))
-                {
-                    value=value*10+s.charAt(index)-'0';
-                        index++;
-                }
-        index++; // yhe again index++ krne se '[' isko skip kr dte h and iski need b ni h hme
+            if(Character.isDigit(s.charAt(0))) return "";
+        }
+         Stack<Character> stack = new Stack<>();
+        
+        for(char c : s.toCharArray())
+        {
+            if(c != ']') 
+                stack.push(c); //push everything but ]
             
-            String r=decodeString(s);
-            while(value-->0)
+            else 
             {
-                str.append(r);
-            }
-            index++;
+                //step 1: 
+                    //if you find a closing ] then 
+                   //retrieve the string it encapsulates
                 
-            }
-            else
-            {
-                str.append(s.charAt(index));
-                index++;
+                StringBuilder sb = new StringBuilder();
+                while(!stack.isEmpty() && Character.isLetter(stack.peek()))
+                    sb.insert(0, stack.pop());
+                
+                String sub = sb.toString(); //this is the string contained in [ ]
+                stack.pop(); //Discard the '[';
+                
+                
+                //step 2: 
+                    //after that get the number of
+                  // times it should repeat from stack
+                    
+                sb = new StringBuilder();
+                while(!stack.isEmpty() && Character.isDigit(stack.peek()))
+                    sb.insert(0, stack.pop());
+                    
+                int count = Integer.valueOf(sb.toString()); //this is the number
+                
+                
+                //step 3: 
+                    //repeat the string within the [ ] count 
+                  //number of times and push it back into stack
+                
+                while(count > 0)
+                {
+                    for(char ch : sub.toCharArray())  
+                        stack.push(ch);
+                    count--;
+                }
             }
         }
-        return str.toString();
+        
+      //final fetching and returning the value in stack 
+        StringBuilder retv = new StringBuilder();
+        while(!stack.isEmpty())
+            retv.insert(0, stack.pop());
+
+        return retv.toString();
     }
 }
