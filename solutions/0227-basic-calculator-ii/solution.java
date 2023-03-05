@@ -1,39 +1,36 @@
 class Solution {
     public int calculate(String s) {
         
-        if(s.length()==0) return 0;
+        int ans=0;
+        char opr= '+';
+        int num=0;
         Stack<Integer>stack= new Stack<>();
-        int n= s.length();
-        char sign='+';
-        for(int i=0;i<n;i++)
+
+        for(char chr : (s + "+").toCharArray())
         {
-            if(Character.isDigit(s.charAt(i)))
+            if(chr==' ') continue;
+            if(Character.isDigit(chr))
             {
-                int value=0;
-                while(i<n && Character.isDigit(s.charAt(i)))
-                {
-                    value= value*10 +(s.charAt(i)-'0');
-                    i++;
-                }
-                i--;
-                if(sign=='+') stack.push(value);
-                else if(sign=='-') stack.push(-value);
-                else if(sign=='/') 
-                {
-                    int a= stack.pop();
-                    stack.push(a/value);
-                }
-                else if(sign=='*') 
-                {
-                    int a= stack.pop();
-                    stack.push(a*value);
-                }
+                num= num*10+chr-'0';
             }
-            else if(s.charAt(i)!=' ') sign= s.charAt(i);
-                
+            else
+            {
+                    switch(opr){  
+    
+    case '+': stack.push(num) ;
+    break;  
+    case '-': stack.push(-num)  ;
+    break;  
+    case '/':  stack.push(stack.pop()/num); 
+    break;  
+     case '*': stack.push(stack.pop()*num);
+    }  
+    num=0;
+    opr =chr;
+            }
         }
-         int ans=0;
-        while(stack.size()!=0)
+
+        while(!stack.isEmpty())
         {
             ans= ans+stack.pop();
         }
