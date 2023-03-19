@@ -1,34 +1,38 @@
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
-         int n= matrix.length;
-        int low = matrix[0][0];
-        int high = matrix[n-1][n-1];
-        
-        while(low < high){
-            int mid = low + (high - low)/2;
-            int count = lessEqual(matrix,mid);
+        int n = matrix.length;
+        int left = matrix[0][0];
+        int right = matrix[n-1][n-1];
+        while(left < right){
+            int mid = left + (right - left)/2;
+    int count = seachMatrix(matrix,mid);  //find how many numbers are smaller than or equal to  mid element
             if(count < k){
-                low = mid+1;
+                left = mid+1;
             }
             else{
-                high = mid;
+                right = mid;
             }
         }
-        return low;
-    }
-     public int lessEqual(int[][] matrix, int target){
-        int count = 0 , len = matrix.length, i = len-1, j=0;
-        
-        while(i >=0 && j<len){
-            if(matrix[i][j] > target){
-                i--;
-            }
-            else
+        return left;
+    }  
+  
+  
+  public int seachMatrix(int[][] matrix, int target) {
+        int count = 0;
+        int row = 0;
+        int col = matrix[0].length-1;
+    
+        while(row < matrix.length && col >= 0){
+    if(target>=matrix[row][col])  // thats mean ab wo niche jyega because is row ka last element target se chota or equal h 
             {
-                count = count + i +1;
-                j++;
+              count = count + col + 1;
+              row++;
+            }
+            else {
+               col--;
             }
         }
         return count;
     }
 }
+
