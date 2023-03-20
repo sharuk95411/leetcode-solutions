@@ -6,13 +6,12 @@ class Solution {
         
         int left=1;
         int right= arr[arr.length-1];
-        while(left<=right)
+        while(left<right)
         {
             int mid= left+(right-left)/2;
             if(check(mid,arr,h))
             {
-                //ans= Math.min(mid,ans);
-                right=mid-1;
+                right=mid;
             }
             else
             {
