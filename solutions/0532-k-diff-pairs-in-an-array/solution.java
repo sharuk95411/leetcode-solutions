@@ -1,29 +1,21 @@
 class Solution {
-    public int findPairs(int[] nums, int k) {
-         HashMap<Integer,Integer>h= new HashMap<>();
-        
-        for(int i=0;i<nums.length;i++)
+    public int findPairs(int[] arr, int k) {
+        HashMap<Integer,Integer>h= new HashMap<>();
+
+        for(int i =0;i<arr.length;i++)
         {
-            h.put(nums[i],i);
+               h.put(arr[i],i);
         }
-        
         int ans=0;
-        
-        
-        for(int i=0;i<nums.length;i++)
+        for(int i=0;i<arr.length;i++)
         {
-            int target= k+nums[i];
-            
-           if(h.containsKey(target)==true && h.get(target)!=i)
-            {
-                ans++;
-                h.remove(target);  // its remove bcz we find the distinct pair
-            }
+              int no= arr[i]+k;
+              if(h.containsKey(no) && h.get(no)!=i)
+              {
+                  ans++;
+                  h.remove(no);
+              }
         }
         return ans;
-
-
-
-
     }
 }
