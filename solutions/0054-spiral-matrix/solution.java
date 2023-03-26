@@ -1,52 +1,53 @@
+
+
 class Solution {
     public List<Integer> spiralOrder(int[][] arr) {
-        List<Integer>l= new ArrayList<>();
-        if(arr.length==0)return l;
-        int left=0;
-        int right= arr[0].length-1;
+        List<Integer>list= new ArrayList<>();
         int top=0;
+        int left=0;
         int down= arr.length-1;
-        int dir=0;
-
-        while(left<=right && top<=down)
-        {
-
-          if(dir==0)
-          {
-              for(int j=left;j<=right;j++)
-              {
-                  l.add(arr[left][j]);
-              }
-              top++;
-          }
-          else if(dir==1)
-          {
-              for(int i=top;i<=down;i++)
-              {
-                  l.add(arr[i][right]);
-              }
-              right--;
-          }
-          else if(dir==2)
-          {
-              for(int j=right;j>=left;j--)
-              {
-                  l.add(arr[down][j]);
-              }
-              down--;
-          }
-          else if(dir==3)
-          {
-              for(int i=down;i>=top;i--)
-              {
-                  l.add(arr[i][left]);
-              }
-              left++;
-          }
-
-  dir= (dir+1)%4;
-
+        int right= arr[0].length-1;
+        int steps= (down+1)*(right+1);
+         System.out.println("Steps are-- "+steps);
+  
+        while(steps>0)
+        { 
+          System.out.println("Steps are-- "+steps);
+  
+                for(int i= left;i<=right && steps>0 ;i++)
+                {
+                    list.add(arr[top][i]);
+                    steps--;
+                }
+                top++;
+  
+                for(int i=top;i<=down && steps>0 ;i++)
+                {
+                    list.add(arr[i][right]);  
+                    steps--;
+                }
+                right--;
+            
+          
+                for(int i=right;i>=left && steps>0 ;i--)
+                {
+                    list.add(arr[down][i]);
+                    steps--;
+                }
+                down--;
+            
+           
+                for(int i=down;i>=top && steps>0 ;i--)
+                {
+                    list.add(arr[i][left]);
+                    steps--;
+                    
+                }
+                left++;
+            
+          
         }
-        return l;
+        return list;
+        
     }
 }
