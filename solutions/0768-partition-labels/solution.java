@@ -1,28 +1,35 @@
 class Solution {
     public List<Integer> partitionLabels(String s) {
-        List<Integer>list= new ArrayList<>();
+        List<Integer>ans= new ArrayList<>();
         HashMap<Character,Integer>h= new HashMap<>();
+        char[] arr=s.toCharArray();  
+         for(int i=0;i<arr.length;i++)
+         {
+             h.put(arr[i],i);
+         }
+         int start=0;
+         int end= h.get(arr[0]);
+         int i=0;
+         while(i<arr.length)
+         {
+             int pos= h.get(arr[i]);
+             if(pos>end)
+             {
+                 end=pos;
+                 i++;
+             }
+            else if(end==i)
+             {
+                 ans.add(end-start+1);
+                 start=i+1;
+                 i++;
+                 if(i<arr.length) end= h.get(arr[i]);
+             }
+             else
+             i++;
 
-        for(int i=0;i<s.length();i++)
-        {
-            h.put(s.charAt(i),i);
-        }
-        int max=0;
-        int prev=-1;
+         }
 
-        for(int i=0;i<s.length();i++)
-        {
-            int posn= h.get(s.charAt(i));
-            if(posn>max) max=posn;
-            if(i==max)
-            {
-                list.add(max-prev);
-                prev=max;
-                max=0;
-                
-            }
-        }
-
-        return list;
+        return ans;
     }
 }
