@@ -11,46 +11,21 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
+         ListNode slow = head;
+        ListNode fast = head;
         
-        // Edde Cases
-         if(head==null) return null;
-        System.out.println(head.next);
-        
-        if(head.next==null) {
-          //  System.out.println("OK");
-            return null;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                slow = head;
+                while(slow != fast){
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
+            }
         }
-        
-        // First detect The Cycle
-        boolean isCycle= false;
-        
-        ListNode slow= head;
-        ListNode fast= head.next;
-        
-        while(fast.next!=null && fast.next.next!=null)
-        {
-             if(slow==fast)
-             {
-                 isCycle= true;
-                 break;
-             }
-            fast= fast.next.next;
-            slow= slow.next;
-        }
-         if(isCycle==false) return null;
-        
-        slow= head;
-        fast= head.next;
-        List<ListNode>l= new ArrayList<>();
-        
-        l.add(head);
-        while(l.contains(fast)==false)
-        {
-            l.add(fast);
-            fast= fast.next;
-        }
-        
-        return fast;
-        
+        return null;
     }
 }
