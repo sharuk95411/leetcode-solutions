@@ -1,25 +1,28 @@
 class Solution {
-     List<String>list= new ArrayList<>();
+    List<String>ans= new ArrayList<>();
     public List<String> generateParenthesis(int n) {
-       
-        A(0,0,"",n);
-        return list;
+        
+    fun(0,0,"",n);
+    return ans;
     }
-    public void A(int left,int right,String s,int n)
+    public void fun(int open,int close,String temp,int n)
     {
-        if(s.length()==2*n)
+        if(temp.length()==2*n)
         {
-            list.add(s);
-            s=s.substring(0,s.length()-1);
-            return ;
+            ans.add(temp);
+            return;
         }
-        if(left<n)
+        if(open<n)
         {
-            A(left+1,right,s+"(",n);
+            temp=temp+"(";
+            fun(open+1,close,temp,n);
+            temp=temp.substring(0,temp.length()-1);
         }
-        if(right<left)
+        if(close<open)
         {
-            A(left,right+1,s+")",n);
+            temp=temp+")";
+            fun(open,close+1,temp,n);
+            temp=temp.substring(0,temp.length()-1);
         }
     }
 }
