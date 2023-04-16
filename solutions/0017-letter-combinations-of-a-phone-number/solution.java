@@ -1,30 +1,25 @@
 class Solution {
-    List<String>list= new ArrayList<>();
+    List<String>ans= new ArrayList<>();
     public List<String> letterCombinations(String digits) {
-        if(digits.length()==0) return list;
         String arr[]= {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        A(arr,"",0,digits);
-        return list;
+    if(digits.length()==0) return ans;
+        fun(0,"",arr,digits);
+        return ans;
     }
-
-    public void A(String arr[],String ans,int index,String digits )
+    public void fun(int i,String s,String arr[],String digits)
     {
-        if(ans.length()==digits.length())
+        if(s.length()==digits.length())
         {
-            list.add(ans);
+            ans.add(s);
             return ;
         }
-        //else if(index>=digits.length()) return;
-        System.out.println("NUMERIC "+Character.getNumericValue(digits.charAt(index)));
-        String s= arr[Character.getNumericValue(digits.charAt(index))-2];
-
-        for(int i=0;i<s.length();i++)
+       if(i>=digits.length()) return ;
+        String s1= arr[Character.getNumericValue(digits.charAt(i))-2];
+        for(int j=0;j<s1.length();j++)
         {
-            ans= ans+String.valueOf(s.charAt(i));
-            System.out.println("ANS  is "+ans);
-            A(arr,ans,index+1,digits);
-            ans=ans.substring(0,ans.length()-1);
-            System.out.println("Removed "+ans);
+                s=s+s1.charAt(j);
+                fun(i+1,s,arr,digits);
+                s=s.substring(0,s.length()-1);
         }
     }
 }
