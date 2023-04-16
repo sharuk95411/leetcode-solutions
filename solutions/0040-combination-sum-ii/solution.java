@@ -1,35 +1,26 @@
-// Logic GoodTeacher
 class Solution {
+    List<List<Integer>>outer = new ArrayList<>();
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-         List<List<Integer>>l1 = new ArrayList<>();
-        
-        if (candidates == null || candidates.length == 0) {
-            return l1;
-        }
-        
+        List<Integer>inner= new ArrayList<>();
         Arrays.sort(candidates);
-        
-        List<Integer> l2 = new ArrayList<>();
-        toFindCombinationsToTarget(candidates, l1, l2, 0, target);
-        
-        return l1;
-        
+        fun(0,0,candidates,target,inner);
+        return outer;
     }
-       private void toFindCombinationsToTarget(int[] candidates, List<List<Integer>> l1, List<Integer> l2, int startIndex, int target) {
-        if (target == 0) {
-            l1.add(new ArrayList<>(l2));
-            return;
+    public void fun(int i,int sum,int arr[],int target,List<Integer>inner)
+    {
+        if(sum==target)
+        {
+            outer.add(new ArrayList<>(inner));
+            return ;
         }
-        
-        for (int i = startIndex; i < candidates.length; i++) {
-            if (i != startIndex && candidates[i] == candidates[i - 1]) continue;
-            
-            if (candidates[i] > target) break;       
-            
-            l2.add(candidates[i]);
-            toFindCombinationsToTarget(candidates, l1, l2, i + 1, target - candidates[i]);
-            l2.remove(l2.size() - 1); // Backtracking
-        }
-        
+        if(sum>target) return ;
+        if(i>=arr.length) return ;
+
+         inner.add(arr[i]);
+        fun(i+1,sum+arr[i],arr,target,inner);
+        inner.remove(inner.size()-1);
+    while(i < arr.length-1 && arr[i] == arr[i + 1]) // for check not to add dublicates
+            i++;
+        fun(i+1,sum,arr,target,inner);
     }
 }
