@@ -1,28 +1,29 @@
 class Solution {
-    List<String>ans= new ArrayList<>();
+    List<String>ans=new ArrayList<>();
     public List<String> generateParenthesis(int n) {
-        
-    fun(0,0,"",n);
-    return ans;
+        StringBuilder str= new StringBuilder();
+         A(n,0,0,str);
+         return ans;
     }
-    public void fun(int open,int close,String temp,int n)
+
+    public void A(int n,int open,int close,StringBuilder str)
     {
-        if(temp.length()==2*n)
+        if(str.length()==2*n)
         {
-            ans.add(temp);
-            return;
+            ans.add(str.toString());
+            return ;
         }
         if(open<n)
         {
-            temp=temp+"(";
-            fun(open+1,close,temp,n);
-            temp=temp.substring(0,temp.length()-1);
+            str.append("(");
+            A(n,open+1,close,str);
+            str.delete(str.length()-1,str.length());
         }
         if(close<open)
         {
-            temp=temp+")";
-            fun(open,close+1,temp,n);
-            temp=temp.substring(0,temp.length()-1);
+            str.append(")");
+            A(n,open,close+1,str);
+              str.delete(str.length()-1,str.length());
         }
     }
 }
