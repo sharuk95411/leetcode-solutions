@@ -1,25 +1,27 @@
 class Solution {
-    List<String>ans= new ArrayList<>();
+    List<String>list= new ArrayList<>();
     public List<String> letterCombinations(String digits) {
-        String arr[]= {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-    if(digits.length()==0) return ans;
-        fun(0,"",arr,digits);
-        return ans;
+        String arr[]= new String[]{"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        if(digits.length()==0) return list;
+        A(0,"",arr,digits);
+        return list;
     }
-    public void fun(int i,String s,String arr[],String digits)
+    public void A(int index,String ans,String arr[],String s)
     {
-        if(s.length()==digits.length())
+        if(index>s.length()) return ;
+        if(ans.length()==s.length())
         {
-            ans.add(s);
+            list.add(ans);
             return ;
         }
-       if(i>=digits.length()) return ;
-        String s1= arr[Character.getNumericValue(digits.charAt(i))-2];
-        for(int j=0;j<s1.length();j++)
+        String temp= arr[Character.getNumericValue(s.charAt(index))-2]; 
+        for(int i=0;i<temp.length();i++)
         {
-                s=s+s1.charAt(j);
-                fun(i+1,s,arr,digits);
-                s=s.substring(0,s.length()-1);
+            ans=ans+temp.charAt(i);
+            System.out.println("OK "+ans);
+            A(index+1,ans,arr,s);
+            ans=ans.substring(0,ans.length()-1);
+
         }
     }
 }
