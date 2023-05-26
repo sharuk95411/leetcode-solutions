@@ -1,56 +1,39 @@
-// yha hum stack ko LinkList k throughh Implement kr rhe h 
 class MinStack {
-
-     LinkList head;
-    class LinkList
-    {
-        int data;
-         int min; 
-        LinkList next;
-    LinkList(int x,int min)
-    {
-        this.data=x;
-        this.min=min;
-        next=null;
-    }
-    }
-    
+ 
+ Stack<Integer>stack= new Stack<>();
+int min= Integer.MAX_VALUE;
     public MinStack() {
         
     }
     
     public void push(int val) {
-       
-        if(head==null)
-        {
-            LinkList n= new LinkList(val,val);
-            head=n;
-        
-        }
-        else
-        {
-            LinkList n = new LinkList(val, Math.min(head.min,val));
-            n.next=head;
-            head=n;
-        
-        }
-        
+         if(min>=val)
+         {
+             stack.push(min);
+             min= val;
+         }
+         stack.push(val);
     }
     
     public void pop() {
-        LinkList temp=head;
-        head=head.next;
-        temp.next=null;
+          if(!stack.isEmpty())
+          {
+              if(stack.peek()==min)
+              {
+                  stack.pop();
+                  min= stack.peek();
+              }
+              stack.pop();
+          }
     }
     
     public int top() {
-        return head.data;
-        
+        if(stack.isEmpty()) return -1;
+        else return stack.peek();
     }
     
     public int getMin() {
-        return head.min;
-        
+        return min;
     }
 }
 
