@@ -1,45 +1,35 @@
 class Solution {
-    public int largestRectangleArea(int[] arr) {
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        if(n == 0) return 0; // Base Condition
+        int maxArea = 0;
+        int left[] = new int[n]; //fill left boundary
+        int right[] = new int[n]; // fill right boundary
         
-        if(arr.length==0) return 0;
-        if(arr.length==1) return arr[0];
-        int n= arr.length;
-        int left[]= new int[n];
-        int right[]= new int[n];
+        left[0] = -1;
+        right[n - 1] = n;
         
-        left[0]=0;
-        for(int i=1;i<arr.length;i++)
-        {
-            int j=i-1;
-            while(j>=0 && arr[j]>=arr[i])
-            {
-                j= left[j]-1;
+        for(int i = 1; i < n; i++){
+            int prev = i - 1; // previous for comparing the heights
+            while(prev >= 0 && heights[prev] >= heights[i]){
+                prev = left[prev]; // we have done this to minimise the jumps we make to the left
             }
-            left[i]= j+1;
+            left[i] = prev;
         }
-        
-        System.out.println(Arrays.toString(left));
-        
-        right[n-1]= n-1;
-        for(int i=n-2;i>=0;i--)
-        {
-            int j=i+1;
-            while(j<arr.length && arr[j]>=arr[i])
-            {
-                j= right[j]+1;
+        // Similarly we do for right
+        for(int i = n - 2; i >= 0; i--){
+            int prev = i + 1; 
+            while(prev < n && heights[prev] >= heights[i]){
+                prev = right[prev]; 
             }
-            right[i]= j-1;
+            right[i] = prev;
         }
-        System.out.println(Arrays.toString(right));
-        
-        int maxArea= 0;
-        for(int i=0;i<arr.length;i++)
-        {
-            int area= Math.abs(right[i]-left[i]+1)*arr[i];
-            System.out.println(area);
-            maxArea= Math.max(maxArea,area);
+        // once we have these two arrays fill we need width & area
+        for(int i = 0; i < n; i++){
+            int width = right[i] - left[i] - 1;
+            maxArea = Math.max(maxArea, heights[i] * width);
         }
         return maxArea;
-    
+        
     }
 }
