@@ -21,22 +21,19 @@ class Solution {
             stack.pop();
             k--;
         }
-        StringBuilder str= new StringBuilder();
+        String ans="";
         while(stack.size()>0)
         {
-            str.append(stack.pop());
+            ans=stack.pop()+ans;
         }
-        s=str.reverse().toString();
-        System.out.println(s);
-        
-        while(s.length()>0 &&s.charAt(0)=='0')
+        // Removing leading zeros 
+        while(ans.length()>0 &&ans.charAt(0)=='0')
         {
-            s=s.substring(1);
-            k--;
+            ans=ans.substring(1);
         }
-        if(s.length()==0) return "0";
+        if(ans.length()==0) return "0";
     
-        return s;
+        return ans;
     }
     
 }
