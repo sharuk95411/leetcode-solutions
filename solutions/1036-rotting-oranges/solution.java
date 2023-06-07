@@ -1,91 +1,81 @@
- class Pair
-          {
-              int row=0;
-              int col=0;
-              Pair(int r,int c)
-              {
-                  this.row=r;
-                  this.col=c;
-              }
-          }
-          class Solution {
-              boolean check=false;
-         public int orangesRotting(int[][] arr) {
-          
-            Queue<Pair>q= new LinkedList<>();
-          
-          for(int i=0;i<arr.length;i++)
-          {
-              for(int j=0;j<arr[0].length;j++)
-              {
-                  if(arr[i][j]==2)
+class Solution {
+    public int orangesRotting(int[][] arr) {
+    class Pair 
+    {
+        int x,y;
+        public Pair (int a,int b)
+        {
+            x=a;
+            y=b;
+        }
+    }
+        
+    Queue<Pair> Q = new LinkedList<>();
+        for(int i=0;i<arr.length;i++)
+        {
+            for(int j=0;j<arr[0].length;j++)
+            {
+                if(arr[i][j]==2)
+                {
+                    Q.add(new Pair(i,j));
+                }
+            }
+        }
+        int ans=0;
+        while(Q.size()>0)
+        {
+                  int count=Q.size();
+                  boolean check= false;
+                  while(count>0)
                   {
-                q.add(new Pair(i,j));
-                  }
-              }
-          }
-
-          //if(q.isEmpty()) return 0;
-
-          int ans=0;
-
-            while(!q.isEmpty())
+                      Pair p= Q.poll();
+                      int i= p.x;
+                      int j= p.y;
+                      if(j-1>=0 && arr[i][j-1]==1)
+                      {
+                          arr[i][j-1]=2;
+                          Q.add(new Pair(i,j-1));
+                          check=true;
+                      }
+                      if(j+1<arr[0].length && arr[i][j+1]==1)
+                      {
+                          arr[i][j+1]=2;
+                          Q.add(new Pair(i,j+1));
+                          check=true;
+                      }
+                    if(i-1>=0 && arr[i-1][j]==1)
+                    {
+                        arr[i-1][j]=2;
+                        Q.add(new Pair(i-1,j));
+                        check=true;
+                    }
+                    if(i+1<arr.length && arr[i+1][j]==1)
+                    {
+                        arr[i+1][j]=2;
+                        Q.add(new Pair(i+1,j));
+                        check=true;
+                    }
+                    count--;
+}
+                    if(check)
+                    {
+                        ans++;
+                        check=false;
+                    }
+                  
+        }
+        for(int i=0;i<arr.length;i++)
+        {
+            for(int j=0;j<arr[0].length;j++)
             {
-                int size= q.size();
-                while(size>0)
+                if(arr[i][j]==1)
                 {
-                    Pair p= q.poll();
-                    int row= p.row;
-                    int col= p.col;
-                    Call(arr,row,col,q);
-                    size--;
-                }
-                    if(check==true)
-                   {
-                                ans++;
-                                check=false;
-                   }
-                
-            }
-
-            for(int i=0;i<arr.length;i++)
-            {
-                for(int j=0;j<arr[0].length;j++)
-                {
-                    if(arr[i][j]==1) return -1;
+                    return -1;
                 }
             }
-            return ans;
+        }
+        return ans;
+        
 
     }
-    
-            public void Call(int arr[][],int row,int col,Queue<Pair>q)
-            {
-                System.out.println("ROW "+row);
-                System.out.println("COL "+col);
-                  if(col+1<arr[0].length && arr[row][col+1]==1)
-                  {
-                     arr[row][col+1]=2;
-                     q.add(new Pair(row,col+1));
-                     check=true;
-                  }
-                  if(col-1>=0 &&  arr[row][col-1]==1)
-                  {
-                      arr[row][col-1]=2;
-                      q.add(new Pair(row,col-1));
-                      check=true;
-                  }
-                  if(row+1<arr.length && arr[row+1][col]==1)
-                  {
-                      arr[row+1][col]=2;
-                      q.add(new Pair(row+1,col));
-                      check=true;
-                  }
-                  if(row-1>=0 && arr[row-1][col]==1)
-                  {
-                      arr[row-1][col]=2;
-                      q.add(new Pair(row-1,col));
-                      check=true;
-                  }
-            }
-}  
+}
