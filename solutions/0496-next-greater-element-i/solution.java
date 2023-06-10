@@ -1,27 +1,35 @@
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        
         int ans[]= new int[nums1.length];
-        HashMap<Integer,Integer>h= new HashMap<>();
-        Stack<Integer>stack= new Stack<>();
-        stack.push(nums2[0]);
-        for(int i=1;i<nums2.length;i++)
+        HashMap<Integer,Integer>h = new HashMap<>();
+         Stack<Integer>stack= new Stack<>();
+        for(int i=0;i<nums2.length;i++)
         {
-                        while(!stack.isEmpty()&& nums2[i]>stack.peek())
-                          {
-                              h.put(stack.pop(),nums2[i]);
-                          }
-                          stack.push(nums2[i]);                     
+            h.put(nums2[i],i);
         }
-
-        for(int i=0;i<nums1.length;i++)
+       
+        int n= nums2.length;
+        stack.push(nums2[n-1]);
+        nums2[n-1]=-1;
+        int i=n-2;
+        while(i>=0)
         {
-            if(h.get(nums1[i])==null) ans[i]= -1;
-            else
+            int temp= nums2[i];
+            while(stack.size()>0 && nums2[i]>stack.peek())
             {
-                ans[i]= h.get(nums1[i]);
+                stack.pop();
             }
+            if(stack.isEmpty()) nums2[i]=-1;
+            else nums2[i]=stack.peek();
+            stack.push(temp);
+            i--;
         }
-
+        System.out.println("NEW ARRAY IS "+Arrays.toString(nums2));
+        for(i=0;i<ans.length;i++)
+        {
+            ans[i]=nums2[h.get(nums1[i])];
+        }
         return ans;
     }
 }
