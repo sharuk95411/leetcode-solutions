@@ -1,70 +1,44 @@
-class Solution { 
-    // Sliding Windows k topic me iske bre me likha h first visit that
-    public String minWindow(String s, String p) {
-           if (s.length() == 0 || p.length() == 0) 
+class Solution {
+    public String minWindow(String s, String t) {
+        if(s.length() < t.length()){
             return "";
-        HashMap<Character,Integer>h1= new HashMap<>();
-          HashMap<Character,Integer>h2= new HashMap<>();
-          for(int i=0;i<p.length();i++)
-          {
-              char c=p.charAt(i);
-              h2.put(c,h2.getOrDefault(c,0)+1);
-          }
-          int i=-1,j=-1,count=0;
-          String ans="";
-          while(true)
-          {
-              boolean f1= false;
-              boolean f2=false;
-             while(count<p.length() && j<s.length()-1) // find first ans;
-             {
-                 f1= true;
-                 
-                 j++;
-                  char c=s.charAt(j);
-              h1.put(c,h1.getOrDefault(c,0)+1);
-              if(h1.getOrDefault(c,0)<=h2.getOrDefault(c,0)) count++;
-              
-             }
-          
-          
-
-             while(i<j && count==p.length())
-             {
-                 f2= true;
-               String temp=s.substring(i+1,j+1);
-                if(ans.length()==0 ||ans.length()>temp.length())
-                {
-                    ans=temp;
-                  //  System.out.println(ans);
+        }
+        Map<Character,Integer> map = new HashMap<>();
+        for(int i=0;i<t.length();i++){
+            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
+        }
+        int left=0,right=0;
+        int count=0,start=0,min_length = Integer.MAX_VALUE, min_start = 0;
+        for(int end=0; end<s.length(); end++){
+            char c= s.charAt(end);
+            if(map.containsKey(c)){
+                if(map.get(c)>0){
+                    count++;
                 }
-                i++;
-                char ch= s.charAt(i);
-                int freq1= h1.getOrDefault(ch,0);
-                int freq2= h2.getOrDefault(ch,0);
-              if(freq1==1) 
-              {
-                  h1.remove(ch);
-                  freq1=0;
-              }
-              
-              else
-              {
-                  h1.put(ch,freq1-1);
-                  freq1--;
-              }
-              
-              if(freq1<freq2)
-              {
-                  count--;
-              }
-              
-             }
-            
-         if(f1==false &&f2==false) break;
-        
-          }
-        
-        return ans;
+                map.put(c, map.get(c)-1); 
+            }
+            if(count == t.length()) { 
+                System.out.println("B IS "+map.get('b'));
+               while(!map.containsKey(s.charAt(start)) || map.get(s.charAt(start)) < 0)
+                {
+                    if(map.containsKey(s.charAt(start))){
+                        map.put(s.charAt(start), map.get(s.charAt(start))+1);
+                    }
+                    start++;
+                } 
+                if(min_length > end-start+1){
+                    min_length = end-start+1; 
+                     left=start;
+                     right=end+1;
+                }
+                if(map.containsKey(s.charAt(start))){
+                    map.put(s.charAt(start), map.get(s.charAt(start))+1);
+                }
+                count--;
+                start++;
+            }
+        }
+
+        return  s.substring(left, right);
     }
 }
