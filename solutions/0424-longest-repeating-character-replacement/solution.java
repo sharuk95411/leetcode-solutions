@@ -33,8 +33,6 @@ class Solution {
                 //Move start of window to one step right
                 windowStartIndex++;
                 
-                //Reset max num of same chars in current window (Not needed though. Included just for understanding)
-                maxNumOfSameCharsInCurrentWindow = 0;
             }
         }
         
