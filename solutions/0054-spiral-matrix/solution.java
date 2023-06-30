@@ -1,53 +1,58 @@
-
-
 class Solution {
     public List<Integer> spiralOrder(int[][] arr) {
-        List<Integer>list= new ArrayList<>();
-        int top=0;
-        int left=0;
+        
+        int top=0,left=0;
         int down= arr.length-1;
         int right= arr[0].length-1;
-        int steps= (down+1)*(right+1);
-         System.out.println("Steps are-- "+steps);
-  
-        while(steps>0)
-        { 
-          System.out.println("Steps are-- "+steps);
-  
-                for(int i= left;i<=right && steps>0 ;i++)
+        List<Integer>ans=new ArrayList<>();
+         boolean b= true;
+        while(left<=right && top<=down)
+        {
+             if(b)
+             {
+                 b=false;
+                  for(int i=left;i<=right;i++)
                 {
-                    list.add(arr[top][i]);
-                    steps--;
+                    ans.add(arr[top][i]);
+                    b=true;
                 }
                 top++;
-  
-                for(int i=top;i<=down && steps>0 ;i++)
+
+             } else b=false;
+               
+                if(b)
+                { 
+                    b=false;
+                    for(int i=top;i<=down;i++)
+                    {
+                            ans.add(arr[i][right]);
+                             b=true;
+                    }
+                    right--;
+                } else b=false;
+                if(b)
                 {
-                    list.add(arr[i][right]);  
-                    steps--;
-                }
-                right--;
-            
-          
-                for(int i=right;i>=left && steps>0 ;i--)
+                    b=false;
+                    for(int i=right;i>=left;i--)
+                    {
+                        ans.add(arr[down][i]);
+                         b=true;
+                    }
+                    down--;
+                } else b=false;
+
+                if(b)
                 {
-                    list.add(arr[down][i]);
-                    steps--;
-                }
-                down--;
+                    b=false;
+                   for(int i=down;i>=top;i--)
+                    {
+                        ans.add(arr[i][left]);
+                         b=true;
+                    }
+                    left++;
+                } else b=false;
             
-           
-                for(int i=down;i>=top && steps>0 ;i--)
-                {
-                    list.add(arr[i][left]);
-                    steps--;
-                    
-                }
-                left++;
-            
-          
         }
-        return list;
-        
+        return ans;
     }
 }
