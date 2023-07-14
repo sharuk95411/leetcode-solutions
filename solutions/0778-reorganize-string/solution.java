@@ -1,43 +1,57 @@
 class Solution {
     public String reorganizeString(String s) {
-        	    HashMap<Character,Integer>hm= new HashMap<>();
-	    for(int i=0;i<s.length();i++)
-	{
-	   char c= s.charAt(i);
-	   hm.put(c,hm.getOrDefault(c,0)+1);
-	}
-	
-	
-PriorityQueue<Character> maxHeap = new PriorityQueue<>((a, b) -> hm.get(b) - hm.get(a) );
-	     maxHeap.addAll(hm.keySet());
-	 
-	     
-StringBuilder sb= new StringBuilder();
-	 while(maxHeap.size()>1)
-	 {
-	     
-	     char current= maxHeap.remove();
-	     char next= maxHeap.remove();
-	     sb.append(current);
-	     sb.append(next);
-	     hm.put(current,hm.get(current)-1);
-	      hm.put(next,hm.get(next)-1);
-	      if(hm.get(current)>0) maxHeap.add(current);
-	      if(hm.get(next)>0) maxHeap.add(next);
-	      
-	      
-	     
-	 }
-	
-	 if(maxHeap.size()>0)
-	 {
-	     char last= maxHeap.remove();
-	     if(hm.get(last)>1) return "";
-	     else sb.append(last);
-	     
-	 }
-	 return sb.toString();
-	     
-	     
-    }
+        
+        HashMap<Character,Integer>h= new HashMap<>();
+        for(int i=0;i<s.length();i++)
+        {
+            char c= s.charAt(i);
+            h.put(c,h.getOrDefault(c,0)+1);
+        }
+        PriorityQueue<Character> pq = new PriorityQueue<>((s1, s2) -> {
+            int a = h.get(s1);// return the value
+            int b = h.get(s2); // return the value
+            
+            if(a>b)
+            {
+                 return -1;
+            }
+            else if(a<b)
+            {
+                      return 1;
+            }
+            else 
+           return 0;
+              });
+   String ans="";
+       for (Map.Entry<Character,Integer> m : h.entrySet())
+        {
+         pq.add(m.getKey());
+        }
+        while(pq.size()>1)
+        {
+               char c1=pq.poll();
+               char c2=pq.poll();
+               ans=ans+c1+c2;
+               if(h.get(c1)-1>0) 
+               {
+                         h.put(c1,h.get(c1)-1);
+                         pq.add(c1);
+               }
+               if(h.get(c2)-1>0)
+               {
+                    h.put(c2,h.get(c2)-1);
+                    pq.add(c2);
+               }
+
+        }
+
+        if(pq.size()>0)
+        { 
+         if(h.get(pq.peek())>1) return "";
+        else ans=ans+pq.poll();
+        }
+       
+        return ans;
+
+}
 }
