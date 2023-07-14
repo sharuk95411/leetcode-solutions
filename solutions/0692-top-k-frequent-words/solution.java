@@ -1,35 +1,36 @@
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
-        HashMap<String, Integer> map = new HashMap();
+        HashMap<String, Integer> wordCounts = new HashMap<>();
+        for(String word : words) wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
         
-        // sort the map by frequency high->low order, sort words lexi order
-        PriorityQueue<Map.Entry<String, Integer>> heap = new PriorityQueue<>(
-            (a,b)->{
-                if(a.getValue() != b.getValue())
-                    return a.getValue().compareTo(b.getValue());
-                return -a.getKey().compareTo(b.getKey());
+        PriorityQueue<String> minHeap = new PriorityQueue<>((s1, s2) -> {
+            int s1Count = wordCounts.get(s1);
+            int s2Count = wordCounts.get(s2);
+            
+            if(s1Count>s2Count)
+            {
+                 return 1;
             }
-        );
+            else if(s1Count<s2Count)
+            {
+                      return -1;
+            }
+            else 
+           return s2.compareTo(s1);// Compare the Strings in lexiographical Order
+
+        });
         
-        // fill the map
-        for(String word: words){
-            map.merge(word, 1, Integer::sum);
+        for(String word : wordCounts.keySet()) {
+            minHeap.add(word);
+            
+            if(minHeap.size() > k) minHeap.poll(); 
         }
         
-        // put into heap
-        for(Map.Entry<String, Integer> entry: map.entrySet()){
-            heap.offer(entry);
-            if(heap.size() > k)
-                heap.poll();
-        }
+        // LinkedList<String> toReturn = new LinkedList<>();
+        List<String>ans= new ArrayList<>();
+        while(!minHeap.isEmpty()) ans.add(0,minHeap.poll());
         
-        // pop out the answer
-        List<String> ans = new ArrayList();
-        while(heap.size() > 0)
-            ans.add(heap.poll().getKey());
-        
-        // check the order
-        Collections.reverse(ans);
         return ans;
     }
+    
 }
