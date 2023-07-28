@@ -14,19 +14,23 @@
  * }
  */
 class Solution {
+
     public TreeNode sortedArrayToBST(int[] nums) {
         
-        return A(nums,0,nums.length-1);
-        
+        int l=0;
+        int r=nums.length-1;
+        return A(l,r,nums.length,nums); 
     }
-    public TreeNode A(int arr[],int l,int h)
+
+
+    public TreeNode A(int l, int r,int n,int arr[])
     {
-        if(l>h) return null;
-        int mid= l+ (h-l)/2;
-        TreeNode n= new TreeNode(arr[mid]);
-        n.left= A(arr,l,mid-1);
-        n.right= A(arr,mid+1,h);
-        return n;
+      if(r<l)return null;
+      int mid= l+(r-l)/2;
+       TreeNode root=new TreeNode(arr[mid]);
+        root.left= A(l,mid-1,n,arr);
+        root.right= A(mid+1,r,n,arr);
+     return root;
 
     }
 }
