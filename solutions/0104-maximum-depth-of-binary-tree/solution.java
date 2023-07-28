@@ -14,21 +14,16 @@
  * }
  */
 class Solution {
-    int ans=1;
     public int maxDepth(TreeNode root) {
-        
-        if(root==null) return 0;
-        return A(root,0);
-    
+        return A(root);
+
     }
-    
-    private int A(TreeNode root,int temp)
+    public int A(TreeNode root)
     {
-        if(root==null)
-            return temp;
-        
-        int left= A(root.left,temp+1);
-        int right= A(root.right,temp+1);
+        if(root==null) return 0;
+        int left=1+A(root.left);
+        int right=1+A(root.right);
         return Math.max(left,right);
+        
     }
 }
