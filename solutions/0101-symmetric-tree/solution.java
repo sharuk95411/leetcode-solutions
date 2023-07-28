@@ -27,10 +27,10 @@ class Solution {
     {
      if( root1==null && root2==null)  return true;
         
-    if(root1==null || root2==null) return false;
+   else if(root1==null || root2==null) return false;
         
         
-        if(root1.val==root2.val)
+       else if(root1.val==root2.val)
         {
             return (A(root1.left,root2.right) && A(root1.right,root2.left));
         }
