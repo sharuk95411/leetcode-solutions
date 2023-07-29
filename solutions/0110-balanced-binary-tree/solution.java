@@ -14,21 +14,29 @@
  * }
  */
 class Solution {
-    // logic https://leetcode.com/problems/balanced-binary-tree/discuss/35943/JAVA-O(n)-solution-based-on-Maximum-Depth-of-Binary-Tree
-    boolean result= true;
+    boolean check=true;
     public boolean isBalanced(TreeNode root) {
         
-    maxDepth(root);
-    return result;
-}
+         A(root);
+         return check;
+    }
+    
+    public int A(TreeNode root)
+    {
+        if(root==null) return 0;
+        int h1= A(root.left);
+        int h2= A(root.right);
+        if(Math.abs(h1-h2)>1) 
+        {
+            check=false;
+            return 0;
+        }
+        if(check)
+        {
+         return Math.max(h1,h2)+1;
+        }
+        return 0 ; /* This is Formality purpose because hme end me kuch na kuch to return krna h and ye hmre koi use ka ni h */
+      
+    }
 
-public int maxDepth(TreeNode root) {
-    if (root == null)
-        return 0;
-    int l = maxDepth(root.left);
-    int r = maxDepth(root.right);
-    if (Math.abs(l - r) > 1)
-        result = false;
-    return 1 + Math.max(l, r); // yha jab progrm last node se apne upr jyga to 1 hight to obvious si bt h dega so islye 1 add hua h bcz last me l adn r dno zero hgi .awesome logic
-}
 }
