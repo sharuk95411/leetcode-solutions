@@ -13,32 +13,12 @@
  *     }
  * }
  */
-class Solution {
+public class Solution {
     public TreeNode invertTree(TreeNode root) {
-        
-        TreeNode n1=null;
-        TreeNode n2=null;
-         if(root==null && root==null) return root;
-         if(root.left!=null)  n1= root.left;
-         if(root.right!=null) n2= root.right;
-         if(root.left==null && root.right!=null) 
-         {
-             root.left=n2;
-             root.right= null;
-             
-         }
-         else if(root.right==null && root.left!=null)
-         {
-             root.right=n1;
-             root.left=null;
-         }
-         else
-         {
-             root.left=n2;
-             root.right=n1;
-         }
-        invertTree(root.left);
-         invertTree(root.right);
+        if(root == null) return null;
+        TreeNode tmp = root.left;
+        root.left = invertTree(root.right);
+        root.right = invertTree(tmp);
         return root;
     }
 }
