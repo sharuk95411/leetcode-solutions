@@ -14,19 +14,20 @@
  * }
  */
 class Solution {
-    
-    // bht pyara Ques h TYN
-    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
-          if (t1 == null) {
-    return t2;
-  }
-
-  if (t2 != null) {
-    t1.val += t2.val;
-    t1.left = mergeTrees(t1.left, t2.left);
-    t1.right = mergeTrees(t1.right, t2.right);
-  }
-
-  return t1;
+    public TreeNode mergeTrees(TreeNode r1, TreeNode r2) {
+        
+        return A(r1,r2);
+    }
+    public TreeNode A(TreeNode r1, TreeNode r2)
+    {
+        // if(r1==null && r2==null) return null;
+         if(r1!=null && r2!=null)
+        {
+            r1.val= r1.val+r2.val;
+            r1.left=A(r1.left,r2.left);
+            r1.right= A(r1.right,r2.right);
+        }
+        else if (r1==null && r2!=null) return r2;
+        return r1;
     }
 }
