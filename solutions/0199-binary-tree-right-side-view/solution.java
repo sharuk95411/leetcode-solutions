@@ -14,22 +14,26 @@
  * }
  */
 class Solution {
-    int baseLevel= 0;
-   List<Integer>l= new ArrayList<>();
+    List<Integer>list= new ArrayList<>();
+    int base_level=-1;
     public List<Integer> rightSideView(TreeNode root) {
-     A(root,1);
-        return l;
+
+        A(root,0);
+        return list;
+
     }
-     public void A(TreeNode root,int currLevel)
+    public void A(TreeNode root,int curr_level)
     {
         if(root==null) return ;
-        if(currLevel>baseLevel)
+        if(curr_level>base_level)
         {
-            l.add(root.val);
-            baseLevel=currLevel;
+             base_level=curr_level;
+            list.add(root.val);
         }
-         A(root.right,currLevel+1);
-        A(root.left,currLevel+1);
-       
+           
+        A(root.right,curr_level+1);
+        A(root.left,curr_level+1);
+
+
     }
 }
