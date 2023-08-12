@@ -14,40 +14,27 @@
  * }
  */
 class Solution {
-    int i=0;
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-     
-         return A(preorder,inorder,0,preorder.length-1);
+    public TreeNode buildTree(int[] pre, int[] in) {
         
+        return A(pre,in,0,0,in.length-1);
     }
-    public TreeNode A(int pre[], int in[],int start,int end )
-    {
-        if(start>end)
-        {
-         return null;
-        }
-        
-        
-       TreeNode n= new TreeNode(pre[i]);
-        i++;
-        if(start==end)
-        {
-          return n;
-        }
     
-        int getInOrderI= get(n.val,in,start,end);
-        n.left= A(pre,in,start,getInOrderI-1);
-        n.right= A(pre,in,getInOrderI+1,end);
-        return n;
-        
-    }
-public int get(int val,int in[],int start,int end)
+    public TreeNode A(int pre[], int in[], int pre_index,int start,int end)
     {
+        if(start>end)return null;
 
-        for(int j=start;j<=end;j++)
+        TreeNode n= new TreeNode(pre[pre_index]);
+        int in_index= find(in,start,end,pre[pre_index]);
+        int left_tree_size= in_index-start;
+        n.left= A(pre,in,pre_index+1,start,in_index-1);
+        n.right= A(pre,in,pre_index+left_tree_size+1,in_index+1,end);
+        return n;
+    }
+    public int find(int in[],int start,int end,int key)
+    {
+        for(int i=start;i<=end;i++)
         {
-            if(in[j]==val)
-            return j;
+            if(in[i]==key)return i;
         }
         return -1;
     }
