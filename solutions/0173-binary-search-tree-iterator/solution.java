@@ -1,11 +1,3 @@
-// Logic- Naresh gupta.
-// Tum Explanation dekh lo Question smjh aa jyga ki kb kya return krna h call hne pr
-/* Stack use krne se Question asan ho gya h So tree k question me iterate wle me Stack k perspective se soch lena */
-/* Ab Niche Question Smjhaya gya h
- isme hme Tree ka Inorder Traversal nikalana h jiska root node given h.
- isme next k call hne pr hme data InOrder Traversal k form me dena h jb jb next call ho
- jb hasNext Call ho agr hmne tree to pura traverse abhi ni kia h hm tree k kisi node pr still h to return true other return false. */
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -23,36 +15,31 @@
  */
 class BSTIterator {
 
-  Stack<TreeNode> s= new Stack<>();
+      Queue<TreeNode>q= new LinkedList<>();
     public BSTIterator(TreeNode root) {
-      
-         pushLeft(root);
-        
+    
+       A(root);
+
     }
+
+public void A(TreeNode root)
+{
+     if(root==null)return;
+        A(root.left);
+        q.add(root);
+        A(root.right);
+}
+
     
     public int next() {
-        TreeNode node= s.pop();
-        if(node.right!=null)
-        {
-            pushLeft(node.right);
-        }
-        return node.val;
         
+        int data= q.poll().val;
+        return data;
     }
     
     public boolean hasNext() {
-        if(s.size()>0) return true;
+        if(q.size()>0)return true;
         else return false;
-        
-    }
-    
-     public void pushLeft(TreeNode root)
-    {
-        while(root!=null)
-        {
-            s.push(root);
-            root=root.left;
-        }
     }
 }
 
