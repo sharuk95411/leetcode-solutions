@@ -13,27 +13,37 @@
  *     }
  * }
  */
-public class Solution {
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        pathSum(root, sum, new ArrayList<Integer>(), res);
-        return res;
-    }
-    
-    void pathSum(TreeNode root, int sum, List<Integer> sol, List<List<Integer>> res) {
-        if (root == null) {
-            return;
+class Solution {
+    List<List<Integer>>outer= new ArrayList<>();
+    List<Integer>inner= new ArrayList<>();
+    int sum=0;
+    public List<List<Integer>> pathSum(TreeNode root, int s) {
+        
+        if(root==null)return outer;
+        A(root,s);
+         return outer;
+   }
+       
+    public void A(TreeNode root,int s1)
+    {
+        
+        if(root==null) return ;
+        sum=sum+root.val;
+        inner.add(root.val);
+        if(sum==s1 &&(root.left==null && root.right==null))
+        {
+            outer.add(new ArrayList<>(inner));
+             sum=sum-root.val;
+              inner.remove(inner.size()-1);
+               System.out.println("OKK");
+               return ;
         }
+        A(root.left,s1);
+         A(root.right,s1);
+        inner.remove(inner.size()-1);
+        sum=sum-root.val;
+       
+
         
-        sol.add(root.val);
-        
-        if (root.left == null && root.right == null && sum == root.val) {
-            res.add(new ArrayList<Integer>(sol));
-        } else {
-            pathSum(root.left, sum - root.val, sol, res);
-            pathSum(root.right, sum - root.val, sol, res);
-        }
-        
-        sol.remove(sol.size() - 1);
     }
 }
