@@ -14,25 +14,15 @@
  * }
  */
 class Solution {
+    TreeNode head = null;
     public void flatten(TreeNode root) {
-    TreeNode curr=root;
-    while(curr!=null)
-    {
-    
-        if(curr.left!=null)
-        {
-            TreeNode temp= curr.left;
-        while(temp.right!=null)
-        {
-            temp=temp.right;
-        }
-        temp.right=curr.right;
-        curr.right= curr.left;
-        curr.left=null;
-        }
-        curr= curr.right;
-      
+        if (root != null) revPreOrder(root);
     }
-    
-    }    
+    private void revPreOrder(TreeNode node) {
+        if (node.right != null) revPreOrder(node.right);
+        if (node.left != null) revPreOrder(node.left);
+        node.left = null;
+        node.right = head;
+        head = node;
+    }
 }
