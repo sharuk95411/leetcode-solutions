@@ -14,46 +14,23 @@
  * }
  */
 class Solution {
+    int t=0;
+    int ans=0;
     public int kthSmallest(TreeNode root, int k) {
-        
-        if(root==null) return 1;
-        TreeNode curr= root;
-        while(curr!=null)
-        {
-            TreeNode left= curr.left;
-            if(left==null)
-            {
-                k--;
-                if(k==0) return curr.val;
-                else curr= curr.right;
-            }
-            else
-            {
-                
-                TreeNode rightMost= getRightMost(left,curr);
-                if(rightMost.right==null) // Make a thread
-                {
-                    
-                 rightMost.right=curr;
-                 curr=curr.left;
-                }
-                else // break the thread
-                {
-                    rightMost=null;
-                    k--;
-                    if(k==0) return curr.val;
-                    else curr=curr.right;
-                }
-            }
-        }
-        return -1;
+        A(root,k);
+        return ans;
     }
-    public TreeNode getRightMost(TreeNode left,TreeNode curr)
+    public void A(TreeNode root,int k)
     {
-        while(left.right!=null && left.right!=curr)
+        if(root==null)return;
+        A(root.left,k);
+        t=t+1;
+        if(t==k)
         {
-            left=left.right;
+            ans=root.val;
+            return ;
         }
-        return left;
+        A(root.right,k);
     }
+    
 }
