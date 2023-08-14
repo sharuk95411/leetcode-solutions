@@ -8,52 +8,57 @@
  * }
  */
 class Solution {
-    ArrayList<TreeNode>l =new ArrayList<>();
+    List<TreeNode>l1= new ArrayList<>();
+    List<TreeNode>l2= new ArrayList<>();
+    boolean b=true;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        int x= p.val;
-        int y= q.val;
-        TreeNode n=null;
-		if(root==null) return null ;
-        boolean b= B(root,x); // find first root path  and store it
-        ArrayList<TreeNode>l1= new ArrayList<>(l);
-        l.clear();
-        boolean c= B(root,y); // find second root path and store it.
-        if(b==c)       
-        {
-            for(int i=0;i<Math.min(l.size(),l1.size());i++)
-            {
-                if(l1.get(i)!=l.get(i))
-                {
-               n= l.get(i-1);
-                break;
-                }
-            }
-        }
-        if(n==null)  // ye tb hga jb dno dono notes ek hi path pr ho like 5,4
-      {
-        if(l.size()<l1.size())
-        n=l.get(l.size()-1);
-        else
-        n=l1.get(l1.size()-1);
-      }
-
-        return n;
-
+        A(root,p);
+        b=true;
+        B(root,q);   
+        // System.out.println("L! "+l1);
+        // System.out.println("L2 "+l2);
+        int a=Math.min(l1.size(),l2.size());
         
-    }
-    public boolean B(TreeNode root,int x)
-    {
-        if(root==null) return false;
-        l.add(root);
-        if(root.val==x) return true;
-        boolean c1= B(root.left,x);
-        if(c1==true) return true;
-        boolean c2= B(root.right,x);
-        if(c2==true) return true;
-        else
+        for(int i=0;i<a;i++)
         {
-             l.remove(l.size()-1); // ye concept just iske upr wle question me b use hua h
-             return false;
+             if(l1.get(i).val==l2.get(i).val)
+             {
+                 p=l1.get(i);
+             }
+             else break;
         }
+        return p;
     }
+
+    public void A(TreeNode root, TreeNode p)
+    {
+       if(root==null)return ;
+        l1.add(root);
+        if(root.val==p.val)
+        {
+            b=false;
+        }
+        if(b)
+        A(root.left,p);
+        if(b)
+        A(root.right,p);
+        if(b)
+        l1.remove(l1.size()-1);
+    }
+     public void B(TreeNode root, TreeNode q)
+    {
+        if(root==null)return ;
+        l2.add(root);
+        if(root.val==q.val)
+        {
+            b=false;
+        }
+        if(b)
+        B(root.left,q);
+        if(b)
+        B(root.right,q);
+        if(b)
+        l2.remove(l2.size()-1);
+        }
+    
 }
