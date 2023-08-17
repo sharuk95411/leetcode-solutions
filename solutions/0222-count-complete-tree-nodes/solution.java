@@ -14,39 +14,45 @@
  * }
  */
 class Solution {
-    // ye logic striver ka h but isse TC km kse hgi wo smjh ni a rha h zyda hi a ri h progrm ko dry run krne pr
+
     public int countNodes(TreeNode root) {
         
-        if(root==null) return 0;
-        
-        int left= getLeft(root.left);
-        int right= getRight(root.right);
-        
-       // System.out.println(left);
-        //System.out.println(right);
-        if(left==right) return (int)(Math.pow(2,left)-1);
-        
-       else return (1+ countNodes(root.left)+countNodes(root.right));
-    }
-    private int getLeft(TreeNode root)
-    {
-        int count=1;
-        while(root!=null)
+        if(root==null)return 0;
+        int lh=A(root);
+        int rh=B(root);
+        // System.out.println("LH AND RH " +lh +" "+rh);
+        if(lh==rh)
         {
-            count++;
-            root=root.left;
+
+            
+            return (int)(Math.pow(2, lh)-1);
         }
-        return count;
+        else
+        return 1+countNodes(root.left)+countNodes(root.right);
     }
-    private int getRight(TreeNode root)
+
+    public int A(TreeNode n)
     {
-        int count=1;
-        while(root!=null)
+
+        int h=0;
+        while(n!=null)
         {
-            count++;
-            root=root.right;
+        h=h+1;
+        n=n.left;
+
         }
-        return count;
+        return h;
     }
-    
+     public int B(TreeNode n)
+    {
+
+        int h=0;
+        while(n!=null)
+        {
+        h=h+1;
+            n=n.right;
+
+        }
+        return h;
+    }
 }
