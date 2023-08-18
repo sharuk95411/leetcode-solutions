@@ -11,35 +11,53 @@ public class Codec {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        if(root==null) return "X";
-        String left= serialize(root.left);
-        String right= serialize(root.right);
-        return root.val+","+left+","+right;
-        
+        if(root==null)return "";
+
+        Queue<TreeNode>q= new LinkedList<>();
+        q.add(root);
+          StringBuilder str= new StringBuilder();
+            while(q.size()>0)
+            {
+                int size=q.size();
+                while(size>0)
+                {
+                TreeNode n=q.poll();
+                if(n==null) str.append("null,");
+                else 
+                {
+                str.append(n.val +",");
+                q.add(n.left);
+                q.add(n.right);
+                }
+                size--;
+                }
+          }
+      
+        return str.toString();
+
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        String arr[]= data.split(",");
-        Queue<String>q= new LinkedList<>();
-    for(int i=0;i<arr.length;i++)
-    {
-        q.add(arr[i]);
-    }
-        TreeNode root=deserialize(q);
+     if (data == "") return null;
+        Queue<TreeNode> q = new LinkedList<>();
+        String[] values = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        q.add(root);
+        for (int i = 1; i < values.length; i++) {
+            TreeNode parent = q.poll();
+            if (!values[i].equals("null")) {
+                TreeNode left = new TreeNode(Integer.parseInt(values[i]));
+                parent.left = left;
+                q.add(left);
+            }
+            if (!values[++i].equals("null")) {
+                TreeNode right = new TreeNode(Integer.parseInt(values[i]));
+                parent.right = right;
+                q.add(right);
+            }
+        }
         return root;
-        
-    }
-    public TreeNode deserialize(Queue<String>q)
-    {
-        if(q.size()==0) return null;
-        String peek= q.poll();
-        if(peek.equals("X")) return null;
-        TreeNode root= new TreeNode(Integer.parseInt(peek));
-        root.left= deserialize(q);
-        root.right=deserialize(q);
-        return root;
-        
     }
 }
 
