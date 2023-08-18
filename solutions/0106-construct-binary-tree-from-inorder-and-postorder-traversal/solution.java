@@ -14,26 +14,32 @@
  * }
  */
 class Solution {
+    
+    private int idx;
+    
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        return build(inorder,0,inorder.length-1,postorder,0,postorder.length-1);
+        if (inorder.length != postorder.length) return null;
+        if (inorder.length == 0) return null;
+        idx = postorder.length-1;
+        TreeNode root = build(inorder, postorder, 0, idx);
+        return root;
     }
     
-    public TreeNode build(int[] inorder, int inS, int inE, int[] postorder, int posS, int posE){
-        if(inS>inE || posS>posE) return  null;
+    private TreeNode build(int[] inorder, int[] postorder, int start, int end) {
+        if (start>end) return null;
+        TreeNode node = new TreeNode(postorder[idx--]);
+        if (start==end) return node;
         
-        TreeNode root = new TreeNode(postorder[posE]);
-        
-        int rootI=0;
-        for(int i=0;i<inorder.length;i++){
-            if(inorder[i]==root.val){
-                rootI = i;
-                break;
-            }
+        int index = findIdx(inorder, node.val, end);
+        node.right = build(inorder, postorder, index+1, end);
+        node.left = build(inorder, postorder, start, index-1);
+        return node;
+    }
+    
+    private int findIdx(int[] inorder, int val, int end) {
+        for (int i=end; i>=0; i--) {
+            if (inorder[i]==val) return i;
         }
-        
-        root.left = build(inorder,inS,rootI-1,postorder,posS,posS+rootI-inS-1);
-        root.right = build(inorder,rootI+1,inE,postorder,posS+rootI-inS,posE-1);
-        
-        return root;
+        return 0;
     }
 }
