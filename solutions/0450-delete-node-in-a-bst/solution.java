@@ -29,7 +29,7 @@ class Solution {
         {
             if(root.left!=null && root.right!=null)
             {
-                int max= findmax(root.left);
+                int max= findmaxToItsLeft(root.left);
                 root.val= max;
                 root.left= deleteNode(root.left,max);
                 return root;
@@ -40,12 +40,12 @@ class Solution {
         }
         return root;
     }
-    public int findmax(TreeNode root)
+    public int findmaxToItsLeft(TreeNode root)
     {
         if(root.right!=null)
         {
            
-            return findmax(root.right);
+            return findmaxToItsLeft(root.right);
         }
         return root.val;
           
