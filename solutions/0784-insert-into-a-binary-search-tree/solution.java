@@ -14,40 +14,19 @@
  * }
  */
 class Solution {
-    // Logic- Self
     public TreeNode insertIntoBST(TreeNode root, int val) {
-     
-        if(root==null) 
-        {
-        TreeNode n= new TreeNode(val);
-            return n;
-        }
-       boolean b= A(root,val);
-        return root;
-    }
-    private boolean A(TreeNode root,int val)
-    {      
-        if(root==null) return  true;
+        
+        if(root==null) return new TreeNode(val);
         if(val>root.val)
         {
-            if(A(root.right,val))
-            {
-                TreeNode n= new TreeNode(val);
-                root.right=n;
-                return false;
-                
-            }
+            
+            root.right= insertIntoBST(root.right,val);
         }
         else
         {
-            if(A(root.left,val))
-            {
-                 TreeNode n= new TreeNode(val);
-                root.left= n;
-                return false;
-            }
+            root.left=insertIntoBST(root.left,val);
         }
-        return false;
-  
+       return root;
     }
+   
 }
