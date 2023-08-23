@@ -14,25 +14,20 @@
  * }
  */
 class Solution {
-    Stack<Integer>s= new Stack<>();
+    long no =Long.MIN_VALUE;
     public boolean isValidBST(TreeNode root) {
         
-         if(root==null) 
-        {
-            return true;
-        }
-        
-       if(isValidBST(root.left)==false) return false;
-        if(s.size()==0)
-        {
-            s.push(root.val);
-        }
-        else if(root.val<=s.peek()) return false;
-        else
-        {
-            s.push(root.val);
-        }
-         return isValidBST(root.right);
-         
+        if(root.left==null && root.right==null)return true;
+        return A(root);
+    }
+
+    public boolean A(TreeNode root)
+    {
+        if(root==null)return true;
+        if(A(root.left)==false) return false;
+        if(no>=root.val) return false;
+        else no=root.val;
+        if(A(root.right)==false) return false;
+        return true;
     }
 }
