@@ -13,24 +13,25 @@
  *     }
  * }
  */
+
 class Solution {
-     TreeNode prev = null, first = null, second = null;
+    TreeNode prev = null, first = null, second = null;
+
     public void recoverTree(TreeNode root) {
-        evalSwappedNodes(root);
+        A(root);
         int temp = first.val;
         first.val = second.val;
         second.val = temp;
     }
-     private void evalSwappedNodes(TreeNode curr) {
-        if (curr == null)
-            return;
-        evalSwappedNodes(curr.left);
+
+    private void A(TreeNode curr) {
+        if (curr == null) return;
+        A(curr.left);
         if (prev != null && prev.val > curr.val) {
-            if (first == null)
-                first = prev;
+            if (first == null) first = prev;    
             second = curr;
         }
         prev = curr;
-        evalSwappedNodes(curr.right);
+        A(curr.right);
     }
 }
