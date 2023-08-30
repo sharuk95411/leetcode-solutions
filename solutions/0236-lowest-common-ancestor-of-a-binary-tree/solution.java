@@ -9,18 +9,21 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        
-        return A(root,p.val,q.val);
-    }
-    public TreeNode A(TreeNode root, int a,int b)
-    {
-        if(root==null || root.val==a || root.val==b) return root;
+         if (root == null || root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
 
-        TreeNode left= A(root.left,a,b);
-        TreeNode right= A(root.right,a,b);
-
-        if(left==null)return right;
-        else if(right==null)return left;
-        else return root;
+        //result
+        if(left == null) {
+            return right;
+        }
+        else if(right == null) {
+            return left;
+        }
+        else { //both left and right are not null, we found our result
+            return root;
+        }
     }
 }
