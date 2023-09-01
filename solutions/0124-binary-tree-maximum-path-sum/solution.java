@@ -13,29 +13,25 @@
  *     }
  * }
  */
-
-// Take all the path sum and choose between them 
-// Cases - All +ve, All -ve, some +ve some -ve
 class Solution {
-    int maxAll=Integer.MIN_VALUE;
+    int ans=Integer.MIN_VALUE;
+    int m=0;
     public int maxPathSum(TreeNode root) {
-
+        if(root.left==null && root.right==null)return root.val;
         A(root);
-        return maxAll;        
-
+        return ans;
     }
 
     public int A(TreeNode root)
     {
-        if(root==null) return 0;
-        int left= A(root.left);
-        int right = A(root.right);
-        
-        int lpath= root.val+left;
-        int rpath= root.val +right;
-        int cpath= left+right+root.val;
-        int max= Math.max(Math.max(lpath,rpath),Math.max(root.val,cpath));
-         maxAll= Math.max(maxAll,max);
+        if(root==null)return 0;
+        int l= A(root.left);
+        int r= A(root.right);
+        int lpath= root.val+l;
+        int rpath=root.val+r;
+        int cpath= l+r+root.val;
+        int currmax=Math.max(Math.max(lpath,rpath),Math.max(cpath,root.val));
+        ans=Math.max(currmax,ans);
         return Math.max(Math.max(lpath,rpath),root.val);
     }
 }
