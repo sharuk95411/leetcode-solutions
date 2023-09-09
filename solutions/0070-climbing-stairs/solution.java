@@ -1,26 +1,17 @@
 class Solution {
-    int count =0;
-     
-    
     public int climbStairs(int n) {
         
-        int dp[]= new int[n+1];
-        return A(n,0,dp);  
+        int arr[]= new int[n+1];
+        Arrays.fill(arr, -1);
+        return A(0,n,arr);
     }
-    
-    private int A(int n,int sum,int dp[])
+    public int A(int start,int des,int arr[])
     {
-        if(sum==n)
-        {
-        
-            return 1 ;
-        } 
-        if(sum>n) return 0;
-        if(dp[sum]>0) return dp[sum];
-    
-       dp[sum]= A(n,sum+1,dp)+A(n,sum+2,dp);
-        
-        return dp[sum];
-    
+        if(start>des)return 0;
+        if(start==des) return 1;
+        if(arr[start]!=-1)return arr[start];
+
+        arr[start]= A(start+1,des,arr)+A(start+2,des,arr);
+        return arr[start];
     }
 }
