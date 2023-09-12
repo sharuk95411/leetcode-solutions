@@ -1,37 +1,38 @@
 class Solution {
+
+    int[] dp;
     public int coinChange(int[] coins, int amount) {
-        
-        int sum= amount;
-        // coints[]-- wt[]
-        int n= coins.length;
-        int t[][]= new int[n+1][sum+1];
-        for(int i=0;i<n+1;i++)
-        {
-            for(int j=0;j<sum+1;j++)
-            {
-                if(i==0 &j==0) t[i][j]= Integer.MAX_VALUE-1;
-                else if(i==0) t[i][j]= Integer.MAX_VALUE-1;
-                else if(j==0) t[i][j]= 0;
-                
+
+        dp = new int[amount + 1];
+        Arrays.fill(dp, -1);
+        int ans = coinCount(coins, amount);
+        return (ans == Integer.MAX_VALUE) ?  -1 : ans;
+    }
+
+    int coinCount(int[] coins, int amount) {
+
+        if(amount == 0) {
+            return 0;
+        }
+        if(amount < 0) {
+            return Integer.MAX_VALUE;
+        }
+
+        if(dp[amount] != -1) {
+            return dp[amount];
+        }
+
+        int minCoins = Integer.MAX_VALUE;
+        for(int i = 0; i < coins.length; i++) {
+            int ans = coinCount(coins, amount - coins[i]);
+
+            if(ans != Integer.MAX_VALUE) {
+
+                //we have returned 0 in ans, so now we are updating the ans count
+                //hence 1 + ans
+                minCoins = Math.min(minCoins, 1 + ans);
             }
         }
-  /* for(int j=1;j<sum+1;j++)
-    {
-        if(j%coins[0]==0) t[1][j]= j/coins[0];
-        else t[1][j]= Integer.MAX_VALUE-1;
-        
-    }*/
-        for(int i=1;i<n+1;i++)
-        {
-            for(int j=1;j<sum+1;j++)
-            {
-                if(coins[i-1]<=j)
-                t[i][j]= Math.min(1+t[i][j-coins[i-1]], t[i-1][j]);
-                else
-                    t[i][j]= t[i-1][j];
-            }
-        }
-    if(t[n][sum] ==Integer.MAX_VALUE-1) return -1;
-        else return t[n][sum];
+        return dp[amount] = minCoins;
     }
 }
