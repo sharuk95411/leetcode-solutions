@@ -1,31 +1,21 @@
 class Solution {
-    
     public boolean canPartition(int[] nums) {
-        int sum = 0;
-        int n = nums.length;
-        
-        for(int i : nums) sum+=i;
-        
-        if(sum%2!=0) return false;
-        
-        sum /= 2;
-        
-        boolean dp[][] = new boolean[n+1][sum+1];
-        
-        for(int i=0;i<=n;i++){
-            for(int j=0;j<=sum;j++){
-                if(i==0 || j==0)
-                    dp[i][j] = false;
-                else if(nums[i-1] > j)     // if curr sum value is greater than the current element value then just skip(take previous value)
-                    dp[i][j] = dp[i-1][j];
-                else if(nums[i-1]==j)  // we got required sum
-                    dp[i][j] = true;
-                else
-                    dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]];
-            }
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
         }
-        return dp[n][sum];
-        
-        
+        if(sum%2==1)
+            return false;
+        Boolean dp[][]=new Boolean[nums.length+1][(sum/2)+1];
+        return partition(nums,sum/2,0,dp);
+    }
+     public boolean partition(int a[],int sum,int i,Boolean dp[][]){
+        if(sum==0)
+            return true;
+		if(i>=a.length || sum<0)
+            return false;
+        if(dp[i][sum]!=null)
+            return dp[i][sum];
+        return dp[i][sum]=(partition(a,sum-a[i],i+1,dp) || partition(a,sum,i+1,dp));
     }
 }
