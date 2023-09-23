@@ -1,40 +1,50 @@
 class Solution {
-    List<List<String>>ans= new ArrayList<>();
-    List<String>inner = new ArrayList<>();
+    List<List<String>>outer;
+    List<String>inner;
     public List<List<String>> partition(String s) {
-         A(1,s,s);
-         return ans;
+        outer= new ArrayList<>();
+        inner= new ArrayList<>();
+        A(0,s);
+        return outer;
     }
-    public void A(int index,String temp,String s)
+    
+    public void A(int index,String s)
     {
-    if(index>s.length())
-    {
-        ans.add(new ArrayList<>(inner));
+        if(index>=s.length())
+        {
+    outer.add(new ArrayList<>(inner));
+            return ;
+        }
         
+        for(int i=index;i<s.length();i++)
+        {
+             String temp= s.substring(index,i+1);
+         
+            if(isPalindrome(temp))
+            {
+                
+                inner.add(temp);
+                A(i+1,s);
+                inner.remove(inner.size()-1);
+            }
+        }
         return ;
     }
-
-    for(int i=1;i<=temp.length();i++)
-    {
-        String sub= temp.substring(0,i);
-        if(isPalindrome(sub))
-        {
-            inner.add(sub);
-            A(index+i,temp.substring(i,temp.length()),s);
-              inner.remove(inner.size()-1);
-        }
-    }
-    }
+    
     public boolean isPalindrome(String s)
     {
-        int left=0;
-        int right=s.length()-1;
-        while(left<=right && s.charAt(left)==s.charAt(right))
+        
+        int i=0;
+        int j=s.length()-1;
+        while(i<j)
         {
-           left++;
-           right--;
+            if(s.charAt(i)==s.charAt(j))
+            {
+                i++;
+                j--;
+            }
+            else return false;
         }
-        if(left>right) return true;
-        else return false;
+        return true;
     }
 }
