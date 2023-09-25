@@ -1,30 +1,33 @@
 class Solution {
     public String longestPalindrome(String s) {
+        
         String ans=String.valueOf(s.charAt(0));
-        for(int i=0;i<s.length();i++)
+        for(int i=0;i<s.length()-1;i++)
         {
-            int odd=  expand(s,i,i);
-            // System.out.println("length is "+odd);
-            int even=  expand(s,i,i+1);
-            int decide= Math.max(odd,even);
-
-            System.out.println("Even Odd === "+even+" And "+odd);
-            if(ans.length()<decide)
+            for(int j=i+1;j<=s.length();j++)
             {
-                int l= i-(decide-1)/2;
-                int r= i+decide/2;
-                ans= s.substring(l,r+1);
+                   String temp=s.substring(i,j);
+                    if(is_palindrome(temp))
+                    {
+                        if(temp.length()>ans.length())ans=temp;
+                    }
             }
         }
         return ans;
     }
-    public int expand(String s,int left,int right)
+    public boolean is_palindrome(String s)
     {
-       while(left>=0 && right <s.length() && s.charAt(left)==s.charAt(right))
-       {
-           left--;
-           right++;
-       }
-       return right-left-1;
+        int i=0;
+        int j=s.length()-1;
+        while(i<j)
+        {
+            if(s.charAt(i)==s.charAt(j)) 
+            {
+                i++;
+                j--;
+            }
+            else return false;
+        }
+        return true;
     }
 }
