@@ -1,30 +1,26 @@
 class Solution {
-    
-    public int lengthOfLIS(int[] nums) {
+    public int lengthOfLIS(int[] arr) {
         
-        int dp[][]= new int[nums.length][nums.length];
-        return A(nums,-1,0,dp);
+
+int dp[][]=new int [arr.length+1][arr.length+1];
+ for (int[] row : dp)
+{
+  Arrays.fill(row, -1);
+}
+         
+        return A(arr,-1,0,dp);
     }
-    
-    private int A(int nums[],int prev,int curr,int dp[][])
+    public int A(int arr[],int prev,int i,int dp[][])
     {
-        if(curr==nums.length) return 0;
+        if(i>=arr.length)return 0;
+        int take=0;
         
-        if(prev!=-1 && dp[prev][curr]!=0) return dp[prev][curr];
+        if(dp[prev+1][i]!=-1)return dp[prev+1][i];
+        if(prev==-1|| arr[i]>arr[prev])
+         take= 1+A(arr,i,i+1,dp);
         
-        int a1=0;
+       int dont_take= A(arr,prev,i+1,dp);
         
-        if(prev==-1 || nums[curr]>nums[prev])
-        {
-            a1= 1+A(nums,curr,curr+1,dp);
-        }
-        int a2= A(nums,prev,curr+1,dp);
-     
-        if(prev!=-1)
-        {
-            dp[prev][curr]= Math.max(a1,a2);
-        }
-        
-        return Math.max(a1,a2);
+        return dp[prev+1][i] = Math.max(take,dont_take);
     }
 }
