@@ -1,34 +1,31 @@
 class Solution {
-    public int minDistance(String s, String t) {
-        int m= s.length();
-        int n= t.length();
-        int dp[][]= new int[m+1][n+1];
-        for(int i=0;i<m+1;i++)
-            for(int j=0;j<n+1;j++)
-                dp[i][j]= -1;
-          return A(s,t,dp,m,n);
+    public int minDistance(String s1, String s2) {
+        
+        int dp[][]=new int[s1.length()+1][s2.length()+1];
+        for (int[] row : dp)
+{
+  Arrays.fill(row, -1);
+}
+        if(s1.length()==0)return s2.length();
+        if(s2.length()==0)return s1.length();
+        return A(s1,s2,0,0,dp);
     }
-      public int A(String s, String t,int dp[][],int m,int n)
+    public int A(String s1,String s2,int i,int j,int dp[][])
+        
     {
-          m= s.length();
-          n= t.length();
-        if(s.length()==0) return t.length();
-        if(t.length()==0) return s.length();
-          if(dp[m][n]!=-1) return dp[m][n];
-          else
-          {
-        if(s.charAt(0)==t.charAt(0) ) 
-        {  dp[m][n]= A(s.substring(1),t.substring(1),dp,m,n);
-        }
-        else 
+        
+        if(j==s2.length()) return s1.length()-i;
+        if(i>=s1.length())return s2.length()-j;
+        
+        if(s1.charAt(i)==s2.charAt(j))
         {
-            int a= A(s,t.substring(1),dp,m,n ); // For insert
-            int b= A(s.substring(1),t ,dp,m,n);// for dlete
-            int c= A(s.substring(1),t.substring(1),dp,m,n);// for subtitute
-            
-             dp[m][n]=1+ Math.min(a ,Math.min(b,c));
+          return dp[i][j] = A(s1,s2,i+1,j+1,dp);
         }
-              return dp[m][n];
-          }
+        if(dp[i][j]!=-1)return dp[i][j];
+        int e= 1+A(s1,s2,i,j+1,dp);
+        int d= 1+A(s1,s2,i+1,j,dp);
+        int rep= 1+A(s1,s2,i+1,j+1,dp);
+        
+        return dp[i][j]= Math.min(e,Math.min(d,rep));
     }
 }
