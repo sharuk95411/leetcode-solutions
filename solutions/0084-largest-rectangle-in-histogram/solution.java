@@ -1,35 +1,50 @@
 class Solution {
-    public int largestRectangleArea(int[] heights) {
-        int n = heights.length;
-        if(n == 0) return 0; // Base Condition
-        int maxArea = 0;
-        int left[] = new int[n]; //fill left boundary
-        int right[] = new int[n]; // fill right boundary
+    public int largestRectangleArea(int[] arr) {
         
-        left[0] = -1;
-        right[n - 1] = n;
+        int area=0;
+        int l_min[]=new int[arr.length];
+        int r_min[]=new int[arr.length];
+        l_min[0]=-1;
+        r_min[arr.length-1]= arr.length;
         
-        for(int i = 1; i < n; i++){
-            int prev = i - 1; // previous for comparing the heights
-            while(prev >= 0 && heights[prev] >= heights[i]){
-                prev = left[prev]; // we have done this to minimise the jumps we make to the left
+        Stack<Integer>stack=new Stack();
+        stack.push(arr.length-1);
+        
+        for(int i=arr.length-2;i>=0;i--)
+        {
+            while(!stack.isEmpty() && arr[stack.peek()]>=arr[i])
+            {
+                       stack.pop();
             }
-            left[i] = prev;
+            if(stack.isEmpty()) r_min[i]=arr.length;
+            else r_min[i]= stack.peek();
+            stack.push(i);
         }
-        // Similarly we do for right
-        for(int i = n - 2; i >= 0; i--){
-            int prev = i + 1; 
-            while(prev < n && heights[prev] >= heights[i]){
-                prev = right[prev]; 
-            }
-            right[i] = prev;
-        }
-        // once we have these two arrays fill we need width & area
-        for(int i = 0; i < n; i++){
-            int width = right[i] - left[i] - 1;
-            maxArea = Math.max(maxArea, heights[i] * width);
-        }
-        return maxArea;
         
+        // Left Min index 
+        stack.clear();
+        stack.push(0);
+        for(int i=1;i<arr.length;i++)
+        {
+            while(!stack.isEmpty() && arr[stack.peek()]>=arr[i])
+            {
+                       stack.pop();
+            }
+            if(stack.isEmpty()) l_min[i]=-1;
+            else l_min[i]= stack.peek();
+            stack.push(i);
+        }
+        
+        int ans=0;
+        for(int i=0;i<arr.length;i++)
+        {
+              int a= Math.abs(r_min[i]-l_min[i]-1)*arr[i];
+            ans=Math.max(a,ans);
+        }
+        
+        System.out.println(Arrays.toString(l_min));
+         System.out.println(Arrays.toString(r_min));
+        
+        return ans;
     }
 }
