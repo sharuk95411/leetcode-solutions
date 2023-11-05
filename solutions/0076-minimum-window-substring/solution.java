@@ -1,3 +1,4 @@
+
 class Solution {
     public String minWindow(String s, String t) {
         if(s.length() < t.length()){
@@ -8,17 +9,17 @@ class Solution {
             map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
         }
         int left=0,right=0;
-        int count=0,start=0,min_length = Integer.MAX_VALUE, min_start = 0;
-        for(int end=0; end<s.length(); end++){
+        int count=0,start=0,min_length = Integer.MAX_VALUE;
+        for(int end=0; end<s.length(); end++)
+        {
             char c= s.charAt(end);
             if(map.containsKey(c)){
                 if(map.get(c)>0){
                     count++;
                 }
-                map.put(c, map.get(c)-1); 
+               map.put(c, map.get(c)-1); 
             }
             if(count == t.length()) { 
-                System.out.println("B IS "+map.get('b'));
                while(!map.containsKey(s.charAt(start)) || map.get(s.charAt(start)) < 0)
                 {
                     if(map.containsKey(s.charAt(start))){
@@ -26,8 +27,8 @@ class Solution {
                     }
                     start++;
                 } 
-                if(min_length > end-start+1){
-                    min_length = end-start+1; 
+                  if(min_length > end-start+1){
+                      min_length = end-start+1; 
                      left=start;
                      right=end+1;
                 }
