@@ -2,10 +2,8 @@ class Solution {
     public int[] productExceptSelf(int[] arr) {
         
         int left[]= new int[arr.length];
-        int right[]= new int[arr.length];
 
          left[0]=1;
-         right[arr.length-1]=1;
         int product=1;
         for(int i=1;i<arr.length;i++)
         {
