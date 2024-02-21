@@ -1,54 +1,34 @@
 class Solution {
     public int numIslands(char[][] arr) {
-     
-         int count=0;
-    
-        boolean is_visit[][]= new boolean[arr.length][arr[0].length];
         
-        
-    
+        int count=0;
         for(int i=0;i<arr.length;i++)
         {
-            for(int j=0;j<arr[i].length;j++)
+            for(int j=0;j<arr[0].length;j++)
             {
-                
-                if(arr[i][j]=='1' && is_visit[i][j]==false)
+                if(arr[i][j]=='1')
                 {
-                    
-                    
-                     B(arr,is_visit,i,j);
-                     count++;
+                       count++;
+                    A(i,j,arr);
                 }
-    
             }
         }
-    return count;
-        
+        return count;
     }
-     public void B(char arr[][], boolean is_visit[][],int i,int j)
+    public void A(int i ,int j, char arr[][])
     {
-
-     
-        if(i<0  || j<0 || i>=arr.length || j>=arr[0].length )
-        {
+        if(i>=arr.length || i<0) return ;
+        if(j<0 || j>=arr[0].length)return ;
+        if(arr[i][j]=='0') return ;
         
-            return;
+        if(arr[i][j]=='1')
+        {
+            arr[i][j]='0';
+            A(i,j+1,arr);
+            A(i+1,j,arr);
+            A(i,j-1,arr);
+            A(i-1,j,arr);
         }
-        
-      if(arr[i][j]=='0') return;
-        
-        if(is_visit[i][j]==false)
-        {
-            is_visit[i][j]= true;
-            
-             B(arr,is_visit,i+1,j); //DOWN 
-             B(arr,is_visit,i-1,j); //UP
-              B(arr,is_visit,i,j+1); //RIGHT
-                B(arr,is_visit,i,j-1); // LEFT
-             //   B(arr,is_visit,i+1,j+1); //RIGHT-BOTTOM DIAGONAL
-               // B(arr,is_visit,i-1,j-1); // LEFT UP DIAGONAL
-                 //B(arr,is_visit,i+1,j-1); // LEFT BOTTOM DIAGONAL
-              // B(arr,is_visit,i-1,j+1); //RIGHT UP DIAGONAL          
-    }
     }
 }
+
