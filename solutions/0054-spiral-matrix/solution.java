@@ -1,58 +1,31 @@
-class Solution {
-    public List<Integer> spiralOrder(int[][] arr) {
+public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<Integer>();
         
-        int top=0,left=0;
-        int down= arr.length-1;
-        int right= arr[0].length-1;
-        List<Integer>ans=new ArrayList<>();
-         boolean b= true;
-        while(left<=right && top<=down)
-        {
-             if(b)
-             {
-                 b=false;
-                  for(int i=left;i<=right;i++)
-                {
-                    ans.add(arr[top][i]);
-                    b=true;
-                }
-                top++;
-
-             } else b=false;
-               
-                if(b)
-                { 
-                    b=false;
-                    for(int i=top;i<=down;i++)
-                    {
-                            ans.add(arr[i][right]);
-                             b=true;
-                    }
-                    right--;
-                } else b=false;
-                if(b)
-                {
-                    b=false;
-                    for(int i=right;i>=left;i--)
-                    {
-                        ans.add(arr[down][i]);
-                         b=true;
-                    }
-                    down--;
-                } else b=false;
-
-                if(b)
-                {
-                    b=false;
-                   for(int i=down;i>=top;i--)
-                    {
-                        ans.add(arr[i][left]);
-                         b=true;
-                    }
-                    left++;
-                } else b=false;
+        int top = 0;
+        int bottom = matrix.length-1;
+        int left = 0;
+        int right = matrix[0].length-1;
+        
+        while(true){
+            for(int i = left; i <= right; i++) res.add(matrix[top][i]);
+            top++;
+            if(left > right || top > bottom) break;
             
+            for(int i = top; i <= bottom; i++) res.add(matrix[i][right]);
+            right--;
+            if(left > right || top > bottom) break;
+            
+            for(int i = right; i >= left; i--) res.add(matrix[bottom][i]);
+            bottom--;
+            if(left > right || top > bottom) break;
+            
+            for(int i = bottom; i >= top; i--) res.add(matrix[i][left]);
+            left++;
+            if(left > right || top > bottom) break;
         }
-        return ans;
+        
+        return res;
     }
+    
 }
