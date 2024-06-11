@@ -1,26 +1,22 @@
 class Solution {
     public int majorityElement(int[] arr) {
         
-        int ans=arr[0];
-        int count=1;
+        int no=arr[0];
+        int freq=1;
         
         for(int i=1;i<arr.length;i++)
         {
-            if(ans==arr[i]) 
-            {
-                count++;
-            }
+            if(arr[i]==no) freq++;
             else
             {
-                count--;
-                if(count==0)
+                freq--;
+                if(freq==0)
                 {
-                    count++;
-                    ans= arr[i];
+                    freq++;
+                    no=arr[i];
                 }
             }
-
         }
-        return ans;
+        return no;
     }
 }
