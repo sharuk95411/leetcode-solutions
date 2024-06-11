@@ -1,27 +1,28 @@
 class Solution {
-        List<Integer>inner= new ArrayList<>();
-        List<List<Integer>>outer= new ArrayList<>();
-    public List<List<Integer>> generate(int num) {
+    public List<List<Integer>> generate(int a) {
+        
+        List<Integer>inner=new ArrayList<>();
+        List<List<Integer>>ans= new ArrayList<>();
+        
         inner.add(1);
-        outer.add(new ArrayList<>(inner));
-        A(num-1);
-        return outer;
-    }
-    
-    public void A(int num)
-    {
-       if(num==0)return ;
-         inner.removeAll(inner); 
-        inner.add(1);
-        List<Integer>l= new ArrayList<>();
-        l=outer.get(outer.size()-1);
-        for(int i=1;i<l.size();i=i+1)
+        ans.add(new ArrayList<>(inner));
+        
+        for(int i=2;i<=a;i++)
         {
-            int sum= l.get(i-1)+l.get(i); 
-            inner.add(sum);
+            List<Integer>temp= new ArrayList<>();
+            temp.add(1);
+            if(ans.size()>1)
+            {
+                inner=ans.get(i-2);
+                for(int j=1;j<inner.size();j++)
+                {
+                    temp.add((inner.get(j-1)+inner.get(j)));
+                }
+            }
+            temp.add(1);
+            ans.add(new ArrayList<>(temp));
         }
-        inner.add(1);
-        outer.add(new ArrayList<>(inner));
-        A(num-1);
+        return ans;
+        
     }
 }
