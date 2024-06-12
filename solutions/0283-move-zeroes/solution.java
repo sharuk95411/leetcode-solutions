@@ -1,20 +1,19 @@
 class Solution {
-    public void moveZeroes(int[] num) {
+    public void moveZeroes(int[] arr) {
         
-        Boolean check = true;
-        int pos=-1;
-        for(int i=0;i<num.length;i++)
+        int i=0;
+        while(i<arr.length && arr[i]!=0)
         {
-           if(num[i]!=0 && pos>=0)
-           {
-               num[pos]=num[i];
-               num[i]=0;
-               pos++;
-           }
-            else if(check==true && num[i]==0)
+            i++;
+        }
+        
+        for(int j=i+1;j<arr.length;j++)
+        {
+            if(arr[j]!=0)
             {
-                pos=i;
-                check=false;
+                arr[i]=arr[j];
+                arr[j]=0;
+                i++;
             }
         }
         
