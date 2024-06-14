@@ -1,21 +1,22 @@
 class Solution {
+     List<Integer>inner= new ArrayList<>();
     List<List<Integer>>ans= new ArrayList<>();
-    List<Integer>inner= new ArrayList<>();
-  
-    public List<List<Integer>> subsets(int[] arr) {
-        ans.add(new ArrayList<>(inner));
+    public List<List<Integer>> subsets(int[] arr) {    
         A(0,arr);
         return ans;
-        
     }
-   public void A(int j,int arr[])
+    
+    private void A(int i,int arr[])
     {
-         for(int i=j;i<arr.length;i++)
-         {
-             inner.add(arr[i]);
-             ans.add(new ArrayList<>(inner));
-             A(i+1,arr);
-             inner.remove(inner.size()-1);
-         }
-    }
+        if(i==arr.length)
+        {
+            ans.add(new ArrayList<>(inner));
+            return ;
+        }
+            inner.add(arr[i]);
+            A(i+1,arr);
+           inner.remove(inner.size()-1);
+            A(i+1,arr);
+                        
+        }
 }
