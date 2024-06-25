@@ -1,23 +1,32 @@
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
         
-        int rem=0;
-        int store=0;
-        int ans=0;
-
-        for(int i=0;i<gas.length;i++)
+        int i,j,ans=0;
+        int n= gas.length;
+        for(i=0;i<n;i++)
         {
-             rem= rem+gas[i]-cost[i];
-             if(rem<0)
-             {
-                 store= store+rem;
-                 rem=0;
-                 ans=i+1;
-             }
+            if(gas[i]>=cost[i])
+            {
+               
+                int count=0;
+                int totalGas=0;
+                ans=i;
+                for(j=i;j<n;j=(j+1)%n)
+                {
+                    totalGas=totalGas+gas[j]-cost[j];
+                     if(totalGas<0) break;
+                    else
+                    {
+                        count++;
+                        if(count==n)return ans;
+                    }
+                }
+                if(j<i)return -1;
+                else i=j;
+            }
+            
+             
         }
-        System.out.println("rem "+rem);
-         System.out.println("store "+store);
-        if(rem>=Math.abs(store)) return ans;
-        else return -1;
+        return -1;
     }
 }
