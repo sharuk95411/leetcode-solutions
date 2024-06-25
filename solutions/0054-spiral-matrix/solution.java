@@ -1,31 +1,46 @@
-public class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new ArrayList<Integer>();
+class Solution {
+    public List<Integer> spiralOrder(int[][] arr) {
+        int row = arr.length;
+        int col=arr[0].length;
+        int top=0,left=0;
+        int right= col-1;
+        int bottom= row-1;
         
-        int top = 0;
-        int bottom = matrix.length-1;
-        int left = 0;
-        int right = matrix[0].length-1;
+        int count= row*col;
+        List<Integer>list= new ArrayList<>();
         
-        while(true){
-            for(int i = left; i <= right; i++) res.add(matrix[top][i]);
-            top++;
-            if(left > right || top > bottom) break;
-            
-            for(int i = top; i <= bottom; i++) res.add(matrix[i][right]);
+        while(count>0)
+        {
+             for(int i=top;i<=right;i++)
+             {
+               list.add(arr[top][i]);
+                 count--;
+             }
+            if(count==0)return list;
+               top++;
+          
+            for(int i=top;i<=bottom;i++)
+            {
+                list.add(arr[i][right]);
+                count--;    
+            }
+            if(count==0)return list;
             right--;
-            if(left > right || top > bottom) break;
-            
-            for(int i = right; i >= left; i--) res.add(matrix[bottom][i]);
+            for(int i=right;i>=left;i--)
+            {
+                 list.add(arr[bottom][i]);
+                count--;
+            }
+            if(count==0)return list;
             bottom--;
-            if(left > right || top > bottom) break;
-            
-            for(int i = bottom; i >= top; i--) res.add(matrix[i][left]);
+            for(int i=bottom;i>=top;i--)
+            {
+                list.add(arr[i][left]);
+                count--;
+            }
             left++;
-            if(left > right || top > bottom) break;
         }
-        
-        return res;
+        return list;
+       
     }
-    
 }
