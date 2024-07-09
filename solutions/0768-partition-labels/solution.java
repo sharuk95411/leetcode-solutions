@@ -1,35 +1,41 @@
 class Solution {
+    List<Integer>ans= new ArrayList<>();
     public List<Integer> partitionLabels(String s) {
-        List<Integer>ans= new ArrayList<>();
-        HashMap<Character,Integer>h= new HashMap<>();
-        char[] arr=s.toCharArray();  
-         for(int i=0;i<arr.length;i++)
-         {
-             h.put(arr[i],i);
-         }
-         int start=0;
-         int end= h.get(arr[0]);
-         int i=0;
-         while(i<arr.length)
-         {
-             int pos= h.get(arr[i]);
-             if(pos>end)
-             {
-                 end=pos;
-                 i++;
-             }
-            else if(end==i)
-             {
-                 ans.add(end-start+1);
-                 start=i+1;
-                 i++;
-                 if(i<arr.length) end= h.get(arr[i]);
-             }
-             else
-             i++;
+        Map<Character,Integer>h= new HashMap<>();
 
-         }
-
+        for(int i=0;i<s.length();i++)
+        {
+            h.put(s.charAt(i),i);
+        }
+       System.out.println("freq of Q is " +h.get('q'));
+        int i =0;
+        while(i<s.length())
+        {
+            int index= h.get(s.charAt(i));
+            if(index==i)
+            {
+                ans.add(1);
+                i++;
+            }
+            else
+            {
+                String temp= s.substring(i,index+1);
+                //  index=h.get(s.charAt(i));
+                for(int j=0;j<temp.length();j++)
+                {   
+                    int tempIndex= h.get(temp.charAt(j));
+                    if(tempIndex>index)
+                    {
+                        temp=s.substring(i,tempIndex+1);
+                    }
+                    index=Math.max(index,tempIndex);
+                    
+                }
+                ans.add(index-i+1);
+                i=index+1;
+            }
+        }
         return ans;
+
     }
 }
