@@ -1,20 +1,22 @@
 class Solution {
     public boolean searchMatrix(int[][] arr, int target) {
-        int row= 0;
-        int col= arr[0].length-1;
+        
+        
+        int i = 0;
+        int j=arr[0].length-1;
+       
 
-        while(col>=0 && row<arr.length)
+        while(i<arr.length && j>=0)
         {
-           if(target<arr[row][col])
-           {
-               col--;
-           }
-           else if(target>arr[row][col])
-           {
-               row++;
-           }
-           else if(arr[row][col]==target)
-           return true;
+            int data = arr[i][j];
+            if(data==target) return true;
+
+            else if(data>target)
+            {
+                j--;
+            }
+            else
+            i++;
         }
         return false;
     }
