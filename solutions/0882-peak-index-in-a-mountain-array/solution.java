@@ -1,18 +1,13 @@
 class Solution {
-    public int peakIndexInMountainArray(int[] arr) {
-        int ans=0;
-
-        int left=0;
-        int right= arr.length-1;
-        while(left<right)
-        {
-            int mid= (left+right)/2;
-            if((arr[mid-1]<arr[mid]) && (arr[mid]>arr[mid+1]))
-            return mid;
-            else if(arr[mid]>arr[mid-1])
-            left=mid;
-            else right=mid;
+       public int peakIndexInMountainArray(int[] A) {
+        int l = 0, r = A.length - 1, m;
+        while (l < r) {
+            m = (l + r) / 2;
+            if (A[m] < A[m + 1])
+                l = m + 1;
+            else
+                r = m;
         }
-        return 0;
+        return l;
     }
 }
