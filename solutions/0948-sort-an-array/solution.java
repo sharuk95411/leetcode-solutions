@@ -1,53 +1,61 @@
 class Solution {
-    public int[] sortArray(int[] nums) {
-        
-        devide(nums,0,nums.length-1);
-        return nums;
+    public int[] sortArray(int[] arr) {
+
+    devide(arr,0,arr.length-1);
+    return arr;     
+
     }
 
-    public void devide(int arr[], int left,int right)
+    public void devide(int arr[],int left,int right)
     {
-        if(left<right)
-        {
-            int mid= left+(right-left)/2;
-            devide(arr,left,mid);
-            devide(arr,mid+1,right);
-            merge(arr,left,mid,right);
-        }
+        if(left>=right)return ;
+        int mid= left+(right-left)/2;
+
+        devide(arr,left,mid);
+        devide(arr,mid+1,right);
+        merge (arr,left,mid,right);
+
     }
 
     public void merge(int arr[],int left,int mid,int right)
     {
-        int temp[]= new int[right-left+1];
+        int temp[]=new int[right-left+1];
         int i=left;
         int j=mid+1;
-        int k=0;
+        int index= 0;
 
         while(i<=mid && j<=right)
         {
-            if(arr[i]<=arr[j])
+            if(arr[i]>=arr[j])
             {
-                temp[k++]=arr[i++];
+                temp[index]=arr[j];
+                j++;
             }
             else
             {
-                temp[k++]=arr[j++];
+                temp[index]=arr[i];
+                i++;
             }
+            index++;
         }
         while(i<=mid)
         {
-            temp[k++]=arr[i++];
+           temp[index]=arr[i];
+           i++;
+           index++;
         }
         while(j<=right)
         {
-            temp[k++]= arr[j++];
+            temp[index]=arr[j];
+            j++;
+            index++;
         }
-        k=0;
-        for(i=left;i<=right;i++)
+           index=0;
+        for(int k=left;k<=right;k++)
         {
-             arr[i]= temp[k++];
-           
+            arr[k]=temp[index];
+            index++;
+
         }
-        
     }
 }
