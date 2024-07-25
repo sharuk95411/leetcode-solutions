@@ -1,27 +1,34 @@
 class Solution {
-    List<String>list= new ArrayList<>();
-    public List<String> letterCombinations(String digits) {
-        String arr[]= new String[]{"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        if(digits.length()==0) return list;
-        A(0,"",arr,digits);
+    public List<String> letterCombinations(String s) {
+        List<String>list= new ArrayList<>();
+        if(s.length()==0) return list;
+String arr[]=new String[]{"null","null","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+     
+        A(s,0,list,arr,"");
         return list;
     }
-    public void A(int index,String ans,String arr[],String s)
-    {
-        if(index>s.length()) return ;
-        if(ans.length()==s.length())
-        {
-            list.add(ans);
-            return ;
-        }
-        String temp= arr[Character.getNumericValue(s.charAt(index))-2]; 
-        for(int i=0;i<temp.length();i++)
-        {
-            ans=ans+temp.charAt(i);
-            System.out.println("OK "+ans);
-            A(index+1,ans,arr,s);
-            ans=ans.substring(0,ans.length()-1);
 
-        }
+    public void A(String s,int index, List<String>list,String arr[],String ans)
+    {
+            if(ans.length()==s.length())
+{
+   list.add(ans);
+   return;
+}
+if(index>=s.length()) return ;
+
+
+String temp= arr[s.charAt(index)-'0'];
+System.out.println("TEMP "+temp);
+
+for(int i=0;i<temp.length();i++)
+{
+   
+   ans=ans+temp.charAt(i);
+   A(s,index+1,list,arr,ans);
+   ans=ans.substring(0,ans.length()-1);
+   System.out.println("STRING __ "+ans);
+}
+
     }
 }
