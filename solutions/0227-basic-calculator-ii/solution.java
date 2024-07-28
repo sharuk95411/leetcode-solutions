@@ -1,57 +1,90 @@
 class Solution {
     public int calculate(String s) {
-         s = s.replaceAll("\\s", "");
-         System.out.println("LENNGTH IS "+s.length());
-         Stack<Integer>stack= new Stack<>();
-         boolean opr=false;
-         int n1=0;
-         int i=0;
-         while(i<s.length())
-         {
-             n1=0;
-             char c= s.charAt(i);
-             if(c=='-')
-             {
-             opr=true;
-             }
-             else if(Character.isDigit(c))
-             {
-              while(i<s.length()&&Character.isDigit(s.charAt(i)))
-             {
-                n1=n1*10+Character.getNumericValue(s.charAt(i)); 
-                i++; 
-             }
-             if(opr)
-             {
-                 stack.push(-n1);
-                 opr=false;
-             } else 
-             {
-                   stack.push(n1);
-             }
-            i--;
-             }
-            else if(c=='*' || c=='/')
-             {
-             i++;
-             while(i<s.length()&&Character.isDigit(s.charAt(i)))
-             {
-                n1=n1*10+Character.getNumericValue(s.charAt(i)); 
-                i++; 
-             }
-               if(c=='/') stack.push(stack.pop()/n1);
-               else stack.push(stack.pop()*n1);
-               i--;
-             }
-             i++;
+        
+        Stack<Integer>s1= new Stack<>();
+        Stack<Character>s2= new Stack<>();
+        s = s.replaceAll("\\s", "");
+        // System.out.println("Length is "+s.length());
+        int i=0;
+          
+        while(i<s.length())
+        {
+                char c= s.charAt(i);
+                if(Character.isDigit(s.charAt(i)))
+                {
+                    
+                      int num=0;
+                      while(i<s.length() && Character.isDigit(s.charAt(i)))
+                      {
+                          num =num*10+s.charAt(i)-'0';
+                          i++;  
+                           
+                      }
+                      if(!s2.isEmpty()&&s2.peek()=='-')
+                      {
+                        s1.push(-num);
+                        s2.pop();
+                        s2.push('+');
+                      }
+                      else
+                      s1.push(num);
+                }
+                else
+                {
 
-         }
-         while(stack.size()>1)
-         {
-             stack.push(stack.pop()+stack.pop());
-         }
-         return stack.peek();
+                   switch (c) {
+                  case '+':
+                {
+                    s2.push('+');
+                    i++;
+                    break;
+                }
+                
+            case '-':
+            {
+                s2.push('-');
+                i++;
+                break;
+            }
+                
+            case '*':
+                {
+                  int a= s1.pop();
+                  i++;
+                   int b=0;
+                      while(i<s.length() && Character.isDigit(s.charAt(i)))
+                      {
+                          b =b*10+s.charAt(i)-'0';
+                          i++;  
+                         
+                      }
+                      s1.push(a*b);
+                     break;
+                }
+            case '/':
+                 {
+                  int a= s1.pop();
+                  i++;
+                   int b=0;
+                      while(i<s.length() && Character.isDigit(s.charAt(i)))
+                      {
+                          b =b*10+s.charAt(i)-'0';
+                          i++;  
+                      }
+                      s1.push(a/b);
+                     break;
+                }
+                   } 
+                }
 
-         
+        }
+     
+     int ans=0;
+      while(!s1.isEmpty())
+        {
+            ans= ans+s1.pop();
+        }
+        return ans;
     }
+    
 }
