@@ -10,17 +10,28 @@
  */
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
+        
         if(head==null) return head;
-        ListNode n= head;
-        while(n.next!=null)
+        ListNode a= head;
+        ListNode ans= head;
+        head=head.next;
+
+        while(head!=null)
         {
-            if(n.val==n.next.val)
+            if(a.val==head.val)
             {
-                n.next=n.next.next;
+                head= head.next;
             }
             else
-            n= n.next;
+            {
+                a.next=head;
+                a=head;
+                head=head.next;
+                System.out.println("Go in else");
+            }
         }
-        return head;
+        a.next=head;
+        return ans;
+        
     }
 }
