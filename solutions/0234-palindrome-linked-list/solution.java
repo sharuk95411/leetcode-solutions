@@ -10,32 +10,22 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode slow= head, fast= head.next;
-        while(fast!=null && fast.next!=null)   // FIND THE MIDDLE OF LL
+        List<Integer>l= new ArrayList<>();
+        while(head!=null)
         {
-               slow= slow.next;
-               fast= fast.next.next;
+            l.add(head.val);
+            head=head.next;
         }
-         ListNode prev= null,current= slow,Next= slow.next;
-        while(current.next!=null)  // REVERSE THE LL FROM END TO MIDDLE
+        int mid= l.size()/2;
+        int end= l.size()-1;
+        int left=0;
+
+        while(left<mid)
         {
-            current.next=prev;
-            prev=current;
-            current=Next;
-            Next= Next.next;
+            if(l.get(left)!=l.get(end)) return false;
+            left++;
+            end--;
         }
-        current.next=prev;
-       while(head!=null)   // NOW CHECK THE PALINDROME
-      {
-    if(head.val!=current.val) return false;
-    else
-    {
-        head=head.next;
-        current= current.next;
-    }
-    }
-return true;
-
-
+        return true;
     }
 }
