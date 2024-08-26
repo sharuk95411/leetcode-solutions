@@ -1,26 +1,28 @@
 class Solution {
-    List<List<Integer>>outer= new ArrayList<>();
+    List<List<Integer>>ans= new ArrayList<>();
+    List<Integer>inner= new ArrayList<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<Integer>inner= new ArrayList<>();
-        Arrays.sort(nums);
-        // outer.add(new ArrayList<>(inner));
-        fun(0,nums,inner);
-        return outer;
+        
+          Arrays.sort(nums);
+        A(nums,0);
+        return ans;
     }
 
-    public void fun(int i,int arr[],List<Integer>inner)
+    public void A(int arr[],int index)
     {
-        if(i==arr.length)
+        if(index>=arr.length) 
         {
-            // if(!outer.contains(inner))
-            outer.add(new ArrayList<>(inner));
+            if(ans.contains(inner)==false)
+            {
+                ans.add(new ArrayList<>(inner));
+            }
             return ;
         }
-        inner.add(arr[i]);
-        fun(i+1,arr,inner);
+
+
+        inner.add(arr[index]);
+        A(arr,index+1);
         inner.remove(inner.size()-1);
-  while(i+1<arr.length && arr[i]==arr[i+1]) i++;  // check for not add dublicates 
-        fun(i+1,arr,inner);
-    
+        A(arr,index+1);
     }
 }
