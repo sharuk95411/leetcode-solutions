@@ -1,44 +1,43 @@
 class Solution {
-    boolean ans= false;
-    public boolean exist(char[][] board, String word) {
+    public boolean exist(char[][] arr, String s) {
         
-           boolean b[][]= new boolean[board.length][board[0].length];
-      
-        for(int i=0;i<board.length;i++)
+        boolean bu[][]= new boolean [arr.length][arr[0].length];
+        for(int i=0;i<arr.length;i++)
         {
-            for(int j=0;j<board[0].length;j++)
+            for(int j=0;j<arr[0].length;j++)
             {
-                if(board[i][j]==word.charAt(0))
-                {
-                    System.out.println("OK");
-                    A(board,word,b,i,j,0);
-                }
-                  
+                   char c= arr[i][j];
+                   if(c==s.charAt(0))
+                   {
+                        boolean b= A(arr,s,i,j,0,bu);
+                        if(b)return true;
+                   }
             }
         }
-     
-        return ans;
+        return false;
     }
 
-public void A(char arr[][],String word,boolean b[][],int row,int col,int index)
-{
-if(index==word.length())
-{
-    ans=true;
-    return;
-}
-if(row<0 || row>=arr.length) return ;
-if(col<0 || col>=arr[0].length) return;
-if(arr[row][col]!=word.charAt(index)) return;
-if(arr[row][col]==word.charAt(index) && b[row][col]==false)
-{
-        b[row][col]=true;
-        A(arr,word,b,row,col+1,index+1);
-        A(arr,word,b,row+1,col,index+1);
-        A(arr,word,b,row,col-1,index+1);
-        A(arr,word,b,row-1,col,index+1);
-        b[row][col]=false;
-}
+    private boolean A(char arr[][],String s,int i,int j,int index,boolean isVisit[][])
+    {
+        if (i<0 || i>=arr.length || j<0 || j>=arr[0].length)
+        return false;
+        if(isVisit[i][j]==true) return false;
 
-}
+        char c= s.charAt(index);
+        if(c==arr[i][j] && index==s.length()-1) return true;
+        else if(c==arr[i][j])
+        {
+             isVisit[i][j]=true;
+            Boolean a = A(arr,s,i,j+1,index+1,isVisit);
+          Boolean b=  A(arr,s,i+1,j,index+1,isVisit);
+           Boolean m = A(arr,s,i,j-1,index+1,isVisit);
+           Boolean n= A(arr,s,i-1,j,index+1,isVisit);
+           isVisit[i][j]=false;
+           return((a||b)||(m||n));
+        }
+        else 
+        return false;
+        
+
+    }
 }
