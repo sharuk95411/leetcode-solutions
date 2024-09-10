@@ -1,30 +1,49 @@
 class Solution {
     public boolean isValid(String s) {
-        if(s.length()%2!=0) return false;
 
+        if(s.length()%2!=0) return false;
         Stack<Character>stack= new Stack<>();
-        int i=0;
-        while(i<s.length())
-        {
-            Character c= s.charAt(i);
-            if(c=='(' || c=='{' ||c=='[') 
+         
+         for(int i=0;i<s.length();i++)
+         {
+            char c= s.charAt(i);
+
+            switch(c)
             {
-                stack.push(c);
+                case '(' : stack.push(c); 
+                break;
+                case '{' : stack.push(c);
+                break;
+                case '[' : stack.push(c);
+                break;
+                case ')':
+                if(!stack.isEmpty() && stack.peek()=='(') 
+                {
+                    stack.pop();
+                    System.out.println("Remove "+'(');
+                    break;
+                }
+                else return false;
+                 case '}':
+                if(!stack.isEmpty() && stack.peek()=='{')
+                {
+                    stack.pop();
+                    System.out.println("Remove "+'{');
+                    break;
+                }
+                else return false;
+                 case ']':
+                if(!stack.isEmpty() && stack.peek()=='[') 
+                {
+                    stack.pop();
+                    System.out.println("Remove "+'[');
+                    break;
+                }
+                else return false;
             }
-            else 
-            {
-                if(stack.isEmpty()) return false;
-                if(c==')' && stack.peek()!='(') return false;
-                else if(c=='}' && stack.peek()!='{') return false;
-                else if(c==']' && stack.peek()!='[') return false;
-                else stack.pop();
-               
-                
-            }
-             i++;
-            
-        }
-        if(stack.isEmpty()==false) return false;
-        else return true;
+            System.out.println("size "+stack.size());
+         }
+         if(stack.isEmpty()) return true;
+         return false;
     }
 }
