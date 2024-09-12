@@ -40,4 +40,3 @@ int min= Integer.MAX_VALUE;
     }
 }
 
-
