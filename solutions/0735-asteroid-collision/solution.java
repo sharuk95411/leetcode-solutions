@@ -1,53 +1,58 @@
 class Solution {
-
     public int[] asteroidCollision(int[] arr) {
         
-        int n= arr.length;
-              for(int i=0;i<n;i++)
-              {
-                  if(arr[i]<0)
-                  {
-                      int j=i-1;
-                      while(j>=0)
-                      {
-                         if(arr[j]<0 && arr[i]<0) break;
-                        else if(Math.abs(arr[i])==Math.abs(arr[j]))
-                          {
-                              arr[i]=0;
-                              arr[j]=0;
-                              break;
-                          }
-                          else if(Math.abs(arr[j])>Math.abs(arr[i]))
-                          {
-                              arr[i]=0;
-                              break;
-                          }
-                          else
-                          {
-                              arr[j]=0;
-                              j--;
-                          }
-                      }
-                  }
-              }
-              int count=0;
-              for(int a :arr)
-              {
-                  if(a!=0) count++;
-                  System.out.println(a);
-              }
-              int ans[]= new int[count];
-              count=0;
-              int i=0;
-              while(count<ans.length)
-              {
-                  if(arr[i]!=0)
-                  {
-                          ans[count]=arr[i];
-                          count++;
-                  }
-                  i++;
-              }
-              return ans;
+        int n = arr.length;
+        Stack<Integer>stack= new Stack<>();
+        stack.push(arr[0]);
+
+        for(int i=1;i<n;i++)
+        {
+             if(stack.isEmpty()) stack.push(arr[i]);
+           else if(arr[i]<0 && stack.peek()<0)
+            {
+                          stack.push(arr[i]);
+            }
+            else if (arr[i]>0 && stack.peek()>0)
+            {
+                    stack.push(arr[i]);
+            }
+
+            else if (arr[i]>0 && stack.peek()<0)
+            {
+                stack.push(arr[i]);
+            }
+            else if( arr[i]<0 && stack.peek()>0)
+            {
+                int a= Math.abs(arr[i]);
+                boolean b=true;
+                     while(!stack.isEmpty() && stack.peek()>0)
+                     {
+                        if(a>stack.peek()) stack.pop();
+                        else if( a<stack.peek()) break;
+                        else 
+                        {
+                            stack.pop();
+                            b=false;
+                            break;
+                        }
+                       
+                     }
+                     if(b)
+                     {
+                     if(stack.isEmpty()) stack.push(arr[i]);
+                     else if (stack.peek()<0) stack.push(arr[i]);
+                     }
+                    
+            }
+        }
+        
+        int ans[]= new int[stack.size()];
+         for(int i=ans.length-1;i>=0;i--)
+         {
+            System.out.println("ELE "+stack.peek());
+            ans[i]=stack.pop();
+         }
+         return ans;
+
     }
 }
