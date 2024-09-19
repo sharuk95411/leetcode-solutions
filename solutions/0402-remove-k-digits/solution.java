@@ -1,19 +1,20 @@
 class Solution {
     public String removeKdigits(String s, int k) {
         
-        if(s.length()==k) return "0";
+        String ans="";
+        if(k==s.length()) return "0";
         Stack<Character>stack= new Stack<>();
-        
         stack.push(s.charAt(0));
+
         for(int i=1;i<s.length();i++)
         {
-                while(stack.size()>0 &&(k>0 && stack.peek()>s.charAt(i)))
-                {
-                  //  System.out.println("OK");
-                    stack.pop();
-                    k--;
-                }
-            stack.push(s.charAt(i));
+            char b= s.charAt(i);
+            while(!stack.isEmpty() &&( k>0 &&stack.peek()>b ) )
+            {
+                k--;
+                stack.pop();
+            }
+            stack.push(b);
         }
         
         while(k>0)
@@ -21,19 +22,21 @@ class Solution {
             stack.pop();
             k--;
         }
-        String ans="";
-        while(stack.size()>0)
+
+        while(!stack.isEmpty())
         {
-            ans=stack.pop()+ans;
+            ans= stack.pop()+ans;
         }
-        // Removing leading zeros 
-        while(ans.length()>0 &&ans.charAt(0)=='0')
+        while(ans.length()>0 && ans.charAt(0)=='0')
         {
-            ans=ans.substring(1);
+            ans=ans.substring(1,ans.length());
+
         }
-        if(ans.length()==0) return "0";
-    
+         if(ans.length()==0) return "0";
         return ans;
+
+
+
+
     }
-    
 }
