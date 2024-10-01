@@ -3,28 +3,32 @@ class Solution {
         
         int i=0;
         int j=0;
-        int n= arr.length;
-        int ans= Integer.MIN_VALUE;
-
-        for(j=0;j<n;j++)
+        int ans=0;
+        while(j<arr.length)
         {
-             if(k>0 && arr[j]==0) k--;
-            else if(k==0 && arr[j]==0)
-             {
-                 ans=Math.max(ans,j-i);
-                 while(i<n && k==0)
-                 {
-                     if(arr[i]==0)
-                     {
-                         i++;
-                         k++;
-                     }
-                     else i++;
-                 }
-                 j--;
-             }
+            if(arr[j]==1) j++;
+            else
+            {
+                if(k>0)
+                {
+                    k--;
+                    j++;
+                }
+                else
+                {
+                    ans= Math.max(ans,j-i);
+                    while(k<=0)
+                    {
+                        if(arr[i]==0)
+                        {
+                            k++;
+                        }
+                        i++;
+                    }
+                }
+            }
         }
-        ans=Math.max(ans,j-i);
+        ans= Math.max(ans,j-i);
         return ans;
     }
 }
