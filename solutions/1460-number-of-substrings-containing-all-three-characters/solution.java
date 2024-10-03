@@ -1,32 +1,44 @@
 class Solution {
     public int numberOfSubstrings(String s) {
         
-        HashMap<Character,Integer>h= new HashMap<>();
-        for(int i=0;i<2;i++)
-        {
-            h.put(s.charAt(i),h.getOrDefault(s.charAt(i),0)+1);
-        }
-        int end=s.length();
+        int arr[]=new int[3];
+
+        int i =0;
+        int j=0;
+
         int ans=0;
-        int left=0;
-        int right=2;
-        while(right<s.length())
+
+        while(j<s.length())
         {
-            h.put(s.charAt(right),h.getOrDefault(s.charAt(right),0)+1);
-            while(h.size()==3)
+            char c= s.charAt(j);
+            arr[c-'a']++;
+            if(j-i>=2)
             {
-                ans=ans+end-right;
-                h.put(s.charAt(left),h.get(s.charAt(left))-1);
-                if(h.get(s.charAt(left))==0)
+                if(check(arr))
                 {
-                   h.remove(s.charAt(left++));
-                   // left++;
-                   break;
+                    ans= ans+s.length()-j;
+                    arr[s.charAt(i)-'a']--;
+                    i++;
+                    if(j-i>=2) 
+                    {
+                        arr[c-'a']--;
+                        j--;
+                    }
                 }
-                left++;
             }
-            right++; 
+            j++;
         }
-        return ans;
+ return ans;
     }
+
+    public boolean check(int arr[])
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            if(arr[i]==0) return false;
+        }
+        return true;
+    }
+  
 }
+  
