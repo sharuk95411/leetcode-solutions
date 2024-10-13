@@ -7,22 +7,8 @@ class Solution {
             char c= s.charAt(i);
             h.put(c,h.getOrDefault(c,0)+1);
         }
-        PriorityQueue<Character> pq = new PriorityQueue<>((s1, s2) -> {
-            int a = h.get(s1);// return the value
-            int b = h.get(s2); // return the value
-            
-            if(a>b)
-            {
-                 return -1;
-            }
-            else if(a<b)
-            {
-                      return 1;
-            }
-            else 
-           return 0;
-              });
-   String ans="";
+    PriorityQueue<Character> pq = new PriorityQueue<>((a,b) -> h.get(b) - h.get(a));
+    String ans="";
        for (Map.Entry<Character,Integer> m : h.entrySet())
         {
          pq.add(m.getKey());
@@ -47,7 +33,7 @@ class Solution {
 
         if(pq.size()>0)
         { 
-         if(h.get(pq.peek())>1) return "";
+        if(h.get(pq.peek())>1) return "";
         else ans=ans+pq.poll();
         }
        
