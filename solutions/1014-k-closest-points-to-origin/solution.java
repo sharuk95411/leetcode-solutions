@@ -27,20 +27,8 @@ class Solution {
              int x= p[i][0];
              int y= p[i][1];
             int d= x*x +y*y;
-             if(pq.size()==k)
-             {
-                A a= pq.peek();
-                if(d<a.d) 
-                {
-                    pq.poll();
-                    pq.add(new A(x,y,d));
-                    
-                }
-             }
-             else
-             {
-                 pq.add(new A(x,y,d));
-             }
+             pq.add(new A(x,y,d));
+             if(pq.size()>k)pq.poll();
          }
 int ans[][]= new int[k][2];
 int i=0;
