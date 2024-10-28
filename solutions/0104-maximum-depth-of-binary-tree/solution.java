@@ -14,16 +14,23 @@
  * }
  */
 class Solution {
+    int ans=Integer.MIN_VALUE;
     public int maxDepth(TreeNode root) {
-        return A(root);
-
+         
+         A(root,0);
+         return ans;
     }
-    public int A(TreeNode root)
+
+    public void A(TreeNode root,int h)
     {
-        if(root==null) return 0;
-        int left=1+A(root.left);
-        int right=1+A(root.right);
-        return Math.max(left,right);
-        
+
+      if(root==null)
+      {
+        ans=Math.max(h,ans);
+        return ;
+      }
+      A(root.left,h+1);
+      A(root.right,h+1);
+
     }
 }
