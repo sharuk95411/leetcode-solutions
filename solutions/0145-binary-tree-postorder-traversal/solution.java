@@ -14,18 +14,17 @@
  * }
  */
 class Solution {
-    List<Integer>ans= new ArrayList<>();
+     List<Integer>ans= new ArrayList<>();
     public List<Integer> postorderTraversal(TreeNode root) {
+        
         A(root);
         return ans;
     }
     public void A(TreeNode root)
     {
-        if(root!=null)
-        {
-            A(root.left);
-            A(root.right);
-            ans.add(root.val);
-        }
+         if(root==null) return ;
+         A(root.left);
+         A(root.right);
+         ans.add(root.val);
     }
 }
