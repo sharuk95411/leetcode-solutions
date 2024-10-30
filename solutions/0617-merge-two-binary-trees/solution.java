@@ -14,20 +14,30 @@
  * }
  */
 class Solution {
-    public TreeNode mergeTrees(TreeNode r1, TreeNode r2) {
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
         
-        return A(r1,r2);
+        return A(root1,root2);
+    
     }
-    public TreeNode A(TreeNode r1, TreeNode r2)
+
+    public TreeNode A(TreeNode r1,TreeNode r2)
     {
-        // if(r1==null && r2==null) return null;
-         if(r1!=null && r2!=null)
+
+        if(r1==null & r2==null)return null ;
+       else if(r1==null)
         {
-            r1.val= r1.val+r2.val;
-            r1.left=A(r1.left,r2.left);
-            r1.right= A(r1.right,r2.right);
+                return r2;
         }
-        else if (r1==null && r2!=null) return r2;
-        return r1;
+        else if(r2==null)
+        {
+            return r1;
+        }
+        else
+        {
+        r1.val=r1.val+r2.val;
+           r1.left=A(r1.left,r2.left);
+           r1.right= A(r1.right,r2.right);
+          return r1;
+        }
     }
 }
