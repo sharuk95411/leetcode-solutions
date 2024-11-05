@@ -14,27 +14,23 @@
  * }
  */
 class Solution {
-    public TreeNode buildTree(int[] pre, int[] in) {
-        
-        return A(pre,in,0,0,in.length-1);
+    int p=0;//preorder array pointer
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return helper( 0, inorder.length-1, preorder, inorder);
     }
-    
-    public TreeNode A(int pre[], int in[], int pre_index,int start,int end)
-    {
-        if(start>end)return null;
+    public TreeNode helper( int start, int end, int[] preorder, int[] inorder){
+        if(start>end) return null;
+int j = find(preorder[p], inorder, start, end); //find the root of the present subtree in inorder array
+        TreeNode node = new TreeNode(preorder[p]);//create new node of the sub tree
+        p++;
+        node.left = helper( start, j-1, preorder, inorder);//build left sub tree
+        node.right = helper( j+1, end, preorder, inorder);//build right sub tree
+        return node;
+    }
 
-        TreeNode n= new TreeNode(pre[pre_index]);
-        int in_index= find(in,start,end,pre[pre_index]);
-        int left_tree_size= in_index-start;
-        n.left= A(pre,in,pre_index+1,start,in_index-1);
-        n.right= A(pre,in,pre_index+left_tree_size+1,in_index+1,end);
-        return n;
-    }
-    public int find(int in[],int start,int end,int key)
-    {
-        for(int i=start;i<=end;i++)
-        {
-            if(in[i]==key)return i;
+    public int find(int val, int[] inorder,int start, int end){
+         for (int i = start; i <= end; i++) {
+            if (inorder[i] == val) return i;
         }
         return -1;
     }
