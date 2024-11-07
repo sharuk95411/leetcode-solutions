@@ -14,36 +14,89 @@
  * }
  */
 class Solution {
-    List<List<Integer>>outer= new ArrayList<>();
-    List<Integer>inner= new ArrayList<>();
-    int sum=0;
-    public List<List<Integer>> pathSum(TreeNode root, int s) {
-        
-        if(root==null)return outer;
-        A(root,s);
-         return outer;
-   }
-       
-    public void A(TreeNode root,int s1)
-    {
-        
-        if(root==null) return ;
-        sum=sum+root.val;
-        inner.add(root.val);
-        if(sum==s1 &&(root.left==null && root.right==null))
-        {
-            outer.add(new ArrayList<>(inner));
-             sum=sum-root.val;
-              inner.remove(inner.size()-1);
-               System.out.println("OKK");
-               return ;
-        }
-        A(root.left,s1);
-         A(root.right,s1);
-        inner.remove(inner.size()-1);
-        sum=sum-root.val;
-       
 
+List<List<Integer>>ans= new ArrayList<>();
+List<Integer>inner=new ArrayList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        
+        A(root,0,targetSum);
+        return ans;
+
+    }
+
+    public void A(TreeNode root,int target,int sum)
+    {
+        if(root==null) return ;
+        inner.add(root.val);
+         A(root.left,target+root.val,sum);
+         A(root.right,target+root.val,sum);
+         if((root.left==null && root.right==null)&&(target+root.val==sum))
+        {
+                 ans.add(new ArrayList<>(inner));
+        }
+        inner.remove(inner.size()-1);
         
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
