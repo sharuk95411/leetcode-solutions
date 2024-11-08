@@ -14,15 +14,29 @@
  * }
  */
 class Solution {
-    TreeNode head = null;
+    Queue<TreeNode>q= new LinkedList<>();
     public void flatten(TreeNode root) {
-        if (root != null) revPreOrder(root);
+        A(root);
+        if(root==null) return ;
+        System.out.println("SIZE "+q.size());
+        root.right=null;
+        root.left=null;
+        q.remove();
+    while(!q.isEmpty())
+    {
+        TreeNode n= q.remove();
+        n.left=null;
+        n.right=null;
+        root.right=n;
+        root=root.right;
     }
-    private void revPreOrder(TreeNode node) {
-        if (node.right != null) revPreOrder(node.right);
-        if (node.left != null) revPreOrder(node.left);
-        node.left = null;
-        node.right = head;
-        head = node;
+    }
+
+    public void A(TreeNode root)
+    {
+        if(root==null) return ;
+        q.add(root);
+        A(root.left);
+        A(root.right); 
     }
 }
