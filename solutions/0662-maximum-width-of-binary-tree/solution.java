@@ -15,45 +15,49 @@
  */
 class Solution {
 
-    class C
-    {
-        int index;
-        TreeNode node;
-        C(TreeNode n,int a)
-        {
-            index=a;
-            node=n;
-        }
-    }
-    int ans=1;
+   class A
+   {
+      TreeNode n;
+      int i;
+      A(TreeNode node,int value)
+      {
+        n=node;
+        i=value;
+      }
+   }
+
     public int widthOfBinaryTree(TreeNode root) {
-          Deque<C> q= new ArrayDeque<>();
-        q.add(new C(root,0));
-        while(q.size()>0)
+        
+        if(root==null) return 0;
+        Deque<A>q= new LinkedList<>();
+        int left=0;
+        int right=0;
+        int ans=0;
+        q.add(new A(root,0));
+        while(!q.isEmpty())
         {
             int size=q.size();
-            int left=q.getFirst().index;
-            int right=q.getLast().index;
+             left=q.peekFirst().i;
+            right=q.peekLast().i;
             ans=Math.max(ans,right-left+1);
-            
             while(size>0)
             {
-             C c= q.poll();
-              int i=c.index;
-              TreeNode n= c.node;
-            
-              if(n.left!=null)
-              {
-                      q.add(new C(n.left,2*i+1));
-              } 
-              if(n.right!=null)
-              {
-                q.add(new C(n.right,2*i+2));
-              }
-              size--;
+                A a= q.pop();
+                int level= a.i;
+                TreeNode node= a.n;
+                if(node.left!=null)
+                {
+                    q.add(new A(node.left,2*level+1));
+                }
+                if(node.right!=null)
+                {
+                    q.add(new A(node.right,2*level+2));
+                }
+                size--;
             }
-            
+           
+
         }
-        return ans;
+       return ans;
     }
 }
