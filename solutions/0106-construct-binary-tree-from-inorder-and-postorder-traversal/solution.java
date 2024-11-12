@@ -14,32 +14,33 @@
  * }
  */
 class Solution {
-    
-    private int idx;
-    
+
+int n;
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        if (inorder.length != postorder.length) return null;
-        if (inorder.length == 0) return null;
-        idx = postorder.length-1;
-        TreeNode root = build(inorder, postorder, 0, idx);
-        return root;
-    }
-    
-    private TreeNode build(int[] inorder, int[] postorder, int start, int end) {
-        if (start>end) return null;
-        TreeNode node = new TreeNode(postorder[idx--]);
-        if (start==end) return node;
         
-        int index = findIdx(inorder, node.val, end);
-        node.right = build(inorder, postorder, index+1, end);
-        node.left = build(inorder, postorder, start, index-1);
-        return node;
+            n= inorder.length-1;
+            return A(0,inorder.length-1,inorder,postorder);
     }
+    public TreeNode A(int left,int right,int in[],int post[])
+    {
+                 if(left>right) return null;
+                 TreeNode node= new TreeNode(post[n]);
+        
+                 int Mid= mid(post[n],in);   
+                 n--;
+                 node.right= A(Mid+1,right,in,post);
+                 node.left= A(left,Mid-1,in,post);
+                 
+                 return node; 
+    }
+   
+   public int mid(int a,int in[])
+   {
+         for(int i=0;i<in.length;i++)
+         {
+            if(in[i]==a) return i;
+         }
+         return -1;
+   }
     
-    private int findIdx(int[] inorder, int val, int end) {
-        for (int i=end; i>=0; i--) {
-            if (inorder[i]==val) return i;
-        }
-        return 0;
-    }
 }
