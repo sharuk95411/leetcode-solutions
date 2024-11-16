@@ -14,16 +14,23 @@
  * }
  */
 class Solution {
+    TreeNode n= null;
     public TreeNode searchBST(TreeNode root, int val) {
-          if(root==null) return root;
         
-        if(val==root.val) return root;
-        
-        if(val<root.val && root.left!=null) return searchBST(root.left,val);
-        else if (val>root.val && root.right!=null) 
-            
-        return searchBST(root.right,val);
-        
-        return null;
+         A(root,val);
+        return n;
     }
+
+    public void A(TreeNode root,int val)
+    {
+               if(root==null) return ;
+            else if(root.val==val)
+            {
+                n= root;
+                return ;
+            }
+            else if(val>root.val) A(root.right,val);
+            else A(root.left,val);
+    }
+
 }
