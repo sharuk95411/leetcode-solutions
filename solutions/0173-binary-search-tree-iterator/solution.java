@@ -14,32 +14,32 @@
  * }
  */
 class BSTIterator {
-
-      Queue<TreeNode>q= new LinkedList<>();
+List<Integer>l= new ArrayList<>();
+        TreeNode root;
+        int size=0;
+        int index=0;
     public BSTIterator(TreeNode root) {
-    
-       A(root);
-
+        this.root=root;
+        A(root);
+        size=l.size();
     }
-
-public void A(TreeNode root)
-{
-     if(root==null)return;
+    public void A(TreeNode root)
+    {
+        if(root==null) return ;
         A(root.left);
-        q.add(root);
+        l.add(root.val);
         A(root.right);
-}
-
+    }
     
     public int next() {
         
-        int data= q.poll().val;
-        return data;
+        return l.get(index++);
     }
     
     public boolean hasNext() {
-        if(q.size()>0)return true;
-        else return false;
+       if(index==l.size())
+       return false;
+       else return true;   
     }
 }
 
