@@ -24,28 +24,23 @@
  * }
  */
 class Solution {
-     ListNode slow,fast,prev;
+    List<Integer>l= new ArrayList<>();
     public TreeNode sortedListToBST(ListNode head) {
-        if(head==null) return null;
-        ListNode mid= mid(head);
-        TreeNode n= new TreeNode(mid.val);
-        if(slow==prev) return n;
-        n.left= sortedListToBST(head);
-        n.right= sortedListToBST(mid.next);
-        return n;
-    }
-    public ListNode mid(ListNode root)
-    {
-        slow=root;
-        fast=root;
-        prev=slow;
-        while(fast!=null && fast.next!=null)
+        while(head!=null)
         {
-        prev=slow;
-        slow=slow.next;
-        fast=fast.next.next;
+            l.add(head.val);
+            head=head.next;
         }
-        prev.next=null;
-        return slow;
+        return A(0,l.size()-1);
+    }
+
+    public TreeNode A(int left,int right)
+    {
+        if(left>right) return null;
+        int mid= (left+right)/2;
+        TreeNode n= new TreeNode(l.get(mid));
+        n.left= A(left,mid-1);
+        n.right= A(mid+1,right);
+        return n;
     }
 }
