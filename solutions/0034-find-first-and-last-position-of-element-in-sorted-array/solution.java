@@ -1,56 +1,40 @@
 class Solution {
-    public int[] searchRange(int[] nums, int target) {
-        int ans[]= new int[2];
-         ans[0]= leftPosition(nums,target);
-         ans[1]= rightPosition(nums,target);
+    boolean b=true;
+    public int[] searchRange(int[] arr, int target) {
+
+int ans[]=new int[2];
+      if(arr.length==0)
+      {
+        ans[0]=-1;
+        ans[1]=-1;
         return ans;
+      }
+        
+        ans[0]=arr.length-1;
+        ans[1]=0;
+        A(arr,target,0,arr.length-1,ans);
+        if(b)
+        {
+            ans[0]=-1;
+            ans[1]=-1;
+            return ans;
+        }
+        return ans;
+
     }
-    public int leftPosition(int arr[],int target)
+    public void A (int arr[],int target,int left,int right,int ans[])
     {
-        int left=0;
-        int right=arr.length-1;
-        int ans=-1;
-        while(left<=right)
+        if(left>right)return ;
+        int mid =(left+right)/2;
+        if(arr[mid]==target)
         {
-            int mid= (left+right)/2;
-            if(target==arr[mid])
-        {
-             ans=mid;
-             right=mid-1;
+            b=false;
+            ans[0]=Math.min(mid,ans[0]);
+            ans[1]=Math.max(mid,ans[1]);
+            A(arr,target,left,mid-1,ans);
+            A(arr,target,mid+1,right,ans);
         }
-        else if(target>arr[mid])
-        {
-            left=mid+1;
-        }
-        else
-        {
-            right= mid-1;
-        }
-        }
-        return ans;
-    }
-    public int rightPosition(int arr[],int target)
-    {
-        int left=0;
-        int right=arr.length-1;
-        int ans=-1;
-        while(left<=right)
-        {
-            int mid= (left+right)/2;
-            if(target==arr[mid])
-        {
-             ans=mid;
-             left=mid+1;
-        }
-        else if(target>arr[mid])
-        {
-            left=mid+1;
-        }
-        else
-        {
-            right= mid-1;
-        }
-        }
-        return ans;
+        else if(arr[mid]>target)  A(arr,target,left,mid-1,ans);
+        else A(arr,target,mid+1,right,ans);
     }
 }
