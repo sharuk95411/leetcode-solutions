@@ -14,29 +14,15 @@
  * }
  */
 class Solution {
-    Queue<TreeNode>q= new LinkedList<>();
+    
+private TreeNode prev = null;
     public void flatten(TreeNode root) {
-        A(root);
-        if(root==null) return ;
-        System.out.println("SIZE "+q.size());
-        root.right=null;
-        root.left=null;
-        q.remove();
-    while(!q.isEmpty())
-    {
-        TreeNode n= q.remove();
-        n.left=null;
-        n.right=null;
-        root.right=n;
-        root=root.right;
-    }
-    }
-
-    public void A(TreeNode root)
-    {
-        if(root==null) return ;
-        q.add(root);
-        A(root.left);
-        A(root.right); 
+         if (root == null)
+        return;
+    flatten(root.right);
+    flatten(root.left);
+    root.right = prev;
+    root.left = null;
+    prev = root;
     }
 }
