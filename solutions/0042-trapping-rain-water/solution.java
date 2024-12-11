@@ -1,24 +1,48 @@
 class Solution {
     public int trap(int[] arr) {
-    
         int ans=0;
-        for(int i=1;i<arr.length-1;i++)
+        int leftMax[]=new int[arr.length];
+        int rightMax[]= new int[arr.length];
+        int i=1;
+        int max= arr[0];
+        while(i<leftMax.length)
         {
-            int j=i-1;
-            int l_max=arr[i];
-            int r_max=arr[i];
-            while(j>=0)
+            
+          if(arr[i]>=max)
+          {
+               max=arr[i];
+          }
+          else
+          {
+            leftMax[i]=max;
+
+          }
+          i++;
+
+        }
+        max=arr[arr.length-1];
+        i=arr.length-2;
+        while(i>=0)
+        {
+             if(arr[i]>=max)
+          {
+               max=arr[i];
+          }
+          else
+          {
+            rightMax[i]=max;
+
+          }
+          i--;
+        }
+
+        for(i=1;i<=arr.length-2;i++)
+        {
+            int min =Math.min(leftMax[i],rightMax[i]);
+            if(min!=0)
             {
-                      l_max=Math.max(arr[j],l_max);
-                j--;
+                ans = ans+ Math.abs(arr[i]-min);
             }
-            int k=i+1;
-            while(k<arr.length)
-            {
-                    r_max=Math.max(r_max,arr[k]);
-                k++;
-            }
-            ans=ans+Math.min(l_max,r_max)-arr[i];
         }
         return ans;
     }
