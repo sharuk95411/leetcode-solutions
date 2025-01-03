@@ -8,39 +8,36 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
- 
 class Solution {
-
-class temp implements Comparator<ListNode>
-{
-    public int compare(ListNode n1,ListNode n2)
-    {
-        if(n1.val<n2.val) return -1;
-        else if(n1.val>n2.val) return 1;
-        else return 0;
-    }
-}
-  PriorityQueue<ListNode>pq= new PriorityQueue<>(new temp());
     public ListNode mergeKLists(ListNode[] lists) {
-      for(int i=0;i<lists.length;i++)
-      {
-          if(lists[i]!=null)
-          pq.add(lists[i]);
-      }
-      ListNode l= new ListNode();
-      ListNode ans=l;
-      while(pq.size()>0)
-      {
-          ListNode n= pq.poll();
-          ans.next=n;
-          ans=n;
-          if(n.next!=null)
-          {
-              pq.add(n.next);
-          }
-          
-      }
-      return l.next;
-
+           if (lists.length==0) return null;
+        
+        PriorityQueue<ListNode> queue= new PriorityQueue<ListNode>(new Comparator<ListNode>(){
+            @Override
+            public int compare(ListNode o1,ListNode o2){
+                if (o1.val<o2.val)
+                    return -1;
+                else if (o1.val==o2.val)
+                    return 0;
+                else 
+                    return 1;
+            }
+        });
+        
+        ListNode dummy = new ListNode(0);
+        ListNode tail=dummy;
+        
+        for (ListNode node:lists)
+            if (node!=null)
+                queue.add(node);
+            
+        while (!queue.isEmpty()){
+            tail.next=queue.poll();
+            tail=tail.next;
+            
+            if (tail.next!=null)
+                queue.add(tail.next);
+        }
+        return dummy.next;
     }
 }
