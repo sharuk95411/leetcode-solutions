@@ -1,13 +1,16 @@
 class Solution {
     public int leastInterval(char[] tasks, int n) {
     
-        HashMap<Character,Integer>h= new HashMap<>();
-        for(int i=0; i<tasks.length;i++)
-        {
-            h.put(tasks[i], h.getOrDefault(tasks[i],0)+1);
+        PriorityQueue<Integer>pq= new PriorityQueue<>(Collections.reverseOrder());
+         int counter[]=new int[26];
+        for (char task : tasks) {
+            counter[task - 'A']++;
         }
-        PriorityQueue<Integer>pq= new PriorityQueue<>(h.size(),Collections.reverseOrder());
-        pq.addAll(h.values());
+        for (int i = 0; i < 26; i++) {
+            if (counter[i]>0) {
+                pq.add(counter[i]);
+            }
+        }
         
         int ans=0;
         
