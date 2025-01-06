@@ -14,40 +14,65 @@
  * }
  */
 class Solution {
+    List<List<Integer>>ans= new ArrayList<>();
 
-    
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
-List<List<Integer>>outer= new ArrayList<>();
-    Queue<TreeNode>q= new LinkedList<>();
-     if(root==null)return outer;
+        
+        if(root==null) return ans;
+        List<Integer>a= new ArrayList<>();
+        a.add(root.val);
+        ans.add(new ArrayList<>(a));
+        int level=0;
+        Queue<TreeNode>q= new LinkedList<>();
         q.add(root);
-        int i=0;
-        while(q.size()>0)
+        while(!q.isEmpty())
         {
-            int size=q.size();
             List<Integer>inner= new ArrayList<>();
-            while(size>0)
+            int size=q.size();
+             while(size>0)
             {
-                TreeNode n=q.poll();
+
+            TreeNode node= q.poll();
+            if(level%2==0)
+            {
+                if(node.right!=null)
+                {
+                    q.add(node.right);
+                    inner.add(node.right.val);
+                }
                 
-                if(i%2==0)
+            
+                if(node.left!=null) 
                 {
-                    inner.add(n.val);
-                    if(n.left!=null)q.add(n.left);
-                    if(n.right!=null)q.add(n.right);
-                }
-                else
-                {
-                         inner.add(0,n.val);
-                         if(n.left!=null)q.add(n.left);
-                         if(n.right!=null)q.add(n.right);
-                }
-                size--;
+                        q.add(node.left);
+                        inner.add(node.left.val);
+                } 
             }
-            outer.add(new ArrayList<>(inner));
-            i++;
+            else
+            {
+                 if(node.right!=null)
+                {
+                    q.add(node.right);
+                    inner.add(0,node.right.val);
+                }
+                
+            
+                if(node.left!=null) 
+                {
+                        q.add(node.left);
+                        inner.add(0,node.left.val);
+                } 
+
+            }
+         size--;
+
+             }
+             level++;
+             if(inner.size()>0)
+             ans.add(new ArrayList<>(inner));
+
         }
-     return outer;   
+        return ans;
     }
+
 }
