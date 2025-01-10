@@ -1,85 +1,75 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-// class Solution {
-//     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        
-//     }
-// }
 class Solution {
-    static int leastCol;
-    static int mostCol;
 
-    static List<List<Integer>> ans;
-    static PriorityQueue<Pair> pq;
-    
+    class Point {
+        TreeNode root;
+        int x;
+        int y;
+
+        public Point(TreeNode root, int x, int y) {
+            this.root = root;
+            this.x = x;
+            this.y = y;
+        }
+    }
+
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        ans=new ArrayList<List<Integer>>();
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null)
+            return res;
 
-        bfs(root);
-        int sumCol=mostCol-leastCol+1;
+        Map<Integer, PriorityQueue<Point>> map = new HashMap<>();
+        Queue<Point> queue = new LinkedList<>();
+        queue.add(new Point(root, 0, 0));
 
-        for(int i=0;i<sumCol;i++)
-            ans.add(new ArrayList<Integer>());
-        
-        while(!pq.isEmpty()){
-            Pair curr=pq.poll();
-            ((ArrayList<Integer>)ans.get(-leastCol+curr.col)).add(curr.node.val);
-        }
-        
-        return (List<List<Integer>> )ans;
-    }
-    public static void bfs(TreeNode root){
-        Queue<Pair> q=new LinkedList<Pair>();
-        pq =new PriorityQueue<Pair>();
-        int row=0;
-        int col=0;
-        q.add(new Pair(row,col, root));
-        leastCol=0;
-        mostCol=0;
-        row=1;
-        
-        while(!q.isEmpty()){
-            Pair curr = q.poll();
-            pq.add(curr);
-            
-            if(curr.node.left!=null){
-                q.add(new Pair(curr.row+1, curr.col-1, curr.node.left));
-                leastCol=Math.min(leastCol, curr.col-1);
+        PriorityQueue<Point> pq = new PriorityQueue<>((a, b) -> {
+            if (a.y != b.y) {
+                return a.y - b.y; // Sort by y (ascending)
+            } else {
+                return a.root.val - b.root.val; // Sort by root.val (ascending) if y is the same
             }
-            if(curr.node.right!=null){
-                q.add(new Pair(curr.row+1, curr.col+1, curr.node.right));
-                mostCol=Math.max(mostCol, curr.col+1);
+        });
 
+        int minIdx = 0;
+        int maxIdx = 0;
+
+        while (!queue.isEmpty()) {
+
+            int size= queue.size();
+            while(size>0)
+            {
+            Point point = queue.poll();
+            root = point.root;
+
+            map.putIfAbsent(point.x, new PriorityQueue<>(pq));
+
+            map.get(point.x).add(point);
+
+            // Update min and max indices
+            minIdx = Math.min(minIdx, point.x);
+            maxIdx = Math.max(maxIdx, point.x);
+
+            if (root.left != null) {
+                queue.add(new Point(root.left, point.x - 1, point.y + 1));
             }
+            if (root.right != null) {
+                queue.add(new Point(root.right, point.x + 1, point.y + 1));
+            }
+            size--;
+            }
+           
         }
-    }
-    
-    static class Pair implements Comparable<Pair>{
-        int col;
-        int row;
-        TreeNode node;
-        public Pair(int r,int c, TreeNode n){
-            row=r;
-            col=c;
-            node=n;
+
+        // Build the result from the map
+        for (int i = minIdx; i <= maxIdx; i++) {
+            PriorityQueue<Point> pqq = map.get(i);
+            List<Integer> list = new ArrayList<>();
+            while (!pqq.isEmpty()) {
+                list.add(pqq.poll().root.val);
+            }
+            res.add(list);
         }
-        public int compareTo(Pair p){
-            if(col!=p.col) return col-p.col;
-            if(row!=p.row) return row-p.row;
-            return node.val-p.node.val;
-        }
+
+        return res;
     }
 }
+
