@@ -8,68 +8,65 @@
  * }
  */
 class Solution {
+     HashMap<TreeNode ,TreeNode>h= new HashMap<>();
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         
-        List<Integer>ans= new ArrayList<>();
-        if(k==0)
-        {
-            ans.add(target.val);
-            return ans;
-        }
-        HashMap<TreeNode,TreeNode>h= new HashMap<>();
-        A(root,h);
-        HashSet<TreeNode> check = new HashSet<>();
+        A(root);
         Queue<TreeNode>q= new LinkedList<>();
+        List<Integer>list= new ArrayList<>();
         q.add(target);
-        while(q.size()>0)
+        while(!q.isEmpty())
         {
-            int s=q.size();
-            while(s>0)
+            int size=q.size();
+            if(k==0) break;
+            k--;
+            while(size>0)
             {
-                TreeNode n=q.poll();
-                if(n.left!=null && !check.contains(n.left))
+                TreeNode n = q.poll();
+                list.add(n.val);
+                
+                if(n.left!=null && list.contains(n.left.val)==false)
                 {
-                    q.add(n.left);
-                    check.add(n.left);
+                           q.add(n.left);
                 }
-                if(n.right!=null && !check.contains(n.right))
+                 if(n.right!=null && list.contains(n.right.val)==false)
                 {
                     q.add(n.right);
-                    check.add(n.right);
                 }
-                if(h.containsKey(n)==true && !check.contains(n))
+
+                if(h.containsKey(n) && list.contains(h.get(n).val)==false)
                 {
                     q.add(h.get(n));
-                    check.add(n);
                 }
-                s--;
+                size--;
+
             }
-            k--;
-            if(k==0) break;
         }
+        list=new ArrayList<>();
+        while(!q.isEmpty())
+        {
+            list.add(q.poll().val);
+        }
+        return list;
+            
+
         
-        
-            while(q.size()>0)
-            {
-                ans.add(q.poll().val);
-            }
-        return ans;
 
     }
-
-    public void A(TreeNode root,HashMap<TreeNode,TreeNode>h)
+    public void A(TreeNode root)
     {
-        if(root==null)return ;
-        
+        if(root==null) return ;
         if(root.left!=null)
         {
             h.put(root.left,root);
-            A(root.left,h);
         }
         if(root.right!=null)
         {
-            h.put(root.right,root);
-            A(root.right,h);
+              h.put(root.right,root);
         }
+        A(root.left);
+        A(root.right);
     }
+
+   
 }
