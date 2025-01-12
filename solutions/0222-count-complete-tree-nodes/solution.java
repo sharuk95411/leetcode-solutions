@@ -17,42 +17,34 @@ class Solution {
 
     public int countNodes(TreeNode root) {
         
-        if(root==null)return 0;
-        int lh=A(root);
-        int rh=B(root);
-        // System.out.println("LH AND RH " +lh +" "+rh);
-        if(lh==rh)
-        {
+        return A(root);
+    }
 
-            
-            return (int)(Math.pow(2, lh)-1);
+    public int A(TreeNode root)
+    {
+        if(root==null) return 0;
+
+        int left= Left(root.left);
+        int right= Right(root.right);
+        if(left==right)
+        {
+            return (int)Math.pow(2,left+1)-1;
         }
         else
-        return 1+countNodes(root.left)+countNodes(root.right);
+        {
+            return A(root.left)+A(root.right)+1;
+        }
+        
     }
 
-    public int A(TreeNode n)
+    public int Left(TreeNode root)
     {
-
-        int h=0;
-        while(n!=null)
-        {
-        h=h+1;
-        n=n.left;
-
-        }
-        return h;
+        if(root==null) return 0;
+        return 1+Left(root.left);
     }
-     public int B(TreeNode n)
+    public int Right(TreeNode root)
     {
-
-        int h=0;
-        while(n!=null)
-        {
-        h=h+1;
-            n=n.right;
-
-        }
-        return h;
+        if(root==null) return 0;
+        return 1+Right(root.right);
     }
 }
