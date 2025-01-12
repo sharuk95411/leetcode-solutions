@@ -14,33 +14,30 @@
  * }
  */
 class Solution {
-
-int n;
-    public TreeNode buildTree(int[] inorder, int[] postorder) {
-        
-            n= inorder.length-1;
-            return A(0,inorder.length-1,inorder,postorder);
+    int index;
+    public TreeNode buildTree(int[] in, int[] post) {
+        index=in.length-1;
+        return A(0,in.length-1,in,post);
     }
-    public TreeNode A(int left,int right,int in[],int post[])
+    public TreeNode A (int left,int right,int in[],int post[])
     {
-                 if(left>right) return null;
-                 TreeNode node= new TreeNode(post[n]);
+        if(left>right) return null;
+
+        TreeNode root= new TreeNode(post[index]); 
+        int pos= B(in,post[index]);
+        index--;
+        root.right= A(pos+1,right,in,post);
+        root.left= A(left,pos-1,in,post);
         
-                 int Mid= mid(post[n],in);   
-                 n--;
-                 node.right= A(Mid+1,right,in,post);
-                 node.left= A(left,Mid-1,in,post);
-                 
-                 return node; 
+        return root;
     }
-   
-   public int mid(int a,int in[])
-   {
-         for(int i=0;i<in.length;i++)
-         {
-            if(in[i]==a) return i;
-         }
-         return -1;
-   }
-    
+
+    public int B(int in[],int element)
+    {
+        for(int i=0;i<in.length;i++)
+        {
+            if(in[i]==element) return i;
+        }
+        return -1;
+    }
 }
