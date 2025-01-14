@@ -14,20 +14,39 @@
  * }
  */
 class Solution {
-    long no =Long.MIN_VALUE;
+
+int ans=-2147483648;
+boolean b=true;
+boolean first=true;
     public boolean isValidBST(TreeNode root) {
         
-        if(root.left==null && root.right==null)return true;
-        return A(root);
+        if(root.left==null && root.right==null) return true;
+     A(root);
+     return b;
     }
 
-    public boolean A(TreeNode root)
+    public void A(TreeNode root)
     {
-        if(root==null)return true;
-        if(A(root.left)==false) return false;
-        if(no>=root.val) return false;
-        else no=root.val;
-        if(A(root.right)==false) return false;
-        return true;
+        if(root==null) return ;
+        A(root.left);
+        int a= root.val;
+        if(first) 
+        {
+          first=false;
+          ans=a;
+        }
+        else
+        {
+            if(ans>=a)
+            {
+                b=false;
+                return;
+            }
+            else
+             ans=a;
+        }
+       
+        A(root.right);
+
     }
 }
