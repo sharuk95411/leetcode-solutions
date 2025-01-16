@@ -14,26 +14,39 @@
  * }
  */
 class Solution {
-    List<Integer>l=new ArrayList<>();
-     public void recoverTree(TreeNode root) {
-         Add(root);
-         Collections.sort(l);
+   TreeNode first,second,p;
+      long prev =Long.MIN_VALUE;
+       Boolean b=true;
+    public void recoverTree(TreeNode root) {
+         
          A(root);
+         int temp= first.val;
+         first.val= second.val;
+         second.val= temp;
+         
+
     }
 
-    public void Add(TreeNode root)
-    {
-        if(root==null) return ;
-        Add(root.left);
-        Add(root.right);
-        l.add(root.val);
-        
-    }
     public void A(TreeNode root)
     {
-        if(root==null) return;
+        if(root==null) return ;
         A(root.left);
-            root.val=l.remove(0);
+        int current = root.val;
+        if(current>prev)
+        {
+            prev= current;
+            p=root;
+        }
+        else
+        {     
+            second= root;
+            if(b)
+            {
+              first=p;
+              b=false;
+            }  
+              prev= current;
+        }
         A(root.right);
     }
 }
