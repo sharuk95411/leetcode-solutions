@@ -14,23 +14,32 @@
  * }
  */
 class Solution {
-    public TreeNode bstFromPreorder(int[] preorder) {
-     return helper(preorder, 0, preorder.length - 1);   
+    int index=0;
+    public TreeNode bstFromPreorder(int[] pre) {
+        
+        return A(pre,0,pre.length-1);
+
     }
-    
-    private TreeNode helper(int[] preorder, int start, int end) {
-        if(start > end) return null;
-        
-        TreeNode node = new TreeNode(preorder[start]);
-        int i;
-        for(i=start;i<=end;i++) {
-        if(preorder[i] > node.val)
-            break;
+    public TreeNode A(int pre[],int left,int right)
+    {
+        if(left>right) return null;
+        TreeNode root= new TreeNode(pre[index]);
+        // find the elemnt position which less than root so we put left side of root
+        int pos= B(pre,pre[index],index+1); 
+        index++;
+        root.left=A(pre,index,pos);
+        root.right=A(pre,pos+1,right);
+        return root;
+    }
+
+
+    public int B(int pre[],int a,int index)
+    {
+        while(index<pre.length)
+        {
+            if(pre[index]>a) return index-1;
+            index++;
         }
-        
-        node.left = helper(preorder, start+1, i-1);
-        node.right = helper(preorder, i, end);
-        return node;
-        
+        return pre.length-1;
     }
 }
