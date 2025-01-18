@@ -1,30 +1,32 @@
+
 class Solution {
-    int count=0;
+int arr[];
     public int numDecodings(String s) {
-        
-        int arr[]= new int[s.length()+1];
-          Arrays.fill(arr, -1);
-          return A(s,0,arr);
-        
+        arr=new int[s.length()+1];
+        Arrays.fill(arr,-1);
+        return recursiveDecode(s, 0);
     }
-    
-    private int A(String s,int index,int arr[])
-    {
-        if(index==s.length()) return 1 ; 
-        
-        if(s.charAt(index)=='0') return 0;
-    
-        if(index==s.length()-1) return 1;
-        
-        if(arr[index]!=-1) return arr[index];
-        
-        arr[index]=  A(s,index+1,arr);
-    
-        if((Integer.parseInt(s.substring(index,index+2))<=26))
-        {
-               arr[index]= A(s,index+2,arr)+arr[index];
-            
+
+    private int recursiveDecode(String s, int index) {
+        // Base case: if the index reaches the end of the string
+        if (index == s.length()) {
+            return 1; // This is a valid decoding
         }
-        return arr[index];
+        if(arr[index]!=-1) return arr[index]; 
+
+        // Check for leading zero
+        if (s.charAt(index) == '0') {
+            return 0; // This decoding is invalid
+        }
+
+        // Decode single digit
+        int ways = recursiveDecode(s, index + 1);
+
+        // Decode two digits if possible
+        if (index + 1 < s.length() && Integer.parseInt(s.substring(index, index + 2)) <= 26) {
+            ways += recursiveDecode(s, index + 2);
+        }
+
+        return arr[index]=ways;
     }
 }
