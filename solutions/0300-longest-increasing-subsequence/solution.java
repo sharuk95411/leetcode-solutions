@@ -1,26 +1,31 @@
 class Solution {
     public int lengthOfLIS(int[] arr) {
-        
+        int[][] memo = new int[arr.length][arr.length + 1];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j <= arr.length; j++) {
+                memo[i][j] = -1;
+            }
+        }
 
-int dp[][]=new int [arr.length+1][arr.length+1];
- for (int[] row : dp)
-{
-  Arrays.fill(row, -1);
-}
-         
-        return A(arr,-1,0,dp);
+
+        return A(arr, 0, -1, memo);
     }
-    public int A(int arr[],int prev,int i,int dp[][])
-    {
-        if(i>=arr.length)return 0;
-        int take=0;
-        
-        if(dp[prev+1][i]!=-1)return dp[prev+1][i];
-        if(prev==-1|| arr[i]>arr[prev])
-         take= 1+A(arr,i,i+1,dp);
-        
-       int dont_take= A(arr,prev,i+1,dp);
-        
-        return dp[prev+1][i] = Math.max(take,dont_take);
+
+    public int A(int[] arr, int i, int prevIndex, int[][] memo) {
+       
+        if (i == arr.length) return 0;
+
+        if (memo[i][prevIndex + 1] != -1) return memo[i][prevIndex + 1];
+
+         int pick=0,skip=0;
+
+        if (prevIndex == -1 || arr[i] > arr[prevIndex]) {
+            pick = 1 + A(arr, i + 1, i, memo);
+        }
+        skip = A(arr, i + 1, prevIndex, memo);
+
+        return memo[i][prevIndex + 1] = Math.max(skip, pick);
+
     }
 }
+
