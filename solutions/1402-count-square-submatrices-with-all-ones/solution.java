@@ -1,33 +1,48 @@
 class Solution {
-    public int countSquares(int[][] matrix) {
-        int h = matrix.length;
-		int l = matrix[0].length;
-        int ans=0;
-        int dp[][] = new int[matrix.length][matrix[0].length];
-		for (int i = 0; i < dp.length; i++) {
-			Arrays.fill(dp[i], -1);
-		}
-		for (int i = 0; i < h; i++) {
-			for (int j = 0; j < l; j++) {
-                if(matrix[i][j]==1)
+
+int ans=0;
+int memo[][];
+    public int countSquares(int[][] arr) {
+        
+        memo=new int[arr.length+1][arr[0].length+1];
+          for(int i=0;i<memo.length;i++)
+        {
+            for(int j=0;j<memo[0].length;j++)
+            {
+                memo[i][j]=-1;
+            }
+        }
+        for(int i=0;i<arr.length;i++)
+        {
+            for(int j=0;j<arr[0].length;j++)
+            {
+                if(arr[i][j]==1)
                 {
-                    ans=ans+findSquare(matrix, i, j,dp);      
+                    ans=ans+ A(arr,i,j);
                 }
-  
-				
-			}
-		}
-		return ans;
+            }
+        }
+        return ans;
     }
-    private int findSquare(int[][] matrix, int i, int j,int dp[][]) {
-		if (i >= matrix.length || j >= matrix[0].length) {
-			return 0;
-		}
-		if (matrix[i][j] == 0) {
-			return 0;
-		}
-		if(dp[i][j]!=-1)return dp[i][j];
-		int sum = 1 + Math.min(findSquare(matrix, i + 1, j + 1,dp), Math.min(findSquare(matrix, i + 1, j,dp), findSquare(matrix, i, j + 1,dp)));
-        return dp[i][j]=sum;
-	}
+    public int A(int arr[][],int i,int j)
+    {
+        if(i>=arr.length || j>=arr[0].length) return 0;
+        if(memo[i][j]!=-1) return memo[i][j];
+
+        int right= A(arr,i,j+1);
+        int diagonal=A(arr,i+1,j+1);
+         int down= A(arr,i+1,j);
+        
+        if(arr[i][j]==1)
+        {
+                 System.out.println("WORKING");
+                return memo[i][j]= 1+Math.min(right,Math.min(down,diagonal));
+        }
+       
+        else return memo[i][j]= 0;
+         
+
+
+
+    }
 }
