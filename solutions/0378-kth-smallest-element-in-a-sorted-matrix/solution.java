@@ -1,4 +1,3 @@
-	
      class Solution {
     public int kthSmallest(int[][] matrix, int k) {
         int n = matrix.length;
@@ -6,7 +5,8 @@
         int right = matrix[n-1][n-1];
         while(left < right){
             int mid = left + (right - left)/2;
-    int count = seachMatrix(matrix,mid);  //find how many numbers are smaller than or equal to  mid element
+    int count = seachMatrix(matrix,mid);  
+    //find how many numbers are smaller than or equal to  mid element
             if(count < k){
                 left = mid+1;
             }
