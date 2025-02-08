@@ -1,45 +1,65 @@
-
 class Solution {
     public String minWindow(String s, String t) {
-        if(s.length() < t.length()){
-            return "";
-        }
-        Map<Character,Integer> map = new HashMap<>();
-        for(int i=0;i<t.length();i++){
-            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
-        }
-        int left=0,right=0;
-        int count=0,start=0,min_length = Integer.MAX_VALUE;
-        for(int end=0; end<s.length(); end++)
+        
+        String ans="";
+        if(t.length()>s.length())return ans;
+        HashMap<Character,Integer>h= new HashMap<>();
+        boolean b=true;
+
+        for(int i =0;i<t.length();i++)
         {
-            char c= s.charAt(end);
-            if(map.containsKey(c)){
-                if(map.get(c)>0){
-                    count++;
-                }
-               map.put(c, map.get(c)-1); 
-            }
-            if(count == t.length()) { 
-               while(!map.containsKey(s.charAt(start)) || map.get(s.charAt(start)) < 0)
-                {
-                    if(map.containsKey(s.charAt(start))){
-                        map.put(s.charAt(start), map.get(s.charAt(start))+1);
-                    }
-                    start++;
-                } 
-                  if(min_length > end-start+1){
-                      min_length = end-start+1; 
-                     left=start;
-                     right=end+1;
-                }
-                if(map.containsKey(s.charAt(start))){
-                    map.put(s.charAt(start), map.get(s.charAt(start))+1);
-                }
-                count--;
-                start++;
-            }
+           char c= t.charAt(i);
+           h.put(c,h.getOrDefault(c,0)+1);
         }
 
-        return  s.substring(left, right);
+        int i =0;
+        int j=0;
+        int count=0;
+
+        while(j<s.length())
+        {
+            char c= s.charAt(j);
+            if(h.containsKey(c))
+            {
+                  h.put(c,h.get(c)-1);
+                  if(h.get(c)>=0) count++;
+                  if(count==t.length())
+                  {
+                     while(i<=j)
+                     {
+                          char ch=s.charAt(i);
+                          if(h.containsKey(ch))
+                          {
+                              h.put(ch,h.get(ch)+1);
+                              if(h.get(ch)==1)
+                              {
+                                String temp= s.substring(i,j+1);
+                                 if(b)
+                                 {
+                                    ans=temp;
+                                    b=false;
+                                 }
+                                 else
+                                 {
+                                    if(ans.length()>temp.length()) ans=temp;
+                                 }
+                                 count--;
+                                 i++;
+                                 break;
+                              }
+                              i++;
+                          }
+                          else
+                          i++;
+                     }
+                
+                  }
+
+            }
+        
+            j++;
+
+        }
+        return ans;
     }
 }
