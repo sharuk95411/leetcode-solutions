@@ -13,32 +13,35 @@
  *     }
  * }
  */
- class Solution {
+class Solution {
     int index=0;
-    public TreeNode buildTree(int[] pre, int[] in) {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
         
-        return A(pre,in,0,in.length-1);
+        return A(preorder,inorder,0,inorder.length);
     }
 
-    public TreeNode A (int pre[],int in[],int left,int right)
+    public TreeNode A(int pre[],int in[],int left,int right)
     {
-               if(left>right) return null;
-               TreeNode n= new TreeNode(pre[index]);
-               int position= findRootPosn(in,pre[index]);
-               index++;
-               n.left= A(pre,in,left,position-1);
-               n.right=A(pre,in,position+1,right);
-               return n;
-
+        if(left>=right) return null;
+         
+         int mid= getMid(pre[index],in);
+         TreeNode n= new TreeNode(pre[index]);
+         index++;
+         n.left= A(pre,in,left,mid);
+         n.right= A(pre,in,mid+1,right);
+         return n;
+         
     }
 
-    public int findRootPosn(int in[],int element)
+    public int getMid(int val,int in[])
     {
-        for(int i=0;i<in.length;i++)
+        int i=0;
+        while(i<in.length)
         {
-            if(in[i]==element) return i;
+            if(in[i]==val) return i;
+            i++;
         }
-    return -1;
+        return -1;
+
     }
 }
-
