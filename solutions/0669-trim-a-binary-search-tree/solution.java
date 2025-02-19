@@ -15,17 +15,27 @@
  */
 class Solution {
     public TreeNode trimBST(TreeNode root, int low, int high) {
-        if(root==null)return null;
-        if(low<=root.val && root.val<=high)
+        
+        return A(root,low,high);
+    }
+
+    public TreeNode A(TreeNode root,int low,int high)
+    {
+        if(root==null) return null;
+        if(root.val<low)
         {
-            root.left= trimBST(root.left,low,high);
-            root.right=trimBST(root.right,low,high);
-            return root;
+        return A(root.right,low,high);
         }
-        else if(low>root.val)
-        return trimBST(root.right,low,high);
-        else 
-        return trimBST(root.left,low,high);
-        // return null;
+        if(root.val>high) 
+        {
+            return A(root.left,low,high);
+        }
+
+        if(root.val>=low && root.val<=high)
+        {
+            root.left= A(root.left,low,high);
+            root.right= A(root.right,low,high);
+        }
+        return root;
     }
 }
