@@ -1,32 +1,37 @@
-
 class Solution {
-int arr[];
+    
     public int numDecodings(String s) {
-        arr=new int[s.length()+1];
-        Arrays.fill(arr,-1);
-        return recursiveDecode(s, 0);
+         if(s.charAt(0)=='0') return 0;
+        int ans[]= new int[s.length()+1];
+         Arrays.fill(ans,-1);
+         return A(s,0,ans);
+         
     }
 
-    private int recursiveDecode(String s, int index) {
-        // Base case: if the index reaches the end of the string
-        if (index == s.length()) {
-            return 1; // This is a valid decoding
+    public int A(String s,int index,int ans[])
+    {
+        int way1,way2=0;
+        if(index>=s.length())
+        {
+             return 1;
         }
-        if(arr[index]!=-1) return arr[index]; 
+        if(s.charAt(index)=='0')return 0 ;
 
-        // Check for leading zero
-        if (s.charAt(index) == '0') {
-            return 0; // This decoding is invalid
+        if(ans[index]!=-1)return ans[index];
+         way1=A(s,index+1,ans);
+        if(index+1<s.length())
+        {
+             int first= s.charAt(index)-'0';
+             int second=s.charAt(index+1)-'0';
+            //  System.out.println("First "+first+" second "+second);
+             if((first==2 && second<7) || (first==1))
+             {
+                
+                way2=A(s,index+2,ans);
+             }
+              
         }
-
-        // Decode single digit
-        int ways = recursiveDecode(s, index + 1);
-
-        // Decode two digits if possible
-        if (index + 1 < s.length() && Integer.parseInt(s.substring(index, index + 2)) <= 26) {
-            ways += recursiveDecode(s, index + 2);
-        }
-
-        return arr[index]=ways;
+        ans[index]=way1+way2;
+        return ans[index];
     }
 }
