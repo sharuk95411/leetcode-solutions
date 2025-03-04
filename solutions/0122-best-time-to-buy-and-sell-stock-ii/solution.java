@@ -1,33 +1,40 @@
-class Solution {
-    public int maxProfit(int[] arr) {
-        
-        int dp[][]=new int[arr.length+1][2];
-         for (int[] row : dp)
-            Arrays.fill(row, -1);
-        return A(0,0,arr,dp);
-    }
-    
-    public int A(int i,int check,int arr[],int dp[][])
-    {
-         if(i>=arr.length)return 0;
-           if(dp[i][check]!=-1)return dp[i][check];
-        
-        int profit=0;
-        if(check==0)
-        {
-            int buy= A(i+1,1,arr,dp)-arr[i];
-            int nbuy= A(i+1,0,arr,dp);
-            
-            profit= Math.max(buy,nbuy);
-            
-        }
-        else
-        {
-            int sell= arr[i]+A(i+1,0,arr,dp);
-            int nsell= A(i+1,1,arr,dp);
-            profit= Math.max(sell,nsell);
-        }
-        return dp[i][check]=profit;
+import java.util.HashMap;
+import java.util.Map;
 
+class Solution {
+    int profit = 0;
+    Map<String, Integer> memo = new HashMap<>();
+
+    public int maxProfit(int[] arr) {
+        profit = 0;
+        memo.clear(); // Clear memoization for fresh calculations
+        return A(arr, 1, arr[0]);
+    }
+
+    public int A(int arr[], int index, int buy) {
+        if (index >= arr.length) return 0;
+
+        String key = index + "," + buy;
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+
+        int result;
+        if (buy > arr[index]) {
+            result = A(arr, index + 1, arr[index]);
+        } else if (buy < 0) {
+            result = A(arr, index + 1, arr[index]);
+        } else if (arr[index] >= buy) {
+            int take = arr[index] - buy + A(arr, index + 1, -1);
+            int skip = A(arr, index + 1, buy);
+            result = Math.max(take, skip);
+            profit = Math.max(profit, result);
+        } else {
+            result = profit;
+        }
+
+        memo.put(key, result);
+        return result;
+    }
 }
-}
+
