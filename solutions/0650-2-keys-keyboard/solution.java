@@ -8,8 +8,9 @@ class Solution {
 
     public int A (int currA,int clipA, int n)
     {
-        if(currA>n) return 10000;
+        
         if(currA==n) return 0;
+        if(currA>n) return 10000;
 
          int paste= 1+A(currA+clipA,clipA,n);
         int copyAndPaste= 1+1+A(currA+currA,currA,n);
