@@ -1,48 +1,44 @@
 class Solution {
-
-int ans=0;
-int memo[][];
+    int ans=0;
     public int countSquares(int[][] arr) {
-        
-        memo=new int[arr.length+1][arr[0].length+1];
-          for(int i=0;i<memo.length;i++)
-        {
-            for(int j=0;j<memo[0].length;j++)
+         
+         int dp[][]=new int[arr.length][arr[0].length];
+
+         for(int i=0;i<dp.length;i++)
+         {
+            for(int j=0;j<dp[0].length;j++)
             {
-                memo[i][j]=-1;
+                dp[i][j]=-1;
             }
-        }
-        for(int i=0;i<arr.length;i++)
-        {
+         }
+
+          for(int i=0;i<arr.length;i++)
+          {
             for(int j=0;j<arr[0].length;j++)
             {
                 if(arr[i][j]==1)
                 {
-                    ans=ans+ A(arr,i,j);
+                  
+                   ans=ans+ A(i,j,arr,dp);
                 }
             }
-        }
-        return ans;
+          }
+          return ans;
     }
-    public int A(int arr[][],int i,int j)
+
+    public int A(int i,int j,int arr[][],int dp[][])
     {
-        if(i>=arr.length || j>=arr[0].length) return 0;
-        if(memo[i][j]!=-1) return memo[i][j];
-
-        int right= A(arr,i,j+1);
-        int diagonal=A(arr,i+1,j+1);
-         int down= A(arr,i+1,j);
-        
-        if(arr[i][j]==1)
-        {
-                 System.out.println("WORKING");
-                return memo[i][j]= 1+Math.min(right,Math.min(down,diagonal));
-        }
-       
-        else return memo[i][j]= 0;
          
+         if(i>=arr.length || j>=arr[0].length) return 0 ;
+         if(dp[i][j]!=-1) return dp[i][j];
 
+         int right=A(i,j+1,arr,dp);
+         int dig = A(i+1,j+1,arr,dp);
+         int down=A(i+1,j,arr,dp);
 
+           if(arr[i][j]==1)
+            return dp[i][j]= 1+Math.min(right,Math.min(dig,down));
+         else return dp[i][j]= 0;
 
     }
 }
