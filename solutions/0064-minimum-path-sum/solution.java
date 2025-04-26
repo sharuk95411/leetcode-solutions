@@ -1,38 +1,33 @@
 class Solution {
-    public int minPathSum(int[][] arr) {
-        
-        int dp[][]=new int [arr.length+1][arr[0].length+1];
-         for (int[] row : dp)
-        {
-          Arrays.fill(row, -1);
+    public int minPathSum(int[][] grid) {
+        int[][] dp = new int[grid.length][grid[0].length];
+        // Fill dp array with -1 to indicate uncalculated cells
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+                dp[i][j] = -1;
+            }
         }
-        return A(arr,0,0,dp);
+        return helper(0, 0, grid, dp);
     }
-    
-    public int A(int[][] grid,int i,int j,int dp[][])
-    {
-        //base case
-        if(i>grid.length-1 || j>grid[0].length-1)
-        {
-           return 1011292;
+
+    public int helper(int row, int col, int[][] grid, int[][] dp) {
+        if (row >= grid.length || col >= grid[0].length) {
+            return Integer.MAX_VALUE;
         }
-        if(i==grid.length-1 && j==grid[0].length-1)
-        {
-            return grid[i][j];
+
+        if (row == grid.length - 1 && col == grid[0].length - 1) {
+            return grid[row][col];
         }
-        if(dp[i][j]!=-1)return dp[i][j];
 
-        //main logic
-        //row traverse
-        int ans1=A(grid,i+1,j,dp);
-        //colum travese
-        int ans2=A(grid,i,j+1,dp);
+        if (dp[row][col] != -1) {
+            return dp[row][col]; // Already calculated
+        }
 
-        int min= Math.min(ans1,ans2)+grid[i][j];
+        int down = helper(row + 1, col, grid, dp);
+        int right = helper(row, col + 1, grid, dp);
 
-        return dp[i][j]= min;
+        dp[row][col] = grid[row][col] + Math.min(down, right);
+        return dp[row][col];
     }
 }
-
-   
 
