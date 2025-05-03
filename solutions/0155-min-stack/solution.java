@@ -1,42 +1,56 @@
-class Pair
+class Node
 {
-    int value,min;
-    Pair(int a,int b)
+    int val;
+    Node next;
+    Node(int val)
     {
-        value=a;
-        min= b;
+        this.val=val;
     }
 }
 
 class MinStack {
 
-Stack<Pair>stack;
+Node dummy= new Node(0);
+
+  PriorityQueue<Integer>pq;
+  
     public MinStack() {
-        stack = new Stack<Pair>();
+        pq= new PriorityQueue<>();
     }
     
     public void push(int val) {
-        if(stack.isEmpty())
-        {
-            stack.push(new Pair(val,val));
-        }
-        else
-        {
-            stack.push(new Pair(val,Math.min(val,stack.peek().min)));
-        }
+          
+          Node n= new Node(val);
+          if(pq.isEmpty())
+          {
+          dummy.next= n;
+          }
+          else
+          {
+                n.next= dummy.next;
+                dummy.next=n;
+          }
+           pq.add(val);
+       
     }
     
     public void pop() {
-        stack.pop();
+
+        int val= dummy.next.val;
+        Node n= dummy.next;
+        dummy.next= n.next;
+        n.next=null;
+        pq.remove(val);
     }
     
     public int top() {
         
-        return stack.peek().value;
+        return dummy.next.val;
     }
     
     public int getMin() {
-        return stack.peek().min;
+    
+       return pq.peek();
     }
 }
 
