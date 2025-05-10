@@ -1,21 +1,24 @@
 class Solution {
-    int ans=Integer.MAX_VALUE;
-    int arr[];
-    public int minCostClimbingStairs(int[] cost) {
-        arr=new int[cost.length+1];
-        Arrays.fill(arr,-1);
-       
-        return Math.min(A(cost,0),A(cost,1));
+
+
+    public int minCostClimbingStairs(int[] arr) {
+
+         int dp[]=new int[arr.length+1];
+         Arrays.fill(dp,-1);
+        int a= A(arr,0,dp);
+        Arrays.fill(dp,-1);
+        int b= A(arr,1,dp);
+        return Math.min(a,b);
     }
-    public int A(int cost[],int index)
+
+    public int A (int arr[],int i,int dp[])
     {
-        if(index>=cost.length)
-        {
-            return 0;
-        }
-        if(arr[index]!=-1) return arr[index];
-         int a= cost[index]+A(cost,index+1);
-         int b= cost[index] + A(cost,index+2);
-         return arr[index]= Math.min(ans,Math.min(a,b));
+        if(i>=arr.length) return 0;
+        if(dp[i]!=-1) return dp[i];
+        int a,b;
+        a= arr[i]+A(arr,i+1,dp);
+        b= arr[i]+A(arr,i+2,dp);
+
+        return dp[i]= Math.min(a,b);
     }
 }
