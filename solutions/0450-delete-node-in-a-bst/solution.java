@@ -16,38 +16,28 @@
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
         
-        if(root==null) return null;
-        if(key>root.val)
-        {
-            root.right= deleteNode(root.right,key);
+        if (root == null) return null;
+
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        } else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        } else {
+            // Node found
+            if (root.left == null) return root.right;
+            if (root.right == null) return root.left;
+
+            // Node has two children
+            TreeNode minNode = getMin(root.right);
+            root.val = minNode.val;
+            root.right = deleteNode(root.right, minNode.val);
         }
-        else if(key<root.val)
-        {
-            root.left= deleteNode(root.left,key);
-        }
-        else
-        {
-            if(root.left!=null && root.right!=null)
-            {
-                int max= findmaxToItsLeft(root.left);
-                root.val= max;
-                root.left= deleteNode(root.left,max);
-                return root;
-            }
-            else if(root.left!=null) return root.left;
-            else if(root.right!=null) return root.right;
-            else return null;
-        }
+
         return root;
     }
-    public int findmaxToItsLeft(TreeNode root)
-    {
-        if(root.right!=null)
-        {
-           
-            return findmaxToItsLeft(root.right);
-        }
-        return root.val;
-          
+       private TreeNode getMin(TreeNode node) {
+        while (node.left != null)
+            node = node.left;
+        return node;
     }
 }
