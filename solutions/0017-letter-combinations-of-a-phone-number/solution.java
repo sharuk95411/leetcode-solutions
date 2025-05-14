@@ -1,34 +1,27 @@
 class Solution {
-    public List<String> letterCombinations(String s) {
-        List<String>list= new ArrayList<>();
-        if(s.length()==0) return list;
-String arr[]=new String[]{"null","null","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-     
-        A(s,0,list,arr,"");
-        return list;
+    List<String>ans= new ArrayList<>();
+    public List<String> letterCombinations(String digits)
+     {
+        if(digits.length()==0) return ans;
+        
+      String arr[]= {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+        A(0,arr,digits,"");
+        return ans;
     }
 
-    public void A(String s,int index, List<String>list,String arr[],String ans)
+    public void A(int index,String arr[],String digits,String s)
     {
-            if(ans.length()==s.length())
-{
-   list.add(ans);
-   return;
-}
-if(index>=s.length()) return ;
+        if(index>=digits.length())
+        {
+            ans.add(s);
+            return ;
+        }
 
-
-String temp= arr[s.charAt(index)-'0'];
-System.out.println("TEMP "+temp);
-
-for(int i=0;i<temp.length();i++)
-{
-   
-   ans=ans+temp.charAt(i);
-   A(s,index+1,list,arr,ans);
-   ans=ans.substring(0,ans.length()-1);
-   System.out.println("STRING __ "+ans);
-}
-
+        String s1=arr[Character.getNumericValue(digits.charAt(index))-2];
+        for(int j=0;j<s1.length();j++)
+        {
+            A(index+1,arr,digits,s+s1.charAt(j));
+        }
     }
 }
