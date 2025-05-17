@@ -1,40 +1,46 @@
 class Solution {
-    boolean b=true;
-    public int[] searchRange(int[] arr, int target) {
-
-int ans[]=new int[2];
-      if(arr.length==0)
-      {
-        ans[0]=-1;
-        ans[1]=-1;
-        return ans;
-      }
-        
-        ans[0]=arr.length-1;
-        ans[1]=0;
-        A(arr,target,0,arr.length-1,ans);
-        if(b)
-        {
-            ans[0]=-1;
-            ans[1]=-1;
-            return ans;
-        }
-        return ans;
-
+    public int[] searchRange(int[] nums, int target) {
+        int first = findFirst(nums, 0, nums.length - 1, target);
+        int last = findLast(nums, 0, nums.length - 1, target);
+        return new int[] { first, last };
     }
-    public void A (int arr[],int target,int left,int right,int ans[])
-    {
-        if(left>right)return ;
-        int mid =(left+right)/2;
-        if(arr[mid]==target)
-        {
-            b=false;
-            ans[0]=Math.min(mid,ans[0]);
-            ans[1]=Math.max(mid,ans[1]);
-            A(arr,target,left,mid-1,ans);
-            A(arr,target,mid+1,right,ans);
+
+    private int findFirst(int[] nums, int left, int right, int target) {
+        if (left > right) return -1;
+
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            int earlier = findFirst(nums, left, mid - 1, target);
+            if (earlier != -1) {
+                return earlier;
+            } else {
+                return mid;
+            }
+        } else if (nums[mid] < target) {
+            return findFirst(nums, mid + 1, right, target);
+        } else {
+            return findFirst(nums, left, mid - 1, target);
         }
-        else if(arr[mid]>target)  A(arr,target,left,mid-1,ans);
-        else A(arr,target,mid+1,right,ans);
+    }
+
+    private int findLast(int[] nums, int left, int right, int target) {
+        if (left > right) return -1;
+
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            int later = findLast(nums, mid + 1, right, target);
+            if (later != -1) {
+                return later;
+            } else {
+                return mid;
+            }
+        } else if (nums[mid] < target) {
+            return findLast(nums, mid + 1, right, target);
+        } else {
+            return findLast(nums, left, mid - 1, target);
+        }
     }
 }
+
