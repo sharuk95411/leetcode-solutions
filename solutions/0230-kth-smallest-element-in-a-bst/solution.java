@@ -14,26 +14,24 @@
  * }
  */
 class Solution {
-    private int ans;
-    Boolean b=false;
-    private int a;
+    
+    int ans=0;
+    int temp=0;
     public int kthSmallest(TreeNode root, int k) {
-        a=k;
-        A(root,k);
+        temp=k;
+        A(root);
         return ans;
     }
-    public void A(TreeNode root,int k)
+    public void A(TreeNode root)
     {
-        if(root==null) return  ;
-         
-       A(root.left,k);
-        a--;
-        if(a==0 && b==false) 
+        if(root==null) return ;
+        A(root.left);
+        temp--;
+        if(temp==0)
         {
-            ans=root.val;
-            b=true;
+            ans= root.val;
+            return ;
         }
-        A(root.right,k);
-        
+        A(root.right);
     }
 }
