@@ -1,28 +1,26 @@
 class Solution {
-    public List<List<Integer>> generate(int a) {
-        
-        List<Integer>inner=new ArrayList<>();
+    public List<List<Integer>> generate(int n) {
         List<List<Integer>>ans= new ArrayList<>();
-        
+        List<Integer>inner = new ArrayList<>();
         inner.add(1);
         ans.add(new ArrayList<>(inner));
-        
-        for(int i=2;i<=a;i++)
+        if(n==1) return ans ;
+        while(n>1)
         {
-            List<Integer>temp= new ArrayList<>();
-            temp.add(1);
-            if(ans.size()>1)
-            {
-                inner=ans.get(i-2);
-                for(int j=1;j<inner.size();j++)
-                {
-                    temp.add((inner.get(j-1)+inner.get(j)));
-                }
-            }
-            temp.add(1);
-            ans.add(new ArrayList<>(temp));
+            
+          List<Integer>list= new ArrayList<>(inner);
+           inner= new ArrayList<>();
+           inner.add(1);
+           for(int i=0;i<list.size()-1;i++)
+           {
+                     inner.add(list.get(i)+list.get(i+1));
+           }
+           inner.add(1);
+           ans.add(new ArrayList<>(inner));
+           n--;
+            
         }
-        return ans;
-        
+ return ans;
+
     }
 }
