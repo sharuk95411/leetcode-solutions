@@ -1,28 +1,29 @@
-class Solution {
-
-
+class Solution 
+{
+    Boolean arr[][];
     public boolean wordBreak(String s, List<String> wordDict) {
-        Boolean dp[]= new Boolean[s.length()+1];
-        return A(s,0,wordDict,dp);
+        arr= new Boolean[s.length()][s.length()];
+        return A(0,0,s,wordDict);
+        
+    }
+
+    public boolean A(int i,int j, String s, List<String>wordDict)
+    {
+            if(j>=s.length()) return false;
+           if(arr[i][j]!=null) return arr[i][j];
+            String temp = s.substring(i,j+1);
+            if(wordDict.contains(temp))
+            {
+                if(j+1==s.length())
+                {
+                    return true ;
+                }
+               if(A(j+1,j+1,s,wordDict))
+               return arr[i][j]=true;
+        
+            }
+            return  arr[i][j]=A(i,j+1,s,wordDict);
 
     }
-    public boolean A(String s,int index,List<String>l,Boolean dp[])
-    {
-        if(index>=s.length())
-            return true;
-        
-        if(dp[index]!=null)return dp[index];
-        for(int i=index;i<s.length();i++)
-        {
-            String temp= s.substring(index,i+1);
-            if(l.contains(temp))
-            {
-                 if(A(s,i+1,l,dp))
-                     
-                     return dp[index]= true;
-            }
-        }
-        return dp[index]= false;
-    }
+
 }
- 
