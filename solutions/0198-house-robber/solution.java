@@ -1,20 +1,21 @@
 class Solution {
-    public int rob(int []arr) {
-    
-         int dp[]= new int[arr.length+1];
-         Arrays.fill(dp,-1);
-         return A(0,arr,dp);
+
+   Integer memo[];
+    public int rob(int[] arr) {
+        
+        memo= new Integer[arr.length+1];
+        return A(arr,0);
     }
 
-    public int A(int index, int arr[],int dp[])
+    public int A(int arr[],int i)
     {
-        if(index>=arr.length)return 0;
-        if(dp[index]!=-1)return dp[index];
-        int sum1= 0;
-        sum1= arr[index]+A(index+2,arr,dp);
-        int sum2=A(index+1,arr,dp);
-        dp[index] =Math.max(sum1,sum2);
-        return dp[index];
 
+        if(i>=arr.length) return 0;
+        else if(memo[i]!=null) return memo[i];
+
+        int a= arr[i]+A(arr,i+2);
+        int b = A(arr,i+1);
+
+        return  memo[i]=Math.max(a,b);
     }
 }
