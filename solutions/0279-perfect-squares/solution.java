@@ -1,26 +1,29 @@
-// Time complexity: O(N * sqrt(N))
-// Space complexity: O(N)
-	
+import java.util.Arrays;
+
 class Solution {
-    public int numSquares(int n) {
-        int[] memo = new int[n + 1];
-        return helper(n, memo);
-    }
     
-    public int helper(int n, int[] memo) {
-        if (n < 4)
-            return n;
-        
-        if (memo[n] != 0)
-            return memo[n];
-        
-        int ans = n;
-        
+    int[] memo;
+
+    public int numSquares(int n) {
+        memo = new int[n + 1];
+        Arrays.fill(memo, -1); // -1 means not computed yet
+        return A(n);
+    }
+
+    public int A(int n) {
+        if (n == 0) return 0;
+
+        if (memo[n] != -1) return memo[n]; // use memoized value
+
+        int min = Integer.MAX_VALUE;
+
         for (int i = 1; i * i <= n; i++) {
-            int square = i * i;
-            ans = Math.min(ans, 1 + helper(n - square, memo));
+            int res = 1 + A(n - i * i);
+            min = Math.min(res, min);
         }
-        
-        return memo[n] = ans;
+
+        memo[n] = min; // store result
+        return min;
     }
 }
+
