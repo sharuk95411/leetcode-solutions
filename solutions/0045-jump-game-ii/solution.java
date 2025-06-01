@@ -1,22 +1,26 @@
 class Solution {
-    int dp[];
+    Integer memo[];
     public int jump(int[] arr) {
-        if(arr.length==1)return 0;
         
-        dp=new int[arr.length+1];
-        return A(0,arr);
+        if(arr.length==1) return 0;
+        memo= new Integer[arr.length+1];
+         return A(0,arr);
     }
-    
-    public int A(int i ,int arr[])
+    public int A(int i,int arr[])
     {
-        if(i>=arr.length-1)return 0;
-        if(dp[i]!=0)return dp[i];
-        int ans=arr.length;        
-        for(int j=1;j<=arr[i];j++)
+        if(i>=arr.length-1) return 0;
+        else if (arr[i]==0) return Integer.MAX_VALUE;
+        else if (memo[i]!=null) return memo[i];
+
+        int ans=Integer.MAX_VALUE;
+        int jumps= arr[i];
+     
+        for(int j=1;j<=jumps;j++)
         {
-          int temp_ans= 1+A(i+j,arr);
-          ans= Math.min(temp_ans,ans);
+            int a= 1+A(i+j,arr);
+            if(a!=Integer.MIN_VALUE)
+            ans=Math.min(ans,a);
         }
-        return dp[i]= ans;
+        return memo[i]=ans;
     }
 }
