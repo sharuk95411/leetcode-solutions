@@ -1,41 +1,31 @@
 class Solution {
-    List<Integer>ans= new ArrayList<>();
-    public List<Integer> partitionLabels(String s) {
-        Map<Character,Integer>h= new HashMap<>();
 
-        for(int i=0;i<s.length();i++)
-        {
-            h.put(s.charAt(i),i);
-        }
-       System.out.println("freq of Q is " +h.get('q'));
-        int i =0;
-        while(i<s.length())
-        {
-            int index= h.get(s.charAt(i));
-            if(index==i)
+    public List<Integer> partitionLabels(String s) {
+        
+      int arr[]= new int[26];
+
+      for(int i=0;i<s.length();i++)
+      {
+               arr[s.charAt(i)-'a']= i;
+      }
+      int lastIndex=0;
+
+      int j=-1;
+
+      List<Integer>ans= new ArrayList<>();
+
+      for(int i=0;i<s.length();i++)
+      {
+            lastIndex=Math.max(lastIndex,arr[s.charAt(i)-'a']);
+
+            if(i==lastIndex)   // thats mean ye jo element h ab wo age nahi h yhi last h 
             {
-                ans.add(1);
-                i++;
+                ans.add(i-j);
+                lastIndex=0;
+                j=i;
             }
-            else
-            {
-                String temp= s.substring(i,index+1);
-                //  index=h.get(s.charAt(i));
-                for(int j=0;j<temp.length();j++)
-                {   
-                    int tempIndex= h.get(temp.charAt(j));
-                    if(tempIndex>index)
-                    {
-                        temp=s.substring(i,tempIndex+1);
-                    }
-                    index=Math.max(index,tempIndex);
-                    
-                }
-                ans.add(index-i+1);
-                i=index+1;
-            }
-        }
-        return ans;
+      }
+      return ans;
 
     }
 }
