@@ -1,32 +1,30 @@
-class Solution 
-{
+class Solution {
+   
+   Map<String,Boolean>h;
     public boolean canPartition(int[] arr) {
         
         int sum=0;
-            for(int i=0;i<arr.length;i++)
+        for(int a:arr)
         {
-            sum= sum+arr[i];
+            sum= sum+a;
         }
-        if(sum%2!=0)return false;
-        int dp[][]=new int[arr.length+1][sum/2+1];
-             for (int[] row : dp)
-            {
-              Arrays.fill(row, -1);
-            }
-        if(A(arr,0,sum/2,dp)>0)return true;
-        return false;
-        
+        if(sum%2!=0) return false;
+         h = new HashMap<String,Boolean>();
+           return A(0,arr,sum/2);
+           
     }
     
-    public int A(int arr[],int i, int sum,int dp[][])
-    {
-        if(i>=arr.length)return 0;
-        
-        if(sum==0)return 1;
-        if(sum<0)return 0;
-        if(dp[i][sum]!=-1)return dp[i][sum];
-        dp[i][sum]= A(arr,i+1,sum-arr[i],dp)+A(arr,i+1,sum,dp);
-        if(dp[i][sum]>0)return 1;
-        return dp[i][sum];
-    }
+      public boolean A(int i,int arr[],int sum)
+      {
+                 if(i>=arr.length || sum<0) return false;
+                 
+                 else if(sum==0) return true;
+
+                 String key=i+"|"+sum;
+                 if(h.containsKey(key)) return h.get(key);
+            
+             Boolean b= A(i+1,arr,sum-arr[i])||A(i+1,arr,sum);
+                 h.put(key,b);
+                 return b;
+      }
 }
