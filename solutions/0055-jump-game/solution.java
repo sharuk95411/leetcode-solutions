@@ -1,49 +1,29 @@
 class Solution {
-    int visit[];
-    public boolean canJump(int[] nums) {
+    Boolean check[];
+    public boolean canJump(int[] arr) {
         
-        
-        if(nums.length==0) return false;
-        if(nums[0]==0&& nums.length==1) return true;
-        
-        visit= new int[nums.length];
-        
-          int a= A(nums,0);
-        if(a==1) return true;
-        else return false;
-           
+         check= new Boolean[arr.length+1];
+        if(arr.length==1) return true;
+        return A(0,arr);
     }
-    
-    private int A(int arr[],int index)
+    public boolean A(int i,int arr[])
     {
-        if(index==arr.length-1)
+        if(i>=arr.length-1)
         {
-            return 1;
+            return true;
         }
-        if(index>=arr.length)
+        if(check[i]!=null) return check[i];
+        int steps= arr[i];
+        boolean b=false;
+        for(int j=1;j<=steps;j++)
         {
-            visit[index]=-1;
-            return -1;
-        }
-        
-        
-        if(arr[index]==0) 
-        {
-            visit[index]=-1;
-            return -1;
-        }
-        if(visit[index]!=0) return visit[index];
-        int start= index;
-        int end= arr[index];
-        for(int i=1;i<=end;i++)
-        {
-            if(A(arr,i+start)==1)
+            if(A(i+j,arr))
             {
-                visit[i]=1;
-                return 1;
+                b=true;
+                break;
             }
+            
         }
-        return visit[index] =-1;
+        return check[i]= b;
     }
-    
 }
