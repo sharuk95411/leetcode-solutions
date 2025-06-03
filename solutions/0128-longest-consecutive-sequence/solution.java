@@ -1,41 +1,37 @@
 class Solution {
-    public int longestConsecutive(int[] arr) {
+    public int longestConsecutive(int[] nums) {
         
+        int ans=0;
+
         HashMap<Integer,Boolean>h= new HashMap<>();
-       for(int a : arr)
-       {
-           h.put(a,true);
-       }
-
-         for (Map.Entry<Integer,Boolean> m : h.entrySet())
+        for(int a:nums)
         {
-         int key = m.getKey();
-            if(h.get(key-1)!=null)
+            h.put(a,true);
+        }
+
+        for(int i=0;i<nums.length;i++)
+        {
+            int a = nums[i];
+            if(h.containsKey(a-1))  // Thats mean isse small element present h to isko false kr do
             {
-                h.put(key,false);
+                h.put(a,false);
             }
-          }
-          System.out.println("VALUE "+h.get(3));
-
-int ans=0;
-        for (Map.Entry<Integer,Boolean> m : h.entrySet())
-        {
-        
-         int key = m.getKey();
-         if(h.get(key)==true)
-         {
-             int temp=1;
-             key++;
-             while(h.get(key)!=null && h.get(key)==false)
-             {
-                 temp++;
-                 key++;
-             }
-             ans= Math.max(temp,ans);
-         }
+        }
+         
+         for (int key : h.keySet()) {
             
-          }
-          return ans;
-        
+            int count=0;
+            if(h.get(key)==true)  // yhi smallest elements h series ke to yhi se start karna h 
+            {
+                while(h.containsKey(key))
+                {
+                    count++;
+                    key++;
+                }
+            }
+            ans=Math.max(ans,count);
+        }
+
+        return ans;
     }
 }
