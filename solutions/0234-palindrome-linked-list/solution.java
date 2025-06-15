@@ -9,23 +9,25 @@
  * }
  */
 class Solution {
-    public boolean isPalindrome(ListNode head) {
-        List<Integer>l= new ArrayList<>();
-        while(head!=null)
-        {
-            l.add(head.val);
-            head=head.next;
-        }
-        int mid= l.size()/2;
-        int end= l.size()-1;
-        int left=0;
 
-        while(left<mid)
-        {
-            if(l.get(left)!=l.get(end)) return false;
-            left++;
-            end--;
-        }
-        return true;
+Boolean b= true;
+ListNode temp=null;
+    public boolean isPalindrome(ListNode head) {
+        
+        temp=head;
+        A(head);
+        return b;
+    }
+    public void A(ListNode head)
+    {
+         if(head==null) return ;
+
+         A(head.next);
+         if(head.val!=temp.val)
+         {
+            b=false;
+            return ;
+         }
+         if(b)temp=temp.next;
     }
 }
