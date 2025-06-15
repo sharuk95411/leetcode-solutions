@@ -10,44 +10,67 @@
  * }
  */
 public class Solution {
-    // Awesome and easy Logic by Pepcoding
-    // Hint-Length of two list is used 
-    //TC O(n) SC O(1)
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-         int l1=0;
-        ListNode temp= headA;
-        while(temp!=null)
+    public ListNode getIntersectionNode(ListNode h1, ListNode h2) {
+
+if(h1==null|| h2==null) return null;
+ListNode a=h1;
+ListNode b= h2;
+      ListNode ans=null;
+        while(h1!=null && h2!=null)
         {
-            l1++;
-            temp=temp.next;
+                    if(h1.val<0)
+                    {
+                        ans=h1;
+                        break;
+                    }
+                     
+                    if(h2.val<0) 
+                    {
+                        ans=h2;
+                        break;
+                    }
+                   if(h1==h2)
+                   {
+                    ans= h1;
+                    break;
+                   }
+                    h1.val= -h1.val;
+                    h2.val= -h2.val;
+                    h1=h1.next;
+                    h2=h2.next;
         }
-        temp= headB;
-        int l2=0;
-         while(temp!=null)
+
+        while(h1!=null)
         {
-            l2++;
-            temp=temp.next;
+            if(h1.val<0)
+            {
+                ans=h1;
+                break;
+            }
+            h1=h1.next;
         }
-        int diff= Math.abs(l1-l2);
-        ListNode first= headA,second=headB;
-      for(int i=0;i<diff;i++)
-      {
-          if(l1>l2)
-          {
-              first=first.next;
-          }
-          else
-          {
-              second=second.next;
-          }
-      }
-        while(first!=second)
+        while(h2!=null)
         {
-            first=first.next;
-            second=second.next;
+            if(h2.val<0)
+            {
+                ans=h2;
+                break;
+            }
+            h2=h2.next;
         }
         
+
+       while(a!=null)
+       {
+        if(a.val<0) a.val= -a.val;
+           a=a.next;
+       }
+        while(b!=null)
+       {
+        if(b.val<0) b.val= -b.val;
+           b=b.next;
+       }
         
-        return first;
+        return ans;
     }
 }
