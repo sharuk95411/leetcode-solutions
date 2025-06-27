@@ -10,57 +10,52 @@
  */
 class Solution {
     public ListNode sortList(ListNode head) {
-        
-        if(head==null || head.next==null) return head;
-        
-        ListNode mid= mid(head);
+
+        if(head==null ||head.next==null) return head;
+        ListNode mid = A(head);
         ListNode left= sortList(head);
         ListNode right= sortList(mid);
-        return merge(left,right);
+         return merge (left,right);
     }
-    public ListNode mid (ListNode head)
+
+    public ListNode A(ListNode head)
     {
-        ListNode slow=head,fast=slow.next,prev= slow;
+        ListNode slow= head;
+        ListNode fast= head;
+        ListNode temp=slow;
         while(fast!=null && fast.next!=null)
         {
-            slow= slow.next;
+            temp=slow;
+            slow=slow.next;
             fast= fast.next.next;
         }
-        prev= slow.next;
-        slow.next=null;
-        return prev;
+        temp.next=null;
+        return slow;
+
     }
-    public ListNode merge (ListNode left,ListNode right)
+    public ListNode merge(ListNode l1,ListNode l2)
     {
-        ListNode dummy= new ListNode(0);
-        ListNode current= dummy;
-        while(left!=null && right!=null)
-        {
-            if(left.val<=right.val)
-            {
-                current.next= left;
-                left= left.next;
-                current= current.next;
-            }
-            else
-            {
-                current.next= right;
-                right= right.next;
-                current= current.next;
-            }
-        }
-        while(left!=null)
-        {
-            current.next= left;
-            current= current.next;
-            left= left.next;
-        }
-        while(right!=null)
-        {
-            current.next= right;
-            current= current.next;
-            right= right.next;
-        }
-return dummy.next;
+              ListNode dummy= new ListNode();
+              ListNode head=dummy;
+
+              while(l1!=null && l2!=null)
+              {
+                if(l1.val>l2.val)
+                {
+                    head.next=l2;
+                    head=l2;
+                    l2=l2.next;
+                }
+                else
+                {
+                    head.next=l1;
+                    head=l1;
+                    l1=l1.next;
+                }
+              }
+              if(l1!=null) head.next=l1;
+              if(l2!=null) head.next=l2;
+
+              return dummy.next;
     }
 }
