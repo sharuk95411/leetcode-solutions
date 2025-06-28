@@ -1,22 +1,15 @@
 class Solution {
     public boolean searchMatrix(int[][] arr, int target) {
         
-        
-        int i = 0;
-        int j=arr[0].length-1;
-       
+        int row =0;
+        int col= arr[0].length-1;
 
-        while(i<arr.length && j>=0)
+        while(row>=0 && col>=0 && row<arr.length && col<arr[0].length)
         {
-            int data = arr[i][j];
-            if(data==target) return true;
-
-            else if(data>target)
-            {
-                j--;
-            }
-            else
-            i++;
+            int element = arr[row][col];
+            if(element==target) return true;
+            else if (element>target) col--;
+            else row++;
         }
         return false;
     }
