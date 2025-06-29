@@ -1,49 +1,19 @@
 class Solution {
     public boolean isValid(String s) {
+         Stack<Character> stack = new Stack<>();
 
-        if(s.length()%2!=0) return false;
-        Stack<Character>stack= new Stack<>();
-         
-         for(int i=0;i<s.length();i++)
-         {
-            char c= s.charAt(i);
+        for (char x : s.toCharArray()) 
+        {
 
-            switch(c)
-            {
-                case '(' : stack.push(c); 
-                break;
-                case '{' : stack.push(c);
-                break;
-                case '[' : stack.push(c);
-                break;
-                case ')':
-                if(!stack.isEmpty() && stack.peek()=='(') 
-                {
-                    stack.pop();
-                    System.out.println("Remove "+'(');
-                    break;
-                }
-                else return false;
-                 case '}':
-                if(!stack.isEmpty() && stack.peek()=='{')
-                {
-                    stack.pop();
-                    System.out.println("Remove "+'{');
-                    break;
-                }
-                else return false;
-                 case ']':
-                if(!stack.isEmpty() && stack.peek()=='[') 
-                {
-                    stack.pop();
-                    System.out.println("Remove "+'[');
-                    break;
-                }
-                else return false;
-            }
-            System.out.println("size "+stack.size());
-         }
-         if(stack.isEmpty()) return true;
-         return false;
+            if(x=='(')   stack.push(')');
+            else if (x=='{')   stack.push('}');
+            else if (x=='[') stack.push(']');
+            else if (stack.isEmpty() || stack.pop()!=x) return false;
+
+        }
+
+        if(!stack.isEmpty()) return false;
+        return true;
+        
     }
 }
