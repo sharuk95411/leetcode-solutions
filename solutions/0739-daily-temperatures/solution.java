@@ -1,30 +1,32 @@
 class Solution {
-    public int[] dailyTemperatures(int[] arr) {
-        
-        Stack<Integer>stack= new Stack<>();
-        int ans[]=new int[arr.length];
-        stack.push(arr.length-1);
-        int i=arr.length-2;
-        
-        while(i>=0)
+
+    class Pair
+    {
+        int value,index;
+        Pair(int v,int i)
         {
-            while(!stack.isEmpty()&& arr[i]>=arr[stack.peek()])
+            value=v;
+            index=i;
+        }
+    }
+    public int[] dailyTemperatures(int[] arr) {
+        Stack<Pair>stack= new Stack<>();
+        int ans[]=new int[arr.length];
+
+        stack.push(new Pair(arr[arr.length-1],arr.length-1));
+
+        for(int j=arr.length-2;j>=0;j--)
+        {
+            int data= arr[j];
+            while(!stack.isEmpty()&& data>=stack.peek().value )
             {
                 stack.pop();
             }
-            if(stack.isEmpty()==true)
-            {
-                System.out.println("TRUE");
-                stack.push(i);
-                i--;
-            }
-            else
-            {
-                ans[i]=stack.peek()-i;
-                stack.push(i);
-                i--;
-            }
-        }
+            if(stack.isEmpty()) ans[j]=0;
+            else ans[j]= stack.peek().index-j;
+            stack.push(new Pair(data,j));
+
+        } 
         return ans;
     }
 }
