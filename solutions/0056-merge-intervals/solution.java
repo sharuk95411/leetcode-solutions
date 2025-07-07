@@ -1,44 +1,49 @@
 class Solution {
-    
-    class Pair{
-        int i,j;
-            Pair(int a,int b)
+    class Pair
+    {
+        int a,b;
+        Pair(int i,int j)
         {
-            i=a;
-            j=b;
+            a=i;
+            b=j;
         }
     }
-    Queue<Pair>q= new LinkedList<>();
     public int[][] merge(int[][] arr) {
+
+             Arrays.sort(arr, (a, b) ->  Integer.compare(a[0],b[0]));
+        List<Pair>list= new ArrayList<>();
+        list.add(new Pair(arr[0][0],arr[0][1]));
+         
         
-        Arrays.sort(arr, (a, b) ->  Integer.compare(a[0],b[0]));
-        
-        int a= arr[0][0];
-        int b= arr[0][1];
+
         for(int i=1;i<arr.length;i++)
         {
-            if(b>=arr[i][0])
-            {
-                   b=Math.max(b,arr[i][1]);
-            }
-            else
-            {
-                 q.add(new Pair(a,b));
-                a=arr[i][0];
-                b=arr[i][1];
-            }
+            int right= list.get(list.size()-1).b;
+             if(arr[i][1]>right)
+             {
+                 if(arr[i][0]>right)
+                 {
+                   list.add(new Pair(arr[i][0],arr[i][1]));
+                 }
+                 else
+                 {
+                    int left=  list.remove(list.size()-1).a;     
+                    list.add(new Pair(left,arr[i][1]));
+                 }
+             }
+             
         }
-        
-        q.add(new Pair(a,b));
-        int ans[][]=new int[q.size()][2];
-        
-        for(int i=0;i<ans.length;i++)
+        int ans[][]= new int[list.size()][2];
+        int i=0;
+        while(i<list.size())
         {
-            Pair p=q.poll();
-            ans[i][0]=p.i;
-            ans[i][1]=p.j;
+            int left= list.get(i).a;
+            int right= list.get(i).b;
+
+            ans[i][0]=left;
+            ans[i][1]=right;
+            i++;
         }
-        
-            return ans;
+        return ans;
     }
 }
