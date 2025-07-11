@@ -1,33 +1,32 @@
 class Solution {
     public int[] productExceptSelf(int[] arr) {
         
-        int ans[]= new int[arr.length];
-        int n= arr.length;
-        
-        int multiplyFromLeft[]= new int[n];
-        int multiplyFromRight[]= new int[n];
-        int prev=1;
-        
-        for(int i=1;i<n;i++)
-        {
-            multiplyFromLeft[i]= arr[i-1]*prev;
-            prev= multiplyFromLeft[i];
-        }
-        prev=1;
-         System.out.println(Arrays.toString(multiplyFromLeft));
+        int n =arr.length;
+        int ans[]=new int[n]; // this calculate the left prefix product
+       
+       ans[0]=1;
+
+       for(int i=1;i<n;i++)
+       {
+          ans[i]= arr[i-1]*ans[i-1];
+       }
+
+        //Modify the current array and convert to right prefix product
+
+        int temp = arr[n-1];
+        arr[n-1]=1;
+
         for(int i=n-2;i>=0;i--)
         {
-            multiplyFromRight[i]= prev*arr[i+1];
-            prev= multiplyFromRight[i];
+            int t2= arr[i];
+            arr[i]= arr[i+1]*temp;
+            temp= t2;
         }
-         System.out.println(Arrays.toString(multiplyFromRight));
-        ans[0]= multiplyFromRight[0];
-        ans[n-1]= multiplyFromLeft[n-1];
-        for(int i=1;i<n-1;i++)
+
+        for(int i=0;i<n;i++)
         {
-            ans[i]= multiplyFromLeft[i]*multiplyFromRight[i];
+            ans[i]=ans[i]*arr[i];
         }
-        
         return ans;
     }
-}
+}       
