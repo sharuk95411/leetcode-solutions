@@ -1,56 +1,49 @@
-class Node
-{
-    int val;
-    Node next;
-    Node(int val)
-    {
-        this.val=val;
-    }
-}
 
 class MinStack {
 
-Node dummy= new Node(0);
-
-  PriorityQueue<Integer>pq;
-  
+    Stack<Integer>stack1;
+     Stack<Integer>stack2;
     public MinStack() {
-        pq= new PriorityQueue<>();
+        stack1= new Stack<>();
+        stack2= new Stack<>();
     }
     
     public void push(int val) {
-          
-          Node n= new Node(val);
-          if(pq.isEmpty())
-          {
-          dummy.next= n;
-          }
-          else
-          {
-                n.next= dummy.next;
-                dummy.next=n;
-          }
-           pq.add(val);
-       
+        
+        if(stack1.isEmpty())
+        {
+             stack2.push(val);
+             stack1.push(val);
+        }
+        else
+        {
+            if(val<=stack2.peek())
+            {
+                stack2.push(val);
+            }
+            stack1.push(val);
+        }
+        // System.out.println("Stack2 peek "+stack2.peek());
     }
     
     public void pop() {
-
-        int val= dummy.next.val;
-        Node n= dummy.next;
-        dummy.next= n.next;
-        n.next=null;
-        pq.remove(val);
+        
+        if(stack1.peek()==getMin())
+        {
+            stack1.pop();
+            stack2.pop();
+            System.out.println("Go");
+        }
+        else stack1.pop();
     }
     
     public int top() {
-        
-        return dummy.next.val;
+        return stack1.peek();
     }
     
     public int getMin() {
-    
-       return pq.peek();
+        
+        return stack2.peek();
     }
 }
 
