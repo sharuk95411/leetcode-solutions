@@ -16,19 +16,21 @@
 class Solution {
     public TreeNode trimBST(TreeNode root, int low, int high) {
         
-    
         if (root == null) return null;
 
         // If the current node is less than low, discard left and go right
         if (root.val < low) return trimBST(root.right, low, high);
 
         // If the current node is more than high, discard right and go left
-        if (root.val > high) return trimBST(root.left, low, high);
+        else if (root.val > high) return trimBST(root.left, low, high);
 
         // Node is in range, so trim left and right subtrees
-        root.left = trimBST(root.left, low, high);
-        root.right = trimBST(root.right, low, high);
-
+        else
+        {
+          root.left = trimBST(root.left, low, high);
+           root.right = trimBST(root.right, low, high);
+        }
+        
         return root;
     }
 }
