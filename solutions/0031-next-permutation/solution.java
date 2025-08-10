@@ -1,57 +1,24 @@
 class Solution {
-    public void nextPermutation(int[] nums) {
-        
-        if(nums.length==0|| nums.length==1) return ;
-        
-        int i=nums.length-1;
-        boolean check=true;
-        while(i>0)
-        {
-            if(nums[i-1]<nums[i]) 
-            {
-                i=i-1;
-                check=false;
-                break;
-            }
-            i--;
-    }
-               System.out.println(i);
-        if(check)
-        {
-           reverse(0,nums,nums.length-1);
-            return ;
-        }
-
-        int j=nums.length-1;
-         if(i>=0)
-         {
-             while(nums[i]>=nums[j])
-             {
-                  j--;
-             }
-             swap(i,j,nums);
-           //  System.out.println(Arrays.toString(nums));
-             reverse(i+1,nums,nums.length-1);
-         }
-       // System.out.println(nums[j]);    
-        
-}
+   public void nextPermutation(int[] A) {
+    if(A == null || A.length <= 1) return;
+    int i = A.length - 2;
+    while(i >= 0 && A[i] >= A[i + 1]) i--; // Find 1st id i that breaks descending order
     
-    private void swap(int left,int right,int nums[])
-    {
-        int temp= nums[left];
-        nums[left]= nums[right];
-        nums[right]= temp;
+    if(i >= 0) {                           // If not entirely descending
+        int j = A.length - 1;              // Start from the end
+        while(A[j] <= A[i]) j--;           // Find rightmost first larger id j
+        swap(A, i, j);                     // Switch i and j
     }
-    private void reverse(int left,int nums[],int right)
-    {
-        while(left<right)
-        {
-            int temp=nums[left];
-            nums[left]= nums[right];
-            nums[right]= temp;
-            left++;
-            right--;
-        }
-    }
+    reverse(A, i + 1, A.length - 1);       // Reverse the descending sequence
+}
+
+public void swap(int[] A, int i, int j) {
+    int tmp = A[i];
+    A[i] = A[j];
+    A[j] = tmp;
+}
+
+public void reverse(int[] A, int i, int j) {
+    while(i < j) swap(A, i++, j--);
+}
 }
