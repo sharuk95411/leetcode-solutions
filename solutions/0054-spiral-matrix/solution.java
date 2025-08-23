@@ -1,32 +1,49 @@
-public class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> res = new ArrayList<Integer>();
-        if(matrix.length == 0 || matrix[0].length == 0) return res;
+class Solution {
+
+    public List<Integer> spiralOrder(int[][] arr) {
         
-        int top = 0;
-        int bottom = matrix.length-1;
-        int left = 0;
-        int right = matrix[0].length-1;
+        List<Integer>ans= new ArrayList<>();
+        int left=0;
+        int top=0;
+        int right= arr[0].length-1;
+        int bottom= arr.length-1;
         
-        while(true){
-            for(int i = left; i <= right; i++) res.add(matrix[top][i]);
+        boolean b=true;
+        int i=0;
+
+        while(ans.size()<arr.length*arr[0].length)
+        {
+             i=left;
+            while(i<=right&&ans.size()<arr.length*arr[0].length )
+            {
+                ans.add(arr[top][i]);
+                i++;
+            }
             top++;
-            if(left > right || top > bottom) break;
-            
-            for(int i = top; i <= bottom; i++) res.add(matrix[i][right]);
+            i= top;
+            while(i<=bottom && ans.size()<arr.length*arr[0].length)
+            {
+                ans.add(arr[i][right]);
+                i++;
+            }
             right--;
-            if(left > right || top > bottom) break;
-            
-            for(int i = right; i >= left; i--) res.add(matrix[bottom][i]);
+            i=right;
+            while(i>=left &&ans.size()<arr.length*arr[0].length)
+            {
+                ans.add(arr[bottom][i]);
+                i--;
+            } 
             bottom--;
-            if(left > right || top > bottom) break;
-            
-            for(int i = bottom; i >= top; i--) res.add(matrix[i][left]);
+            i=bottom;
+            while(i>=top && ans.size()<arr.length*arr[0].length)
+            {
+                ans.add(arr[i][left]);
+                i--;
+            }
             left++;
-            if(left > right || top > bottom) break;
+            
         }
-        
-        return res;
+        return ans;
+
     }
-    
 }
