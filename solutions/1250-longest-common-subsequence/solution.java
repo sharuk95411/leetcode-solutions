@@ -1,28 +1,30 @@
 class Solution {
-    
-    Integer memo[][];
     public int longestCommonSubsequence(String s1, String s2) {
         
-        memo= new Integer[s1.length()][s2.length()];
-        return A(0,0,s1,s2);
-      
-    }
-
-    public int A(int i,int j,String s1,String s2)
-    {
-        if(i>=s1.length()|| j>=s2.length())
+        int memo[][]= new int[s1.length()][s2.length()];
+        for(int i=0;i<memo.length;i++)
         {
-            return 0 ;
+            Arrays.fill(memo[i],-1 );
         }
-        if(memo[i][j]!=null) return memo[i][j];
-        int a=0,b=0,c=0;
+        return A(s1,s2,0,0,memo);
+    }
+    public int A(String s1,String s2,int i,int j,int memo[][])
+
+    {
+        if(i>=s1.length()|| j>=s2.length()) return 0;
+         
+         if(memo[i][j]!=-1) return memo[i][j];
+         int way1=0,way2=0,a=0;
         if(s1.charAt(i)==s2.charAt(j))
         {
-           a=1+ A(i+1,j+1,s1,s2);
+             a= 1+A(s1,s2,i+1,j+1,memo);
         }
-        b= A(i+1,j,s1,s2);
-        c=A(i,j+1,s1,s2);
+        else
+        {
+            way1= A(s1,s2,i+1,j,memo);
+            way2= A(s1,s2,i,j+1,memo);
+        }
 
-        return memo[i][j]= Math.max(a,Math.max(b,c));
+        return memo[i][j]= Math.max(a,Math.max(way1,way2));
     }
 }
