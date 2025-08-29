@@ -1,4 +1,4 @@
-class Solution {
+ class Solution {
     boolean b= false;
     boolean check[][];
     public boolean exist(char[][] arr, String word) {
