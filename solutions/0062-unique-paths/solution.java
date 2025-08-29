@@ -1,27 +1,22 @@
 class Solution {
-
-
+    
     public int uniquePaths(int m, int n) {
         
-       Integer[][] arr = new Integer[m+1][n+1];
+        int [][]memo= new int[m][n];
+        for (int i = 0; i < m; i++) {
+              Arrays.fill(memo[i], -1);
+          }
+        return A(m,n,0,0,memo);
 
-          return A(m-1,n-1,arr);
-          
     }
-
-    public int A(int row, int col ,Integer arr[][])
+    public int A(int m,int n,int row,int col,int memo[][])
     {
-        if(row<0 || col<0) return 0  ;
-        if(arr[row][col]!=null) return arr[row][col];
+        if(row==m-1 && col==n-1) return 1;
+        if(row>=m || col>=n) return 0;
+         if(memo[row][col]!=-1) return memo[row][col];
+        int way1= A(m,n,row+1,col,memo);
+        int way2 = A(m,n,row,col+1,memo);
 
-        if(row==0 && col ==0) 
-        {
-            return 1 ;
-        }
-
-       int a= A(row-1,col,arr);
-        int b= A(row,col-1,arr);
-
-        return arr[row][col]=a+b;
+        return memo[row][col]=way1+way2;
     }
 }
