@@ -1,37 +1,38 @@
 class Solution {
-    
     public int numDecodings(String s) {
-         if(s.charAt(0)=='0') return 0;
-        int ans[]= new int[s.length()+1];
-         Arrays.fill(ans,-1);
-         return A(s,0,ans);
-         
+
+         int[] memo = new int[s.length()];
+        Arrays.fill(memo, -1); // initialize with -1 (not computed yet)
+        return decode(s, 0, memo);
     }
 
-    public int A(String s,int index,int ans[])
-    {
-        int way1,way2=0;
-        if(index>=s.length())
-        {
-             return 1;
+    private int decode(String s, int i,int memo[]) {
+        // Base case: reached the end successfully
+        if (i == s.length()) {
+            return 1;
         }
-        if(s.charAt(index)=='0')return 0 ;
+    
+     // If already computed, return stored result
+        if (memo[i] != -1) return memo[i];
 
-        if(ans[index]!=-1)return ans[index];
-         way1=A(s,index+1,ans);
-        if(index+1<s.length())
-        {
-             int first= s.charAt(index)-'0';
-             int second=s.charAt(index+1)-'0';
-            //  System.out.println("First "+first+" second "+second);
-             if((first==2 && second<7) || (first==1))
-             {
-                
-                way2=A(s,index+2,ans);
-             }
-              
+        // A leading zero cannot form a valid code
+        if (s.charAt(i) == '0') {
+            return 0;
         }
-        ans[index]=way1+way2;
-        return ans[index];
+
+      int way1=0,way2=0;
+        // Option 1: take a single digit
+        way1 = decode(s, i + 1,memo);
+
+        // Option 2: take two digits if valid (<= 26)
+        if (i + 1 < s.length()) {
+            int num = Integer.parseInt(s.substring(i, i + 2));
+            if (num <= 26) {
+                way2= decode(s, i + 2,memo);
+            }
+        }
+
+        return memo[i]= way1+way2;
     }
 }
+
