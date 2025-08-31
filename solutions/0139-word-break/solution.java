@@ -1,29 +1,33 @@
-class Solution 
-{
-    Boolean arr[][];
-    public boolean wordBreak(String s, List<String> wordDict) {
-        arr= new Boolean[s.length()][s.length()];
-        return A(0,0,s,wordDict);
-        
+class Solution {
+
+    
+    public boolean wordBreak(String s, List<String> word) {
+         
+         Boolean memo[]= new Boolean[s.length()+1];
+           return A(s,word,memo);
+         
     }
 
-    public boolean A(int i,int j, String s, List<String>wordDict)
+    public boolean A(String s, List<String>word,Boolean[]memo)
     {
-            if(j>=s.length()) return false;
-           if(arr[i][j]!=null) return arr[i][j];
-            String temp = s.substring(i,j+1);
-            if(wordDict.contains(temp))
+        if(s.length()==0) 
+        {
+          return true;
+        }
+        else if(s.length()<0) return false;
+        else if(memo[s.length()]!=null) return memo[s.length()];
+
+        for(int i =1;i<=s.length();i++)
+        {
+            String temp= s.substring(0,i);
+            // System.out.println("temp  "+temp);
+            if(word.contains(temp))
             {
-                if(j+1==s.length())
-                {
-                    return true ;
-                }
-               if(A(j+1,j+1,s,wordDict))
-               return arr[i][j]=true;
-        
+                if(A(s.substring(i),word,memo))
+                return memo[s.length()]=true;
             }
-            return  arr[i][j]=A(i,j+1,s,wordDict);
-
+        }
+        
+         return memo[s.length()]=false;
     }
-
 }
