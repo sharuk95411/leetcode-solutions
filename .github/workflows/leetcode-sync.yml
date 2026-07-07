@@ -1,0 +1,23 @@
+name: LeetCode Sync
+
+on:
+  schedule:
+    # Runs every 30 minutes - checks for new accepted submissions
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Sync LeetCode submissions
+        uses: joshcai/leetcode-sync@v2.1
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          destination-folder: "solutions"
+          verbose: true
