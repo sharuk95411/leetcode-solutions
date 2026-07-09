@@ -2,8 +2,8 @@ name: LeetCode Sync
 
 on:
   schedule:
-    # Runs every 30 minutes - checks for new accepted submissions
-    - cron: "*/30 * * * *"
+       # Runs daily at 11:45 PM IST (18:15 UTC)           
+    - cron: "15 18 * * *"
   workflow_dispatch: {}
 
 jobs:
