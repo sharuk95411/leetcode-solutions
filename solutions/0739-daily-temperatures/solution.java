@@ -1,32 +1,25 @@
 class Solution {
-
-    class Pair
-    {
-        int value,index;
-        Pair(int v,int i)
-        {
-            value=v;
-            index=i;
-        }
-    }
     public int[] dailyTemperatures(int[] arr) {
-        Stack<Pair>stack= new Stack<>();
-        int ans[]=new int[arr.length];
 
-        stack.push(new Pair(arr[arr.length-1],arr.length-1));
+     int ans[]  = new int[arr.length];
+     Stack<Integer>stack= new Stack<>();
+     stack.push(arr.length-1);
 
-        for(int j=arr.length-2;j>=0;j--)
+     ans[arr.length-1]=0;
+
+     for(int i=arr.length-2;i>=0;i--)
+     {
+        int no = arr[i];
+        while(!stack.isEmpty()&&no>=arr[stack.peek()])
         {
-            int data= arr[j];
-            while(!stack.isEmpty()&& data>=stack.peek().value )
-            {
-                stack.pop();
-            }
-            if(stack.isEmpty()) ans[j]=0;
-            else ans[j]= stack.peek().index-j;
-            stack.push(new Pair(data,j));
+            stack.pop();
+        }
+        if(stack.isEmpty()) ans[i]=0;
+        else ans[i]= stack.peek()-i;
+        stack.push(i);
 
-        } 
-        return ans;
+     }
+
+      return ans;
     }
 }
