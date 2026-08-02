@@ -1,21 +1,28 @@
 class Solution {
+
     List<List<Integer>>ans= new ArrayList<>();
+    List<Integer>inner = new ArrayList<>();
     public List<List<Integer>> subsets(int[] arr) {
         
-      ArrayList<Integer>list= new ArrayList<>();
-      ans.add(new ArrayList<>(list));
-        A(arr,0,list);
+         ans.add(inner);
+        A(arr,0);
+       
         return ans;
     }
 
-    public void A(int arr[],int index,List<Integer>list)
+    public void A(int arr[],int index)
     {
-
-        if(index>=arr.length)  return ;
-        list.add(arr[index]);
-        ans.add(new ArrayList<>(list)); // choose It and move forword
-        A(arr,index+1,list);  
-        list.remove(list.size()-1);    
-        A(arr,index+1,list);  // Not Choose It and move forword
+        // if(index==arr.length)
+        // {
+        //     ans.add(new ArrayList<>(inner));
+        //     return ;
+        // }
+        for(int i=index;i<arr.length;i++)
+        {
+            inner.add(arr[i]);
+            ans.add(new ArrayList<>(inner));
+            A(arr,i+1);
+            inner.remove(inner.size()-1);
+        }
     }
 }
