@@ -1,33 +1,35 @@
 class Solution {
+
+    boolean isVisited[];
     public boolean canVisitAllRooms(List<List<Integer>> arr) {
         
-        boolean check[]= new boolean[arr.size()];
-        check[0]=true;
-        List<Integer>l= new ArrayList<>();
-        List<List<Integer>>outer= new ArrayList<>();
-        outer.add(arr.get(0));
-            
-        while(outer.size()>0)
+        isVisited= new boolean[arr.size()];
+        A(arr,0,isVisited);
+        for(int i=0;i<isVisited.length;i++)
         {
-               l= outer.get(0);
-              int i=0;
-            while(i<l.size())
-            {
-                int index= l.get(i);
-                if(check[index]==false)
-                {
-                    outer.add(arr.get(index));
-                    check[index]=true;
-                }
-                i++;
-            }
-            outer.remove(0);
-        }
-        
-        for(int i=0;i<check.length;i++)
-        {
-            if(check[i]==false)return false;
+            if(isVisited[i]==false) return false;
         }
         return true;
+
+    }
+    public void A(List<List<Integer>>arr,int i,boolean isVisited[])
+    {
+        if(isVisited[i]==false)
+        {
+            isVisited[i]=true;
+            List<Integer>keys= arr.get(i);
+            int keySize= keys.size();
+            while(keySize>0)
+            {
+                for(int j=0;j<keys.size();j++)
+                {
+                    int roomNo= keys.get(j);
+                    A(arr,roomNo,isVisited);
+                    keySize--;
+                }
+            }
+
+        }
+        else return ;
     }
 }
