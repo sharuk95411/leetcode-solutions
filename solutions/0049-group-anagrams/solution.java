@@ -1,42 +1,39 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] arr) {
         
-        HashMap<String,List<String>>h= new HashMap<>();
+     String str = arr[0];
 
-        for(int i=0;i<arr.length;i++)
-        {
-            char[] chars = arr[i].toCharArray();
+      char[] ch = str.toCharArray();
+        Arrays.sort(ch);
 
-        // Sort the char array
-        Arrays.sort(chars);
+        String sorted = new String(ch);
+       HashMap<String, List<String>> h = new HashMap<>();
+         List<String>l1= new ArrayList<>();
+         l1.add(arr[0]);
 
-        // Convert back to string
-        String key = new String(chars);
-          
-          if(h.containsKey(key))
-          {
-                List<String>list= h.get(key);
-                list.add(arr[i]);
-                h.put(key,list);
+         h.put(sorted,l1);
 
-          }
-          else
-          {
+         for(int i=1;i<arr.length;i++)
+         {
+                   str = arr[i];
 
-            List<String>list= new ArrayList<>();
-            list.add(arr[i]);
-            h.put(key,list);
-          }
+           ch = str.toCharArray();
+            Arrays.sort(ch);
 
-        }
+             sorted = new String(ch);
 
-    List<List<String>>ans= new ArrayList<>();
-    for(List<String>inner:h.values())
-    {
-        System.out.println(inner);
-        ans.add(new ArrayList<>(inner));
-    }
-    return ans;
-    }
+             if(h.containsKey(sorted))
+             {
+                h.get(sorted).add(str);
+             }
+             else
+             {
+                 List<String>l2= new ArrayList<>();
+                 l2.add(str);
+                 h.put(sorted,l2);
+             }
+         }
+         return new ArrayList<>(h.values());
     
+    }
 }
