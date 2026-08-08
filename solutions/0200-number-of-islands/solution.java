@@ -1,34 +1,55 @@
+
+
 class Solution {
+
+
+    class Pair
+{
+    int row,col;
+    Pair(int i,int j)
+    {
+        row=i;
+        col=j;
+    }
+}
+
     public int numIslands(char[][] arr) {
-        
-        int count=0;
+        Queue<Pair> q = new LinkedList<>();
+        int ans=0;
+
         for(int i=0;i<arr.length;i++)
         {
             for(int j=0;j<arr[0].length;j++)
             {
                 if(arr[i][j]=='1')
                 {
-                       count++;
-                    A(i,j,arr);
+                    
+                    ans++;
+                    q.add(new Pair(i,j));
+                    while(!q.isEmpty())
+                    {
+                        Pair p= q.poll();
+                        int row=p.row;
+                        int col=p.col;
+                        A(row,col-1,arr,q); //left
+                        A(row,col+1,arr,q); // Right
+                        A(row-1,col,arr,q);  // Top
+                        A(row+1,col,arr,q);   // Bottom
+                    }
                 }
             }
         }
-        return count;
+        return ans;
     }
-    public void A(int i ,int j, char arr[][])
+
+    public void A(int i,int j,char arr[][],Queue<Pair>q)
     {
-        if(i>=arr.length || i<0) return ;
-        if(j<0 || j>=arr[0].length)return ;
-        if(arr[i][j]=='0') return ;
-        
-        if(arr[i][j]=='1')
+        if(i<0 || j<0) return;
+        else if (j==arr[0].length || i==arr.length) return ;
+        else if(arr[i][j]=='1')
         {
+            q.add(new Pair(i,j));
             arr[i][j]='0';
-            A(i,j+1,arr);
-            A(i+1,j,arr);
-            A(i,j-1,arr);
-            A(i-1,j,arr);
         }
     }
 }
-
