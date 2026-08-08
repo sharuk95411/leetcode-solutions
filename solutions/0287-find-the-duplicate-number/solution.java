@@ -1,22 +1,20 @@
 class Solution {
     public int findDuplicate(int[] arr) {
 
-      
+     int ans=0;
 
-        int i=0;
-        while(i<arr.length)
+     int i=0;
+     while(i<arr.length)
+     {
+        int index = Math.abs(arr[i]);
+        if(arr[index]<0) return Math.abs(arr[i]);
+        else
         {
-            int index= Math.abs(arr[i]);
-            if(arr[index]<0) return index;
-            else
-            {
-                arr[index]=-arr[index];
-                i++;
-            }
+               arr[index]= -arr[index];
         }
-        
+        i++;
+     }
+     return ans;
 
-
-        return 5;
     }
 }
