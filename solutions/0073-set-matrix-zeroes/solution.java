@@ -1,57 +1,106 @@
+
 class Solution {
     public void setZeroes(int[][] arr) {
-        
-        boolean firstRow=false;
-        boolean firstCol= false;
 
-        for(int i=0;i<arr.length;i++)
-        {
-            for(int j=0;j<arr[0].length;j++)
-            {
-                      if(i==0 && arr[i][j]==0) firstRow=true;
-                      if(j==0 && arr[i][j]==0) firstCol=true;
-                      else if(arr[i][j]==0)
-                      {
-                        arr[i][0]=0;
-                        arr[0][j]=0;
-                      }
-            }
-        }
+        // These flags remember whether the original first row
+        // or first column contained a zero.
+        boolean firstRow = false;
+        boolean firstCol = false;
 
-        for(int j=1;j<arr[0].length;j++)
-        {
-                if(arr[0][j]==0)
-                {
-                    setColZero(0,j,arr);
+        /*
+         * Step 1:
+         * Use the first row and first column as markers.
+         *
+         * If arr[i][j] is zero:
+         * - arr[i][0] = 0  -> mark the entire row i
+         * - arr[0][j] = 0  -> mark the entire column j
+         *
+         * We need separate flags for the first row and first column
+         * because they are also being used as markers.
+         */
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+
+                if (arr[i][j] == 0) {
+
+                    // Remember that the original first row had a zero.
+                    if (i == 0) {
+                        firstRow = true;
+                    }
+
+                    // Remember that the original first column had a zero.
+                    if (j == 0) {
+                        firstCol = true;
+                    }
+
+                    // Mark this row and column using first row/column.
+                    arr[i][0] = 0;
+                    arr[0][j] = 0;
                 }
-        }
-
-        for(int i=1;i<arr.length;i++)
-        {
-            if(arr[i][0]==0)
-            {
-                setRowZero(i,0,arr);
             }
         }
-        if(firstRow)  setRowZero(0,0,arr);
-        if(firstCol) setColZero(0,0,arr);
+
+        /*
+         * Step 2:
+         * Use the first row as markers for columns.
+         *
+         * If arr[0][col] == 0, the entire column must become zero.
+         *
+         * Start from column 1 because column 0 is handled separately
+         * using firstCol.
+         */
+        for (int col = 1; col < arr[0].length; col++) {
+
+            if (arr[0][col] == 0) {
+
+                for (int row = 0; row < arr.length; row++) {
+                    arr[row][col] = 0;
+                }
+            }
+        }
+
+        /*
+         * Step 3:
+         * Use the first column as markers for rows.
+         *
+         * If arr[row][0] == 0, the entire row must become zero.
+         *
+         * Start from row 1 because row 0 is handled separately
+         * using firstRow.
+         */
+        for (int row = 1; row < arr.length; row++) {
+
+            if (arr[row][0] == 0) {
+
+                for (int col = 0; col < arr[0].length; col++) {
+                    arr[row][col] = 0;
+                }
+            }
+        }
+
+        /*
+         * Step 4:
+         * If the original first row contained a zero,
+         * make the entire first row zero.
+         */
+        if (firstRow) {
+
+            for (int col = 0; col < arr[0].length; col++) {
+                arr[0][col] = 0;
+            }
+        }
+
+        /*
+         * Step 5:
+         * If the original first column contained a zero,
+         * make the entire first column zero.
+         */
+        if (firstCol) {
+
+            for (int row = 0; row < arr.length; row++) {
+                arr[row][0] = 0;
+            }
+        }
     }
-  
-  public void setColZero(int i,int j,int arr[][] )
-  {
-                 while(i<arr.length)
-                 {
-                    arr[i][j]=0;
-                    i++;
-                 }
-  }
-  public void setRowZero(int i,int j,int arr[][])
-  {
-            while(j<arr[0].length)
-            {
-                arr[i][j]=0;
-                j++;
-            }
-  }
-
 }
+
